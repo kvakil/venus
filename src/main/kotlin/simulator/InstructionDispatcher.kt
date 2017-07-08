@@ -7,7 +7,8 @@ import venus.simulator.impl.*
 enum class InstructionDispatcher(val implementation: InstructionImplementation,
                                  val tests: List<DispatchTest>) {
 
-    add(ADD.implementation, ADD.tests)
+    add(ADD.implementation, ADD.tests),
+    addi(ADDI.implementation, ADDI.tests)
     ;
     companion object {
         /** Find the first Implementation which passes all the tests */
