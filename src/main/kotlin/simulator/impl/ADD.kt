@@ -13,7 +13,7 @@ object ADD {
             val rs1: Int = inst.getField(InstructionField.RS1)
             val rs2: Int = inst.getField(InstructionField.RS2)
             val rd: Int = inst.getField(InstructionField.RD)
-            state.regs[rd] = state.regs[rs1] + state.regs[rs2]
+            state.setReg(rd, state.getReg(rs1) + state.getReg(rs2))
         }
     }
 

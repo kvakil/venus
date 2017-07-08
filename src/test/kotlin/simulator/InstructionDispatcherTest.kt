@@ -19,10 +19,10 @@ class InstructionDispatcherTest {
         val inst = Instruction(0b00000000000100010000000110110011)
         val impl = InstructionDispatcher.dispatch(inst)
         val state = SimulatorState()
-        state.regs[1] = 10
-        state.regs[2] = 20
+        state.setReg(1, 10)
+        state.setReg(2, 20)
         impl!!(inst, state)
-        assertEquals(30, state.regs[3])
+        assertEquals(30, state.getReg(3))
     }
 
 }

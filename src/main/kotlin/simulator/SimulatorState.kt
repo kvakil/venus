@@ -1,6 +1,8 @@
 package venus.simulator
 
 class SimulatorState {
-    val regs = IntArray(32)
+    private val regs = IntArray(32)
     var pc: Int = 0
+    fun getReg(i: Int) = regs[i]
+    fun setReg(i: Int, v: Int) { regs[i] = v }
 }
