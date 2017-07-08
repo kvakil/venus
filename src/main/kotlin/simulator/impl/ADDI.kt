@@ -18,7 +18,7 @@ object ADDI {
     }
 
     val tests: List<DispatchTest> = listOf(
-        FieldTest(InstructionField.OPCODE, 0b0110011),
+        FieldTest(InstructionField.OPCODE, 0b0010011),
         FieldTest(InstructionField.FUNCT3, 0b000),
         FieldTest(InstructionField.FUNCT7, 0b0000000)
     )
