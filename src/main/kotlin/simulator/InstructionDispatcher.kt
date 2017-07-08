@@ -11,9 +11,9 @@ enum class InstructionDispatcher(val implementation: InstructionImplementation,
     ;
     companion object {
         /** Find the first Implementation which passes all the tests */
-        fun dispatch(key: Instruction): InstructionDispatcher?
+        fun dispatch(key: Instruction): InstructionImplementation?
         = InstructionDispatcher.values().firstOrNull {
             dispatch -> dispatch.tests.all({ it.matches(key) })
-        }
+        }?.implementation
     }
 }
