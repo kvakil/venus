@@ -1,6 +1,6 @@
 package venus.riscv
 
-/** Masks to get specific fields from RV32 instruction formats */
+/** Masks and shifts to get specific fields from RV32 instruction formats */
 enum class InstructionFormat(val mask: Int, val shift: Int) {
     /* requires .toInt() as per KT-4749 */
     OPCODE              (0b00000000000000000000000001111111.toInt(), 0),
