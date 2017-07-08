@@ -8,7 +8,14 @@ enum class InstructionDispatcher(val implementation: InstructionImplementation,
                                  val tests: List<DispatchTest>) {
 
     add(ADD.implementation, ADD.tests),
-    addi(ADDI.implementation, ADDI.tests)
+    addi(ADDI.implementation, ADDI.tests),
+    and(AND.implementation, AND.tests),
+    or(OR.implementation, OR.tests),
+    sll(SLL.implementation, SLL.tests),
+    slt(SLT.implementation, SLT.tests),
+    sltu(SLTU.implementation, SLTU.tests),
+    sub(SUB.implementation, SUB.tests),
+    xor(XOR.implementation, XOR.tests),
     ;
     companion object {
         /** Find the first Implementation which passes all the tests */
