@@ -9,7 +9,7 @@ import venus.simulator.InstructionImplementation
 
 object ADD {
     val implementation = object: InstructionImplementation {
-        override fun exec(inst: Instruction, state: SimulatorState) {
+        override operator fun invoke(inst: Instruction, state: SimulatorState) {
             val rs1: Int = inst.getField(InstructionField.RS1)
             val rs2: Int = inst.getField(InstructionField.RS2)
             val rd: Int = inst.getField(InstructionField.RD)
