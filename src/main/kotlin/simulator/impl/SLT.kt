@@ -13,7 +13,7 @@ object SLT {
             val rs1: Int = inst.getField(InstructionField.RS1)
             val rs2: Int = inst.getField(InstructionField.RS2)
             val rd: Int = inst.getField(InstructionField.RD)
-            state.setReg(rd, (state.getReg(rs1) < state.getReg(rs2)).compareTo(false))
+            state.setReg(rd, if (state.getReg(rs1) < state.getReg(rs2)) 1 else 0)
         }
     }
 
