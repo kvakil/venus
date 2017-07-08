@@ -1,7 +1,7 @@
 package venus.riscv
 
 /** Masks to get specific fields from RV32 instruction formats */
-enum class InstructionFormat(val mask: Int) {
+enum class InstructionField(val mask: Int) {
     /* requires .toInt() as per KT-4749 */
     OPCODE              (0b00000000000000000000000001111111.toInt()),
     RD                  (0b00000000000000000000111110000000.toInt()),

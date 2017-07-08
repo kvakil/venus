@@ -1,6 +1,6 @@
 package venus.riscv
 
-import venus.riscv.InstructionFormat
+import venus.riscv.InstructionField
 
 fun numberOfTrailingZeros(n: Int): Int {
     var mask: Int = 1;
@@ -12,7 +12,7 @@ fun numberOfTrailingZeros(n: Int): Int {
 }
 
 class Instruction(protected val encoding: Int) {
-    fun getField(iform: InstructionFormat): Int {
-        return (encoding and iform.mask) ushr numberOfTrailingZeros(iform.mask)
+    fun getField(ifield: InstructionField): Int {
+        return (encoding and ifield.mask) ushr numberOfTrailingZeros(ifield.mask)
     }
 }
