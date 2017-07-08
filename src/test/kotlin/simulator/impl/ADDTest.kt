@@ -12,7 +12,8 @@ import venus.simulator.InstructionImplementation
 class ADDTest {
     @Test
     fun basicADD() {
-        val inst = Instruction(0b00000000000100010000000110110011) // add x3 x2 x1
+        // add x3 x2 x1
+        val inst = Instruction(0b00000000000100010000000110110011)
         val state = SimulatorState()
         state.setReg(1, 10)
         state.setReg(2, 20)
@@ -22,7 +23,8 @@ class ADDTest {
 
     @Test
     fun overflowADD() {
-        val inst = Instruction(0b00000000000100010000000110110011) // add x3 x2 x1
+        // add x3 x2 x1
+        val inst = Instruction(0b00000000000100010000000110110011)
         val state = SimulatorState()
         state.setReg(1, 2000000000)
         state.setReg(2, 2000000000)
