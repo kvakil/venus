@@ -15,4 +15,9 @@ class UtilsTest {
         val v: Int = 0b01100101
         assertEquals(0b00111001, setBitslice(v, 0b011100, 1, 7))
     }
+
+    @Test
+    fun testSetBitsliceEdge() {
+        assertEquals(-2, setBitslice(0, -1, 1, 32))
+    }
 }
