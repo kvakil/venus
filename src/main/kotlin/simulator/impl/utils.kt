@@ -37,3 +37,12 @@ fun constructJALImmediate(inst: Instruction): Int {
     imm = setBitslice(imm, imm_19_12, 12, 20)
     return signExtend(imm, 21)
 }
+
+fun constructStoreImmediate(inst: Instruction): Int {
+    val imm_11_5 = inst.getField(InstructionField.IMM_11_5)
+    val imm_4_0 = inst.getField(InstructionField.IMM_4_0)
+    var imm = 0
+    imm = setBitslice(imm, imm_11_5, 5, 12)
+    imm = setBitslice(imm, imm_4_0, 0, 5)
+    return signExtend(imm, 12)
+}
