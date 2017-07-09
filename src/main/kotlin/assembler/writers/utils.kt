@@ -1,4 +1,4 @@
-package venus.assembler
+package venus.assembler.writers
 
 fun regNameToNumber(reg: String): Int {
     if (reg.startsWith("x")) {
