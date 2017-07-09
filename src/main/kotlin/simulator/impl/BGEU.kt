@@ -15,9 +15,7 @@ object BGEU {
             val imm: Int = constructBranchImmediate(inst)
             val v1: Int = state.getReg(rs1)
             val v2: Int = state.getReg(rs2)
-            if (0 <= v2 && v1 >= v2)
-                state.pc += imm
-            else if (v1 < 0 && v1 >= v2)
+            if (compareUnsigned(v1, v2) >= 0)
                 state.pc += imm
             else
                 state.pc += inst.length

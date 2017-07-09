@@ -6,6 +6,16 @@ import venus.riscv.InstructionField
 /** Sign extends v of sz bits to a 32 bit integer */
 fun signExtend(v: Int, sz: Int): Int = v shl (32 - sz) shr (32 - sz)
 
+fun compareUnsigned(v1: Int, v2: Int): Int {
+    if (v1 == v2) return 0
+    if (0 <= v1 && v1 < v2)
+        return -1
+    else if (v2 < 0 && v2 < v1)
+        return -1
+    else
+        return 1
+}
+
 /** Returns x[end:start] = y */
 fun setBitslice(x: Int, y: Int, start: Int, end: Int): Int {
     val mask: Int = ((1L shl end) - (1L shl start)).inv().toInt()
