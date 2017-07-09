@@ -14,6 +14,7 @@ object SLLI {
             val shamt: Int = inst.getField(InstructionField.SHAMT)
             val rd: Int = inst.getField(InstructionField.RD)
             state.setReg(rd, state.getReg(rs1) shl shamt)
+            state.pc += 4
         }
     }
 

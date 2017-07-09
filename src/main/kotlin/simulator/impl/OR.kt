@@ -14,6 +14,7 @@ object OR {
             val rs2: Int = inst.getField(InstructionField.RS2)
             val rd: Int = inst.getField(InstructionField.RD)
             state.setReg(rd, state.getReg(rs1) or state.getReg(rs2))
+            state.pc += 4
         }
     }
 

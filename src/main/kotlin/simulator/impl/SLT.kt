@@ -14,6 +14,7 @@ object SLT {
             val rs2: Int = inst.getField(InstructionField.RS2)
             val rd: Int = inst.getField(InstructionField.RD)
             state.setReg(rd, if (state.getReg(rs1) < state.getReg(rs2)) 1 else 0)
+            state.pc += 4
         }
     }
 

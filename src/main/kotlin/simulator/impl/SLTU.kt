@@ -15,13 +15,13 @@ object SLTU {
             val rd: Int = inst.getField(InstructionField.RD)
             val v1: Int = state.getReg(rs1)
             val v2: Int = state.getReg(rs2)
-            if (0 <= v1 && v1 < v2) {
+            if (0 <= v1 && v1 < v2)
                 state.setReg(rd, 1)
-            } else if (v2 < 0 && v2 < v1) {
+            else if (v2 < 0 && v2 < v1)
                 state.setReg(rd, 1)
-            } else {
+            else
                 state.setReg(rd, 0)
-            }
+            state.pc += 4
         }
     }
 

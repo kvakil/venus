@@ -15,6 +15,8 @@ object BEQ {
             val imm: Int = constructBranchImmediate(inst)
             if (state.getReg(rs1) == state.getReg(rs2))
                 state.pc += imm
+            else
+                state.pc += 4
         }
     }
 
