@@ -12,6 +12,7 @@ object JAL {
         override operator fun invoke(inst: Instruction, state: SimulatorState) {
             val rd: Int = inst.getField(InstructionField.RD)
             val imm: Int = constructJALImmediate(inst)
+            state.setReg(rd, state.pc + inst.length)
             state.pc += imm
         }
     }

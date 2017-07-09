@@ -32,8 +32,8 @@ fun constructJALImmediate(inst: Instruction): Int {
     val imm_19_12 = inst.getField(InstructionField.IMM_19_12)
     var imm = 0
     imm = setBitslice(imm, imm_20, 20, 21)
-    imm = setBitslice(imm, imm_20, 1, 11)
-    imm = setBitslice(imm, imm_20, 11, 12)
-    imm = setBitslice(imm, imm_20, 12, 20)
+    imm = setBitslice(imm, imm_10_1, 1, 11)
+    imm = setBitslice(imm, imm_11, 11, 12)
+    imm = setBitslice(imm, imm_19_12, 12, 20)
     return signExtend(imm, 21)
 }
