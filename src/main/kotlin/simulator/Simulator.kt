@@ -1,6 +1,7 @@
 package venus.simulator
 
 import venus.riscv.Instruction
+import venus.riscv.InstructionField
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
@@ -10,7 +11,7 @@ class Simulator(insts: List<Instruction>) {
 
     init {
         for (inst in insts) {
-            state.mem.storeWord(maxpc, inst.encoding)
+            state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
             maxpc += 4
         }
     }
