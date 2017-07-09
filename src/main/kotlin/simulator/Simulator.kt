@@ -6,12 +6,12 @@ import venus.riscv.Instruction
     Eventually, it will support debugging. */
 class Simulator(insts: List<Instruction>) {
     val state = SimulatorState()
+    var maxpc = 0
 
     init {
-        var pc = 0
         for (inst in insts) {
-            state.mem.storeWord(pc, inst.encoding)
-            pc += 4
+            state.mem.storeWord(maxpc, inst.encoding)
+            maxpc += 4
         }
     }
 }
