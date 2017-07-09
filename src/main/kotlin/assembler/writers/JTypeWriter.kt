@@ -9,7 +9,7 @@ object JTypeWriter : InstructionWriter() {
     const val MAX_J_VALUE = 2047
     const val MIN_J_VALUE = -2048
 
-    override operator fun invoke(prog: Program, inst: Instruction, args: Array<String>): String {
+    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>): String {
         if (args.size < 2)
             return "too few arguments, got ${args.size}, need 2"
         else if (args.size > 2)

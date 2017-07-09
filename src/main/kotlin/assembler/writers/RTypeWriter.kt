@@ -6,7 +6,7 @@ import venus.riscv.Instruction
 import venus.riscv.InstructionField
 
 object RTypeWriter : InstructionWriter() {
-    override operator fun invoke(prog: Program, inst: Instruction, args: Array<String>): String {
+    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>): String {
         if (args.size < 3)
             return "too few arguments, got ${args.size}, need 3"
         else if (args.size > 3)

@@ -9,7 +9,7 @@ object ITypeWriter : InstructionWriter() {
     const val MAX_I_VALUE = 2047
     const val MIN_I_VALUE = -2048
 
-    override operator fun invoke(prog: Program, inst: Instruction, args: Array<String>): String {
+    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>): String {
         if (args.size < 3)
             return "too few arguments, got ${args.size}, need 3"
         else if (args.size > 3)
