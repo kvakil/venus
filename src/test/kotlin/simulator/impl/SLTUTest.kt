@@ -9,7 +9,7 @@ import venus.simulator.DispatchTest
 import venus.simulator.FieldTest
 import venus.simulator.InstructionImplementation
 
-class Test {
+class SLTUTest {
     @Test
     fun basicSLTU() {
         // sltu x3 x2 x1
