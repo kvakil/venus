@@ -13,6 +13,9 @@ class Program {
     /* TODO: fill this in [use insts.size relative to label] */
     fun getLabelOffset(lbl: String): Int? = 1
 
+    /* TODO: relocation table and linker */
+    fun addRelocation() {}
+
     /* TODO: add dump formats */
     fun dump(): List<Instruction> = insts
 }
