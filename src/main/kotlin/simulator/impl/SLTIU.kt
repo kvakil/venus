@@ -14,6 +14,7 @@ object SLTIU {
             val imm: Int = signExtend(inst.getField(InstructionField.IMM_11_0), 12)
             val rd: Int = inst.getField(InstructionField.RD)
             state.setReg(rd, if (compareUnsigned(state.getReg(rs1), imm) == -1) 1 else 0)
+            state.pc += inst.length
         }
     }
 

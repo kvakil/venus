@@ -14,6 +14,7 @@ object SH {
             val rs2: Int = inst.getField(InstructionField.RS2)
             val imm: Int = constructStoreImmediate(inst)
             state.mem.storeHalfWord(state.getReg(rs1) + imm, rs2)
+            state.pc += inst.length
         }
     }
 
