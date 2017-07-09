@@ -19,8 +19,8 @@ object JTypeWriter : InstructionWriter() {
         if (rd == -1) return "invalid register rd, got ${args[0]}"
 
         inst.setField(InstructionField.RD, rd)
-        prog.addRelocation()
         prog.add(inst)
+        prog.addJump(args[1])
         return ""
     }
 }
