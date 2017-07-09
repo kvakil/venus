@@ -13,12 +13,12 @@ class SLTUTest {
         val state = SimulatorState()
         state.setReg(2, 10)
         state.setReg(1, 20)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(1, state.getReg(3))
 
         state.setReg(2, 30)
         state.setReg(1, 20)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(0, state.getReg(3))
     }
 
@@ -29,12 +29,12 @@ class SLTUTest {
         val state = SimulatorState()
         state.setReg(2, 0)
         state.setReg(1, 0)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(0, state.getReg(3))
 
         state.setReg(2, -3)
         state.setReg(1, -3)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(0, state.getReg(3))
     }
 
@@ -45,22 +45,22 @@ class SLTUTest {
         val state = SimulatorState()
         state.setReg(2, 1000)
         state.setReg(1, -1)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(1, state.getReg(3))
 
         state.setReg(2, -1)
         state.setReg(1, 1000)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(0, state.getReg(3))
 
         state.setReg(2, 0)
         state.setReg(1, 1)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(1, state.getReg(3))
 
         state.setReg(2, 1)
         state.setReg(1, 0)
-        SLTU.implementation(inst, state)
+        SLTUImpl(inst, state)
         assertEquals(0, state.getReg(3))
     }
 }

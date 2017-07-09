@@ -1,52 +1,56 @@
 package venus.simulator
 
 import venus.riscv.Instruction
+import venus.riscv.InstructionFormat
 import venus.simulator.impl.* // ktlint-disable no-wildcard-imports
+import venus.riscv.formats.* // ktlint-disable no-wildcard-imports
 
 /** Describes each instruction for dispatching */
 enum class InstructionDispatcher(val implementation: InstructionImplementation,
-                                 val tests: List<DispatchTest>) {
+                                 val iform: InstructionFormat) {
 
-    add(ADD.implementation, ADD.tests),
-    addi(ADDI.implementation, ADDI.tests),
-    and(AND.implementation, AND.tests),
-    andi(ANDI.implementation, ANDI.tests),
-    auipc(AUIPC.implementation, AUIPC.tests),
-    beq(BEQ.implementation, BEQ.tests),
-    bge(BGE.implementation, BGE.tests),
-    bgeu(BGEU.implementation, BGEU.tests),
-    blt(BLT.implementation, BLT.tests),
-    bltu(BLTU.implementation, BLTU.tests),
-    bne(BNE.implementation, BNE.tests),
-    jal(JAL.implementation, JAL.tests),
-    jalr(JALR.implementation, JALR.tests),
-    lb(LB.implementation, LB.tests),
-    lbu(LBU.implementation, LBU.tests),
-    lh(LH.implementation, LH.tests),
-    lhu(LHU.implementation, LHU.tests),
-    lui(LUI.implementation, LUI.tests),
-    lw(LW.implementation, LW.tests),
-    or(OR.implementation, OR.tests),
-    ori(ORI.implementation, ORI.tests),
-    sb(SB.implementation, SB.tests),
-    sh(SH.implementation, SH.tests),
-    slli(SLLI.implementation, SLLI.tests),
-    slt(SLT.implementation, SLT.tests),
-    slti(SLTI.implementation, SLTI.tests),
-    sltiu(SLTIU.implementation, SLTIU.tests),
-    sltu(SLTU.implementation, SLTU.tests),
-    srai(SRAI.implementation, SRAI.tests),
-    srli(SRLI.implementation, SRLI.tests),
-    sub(SUB.implementation, SUB.tests),
-    sw(SW.implementation, SW.tests),
-    xor(XOR.implementation, XOR.tests),
-    xori(XORI.implementation, XORI.tests),
+    add(ADDImpl, ADDForm),
+    addi(ADDIImpl, ADDIForm),
+    and(ANDImpl, ANDForm),
+    andi(ANDIImpl, ANDIForm),
+    auipc(AUIPCImpl, AUIPCForm),
+    beq(BEQImpl, BEQForm),
+    bge(BGEImpl, BGEForm),
+    bgeu(BGEUImpl, BGEUForm),
+    blt(BLTImpl, BLTForm),
+    bltu(BLTUImpl, BLTUForm),
+    bne(BNEImpl, BNEForm),
+    jal(JALImpl, JALForm),
+    jalr(JALRImpl, JALRForm),
+    lb(LBImpl, LBForm),
+    lbu(LBUImpl, LBUForm),
+    lh(LHImpl, LHForm),
+    lhu(LHUImpl, LHUForm),
+    lui(LUIImpl, LUIForm),
+    lw(LWImpl, LWForm),
+    or(ORImpl, ORForm),
+    ori(ORIImpl, ORIForm),
+    sb(SBImpl, SBForm),
+    sh(SHImpl, SHForm),
+    slli(SLLIImpl, SLLIForm),
+    slt(SLTImpl, SLTForm),
+    slti(SLTIImpl, SLTIForm),
+    sltiu(SLTIUImpl, SLTIUForm),
+    sltu(SLTUImpl, SLTUForm),
+    srai(SRAIImpl, SRAIForm),
+    srli(SRLIImpl, SRLIForm),
+    sub(SUBImpl, SUBForm),
+    sw(SWImpl, SWForm),
+    xor(XORImpl, XORForm),
+    xori(XORIImpl, XORIForm),
     ;
     companion object {
         /** Find the first Implementation which passes all the tests */
-        fun dispatch(key: Instruction): InstructionImplementation?
+        fun dispatch(inst: Instruction): InstructionImplementation?
         = InstructionDispatcher.values().firstOrNull {
-            dispatch -> dispatch.tests.all({ it(key) })
+            dispatch -> dispatch.iform.ifields.all({
+                inst.getField(it.ifield) == it.required
+            })
         }?.implementation
     }
 }

@@ -13,7 +13,7 @@ class ADDTest {
         val state = SimulatorState()
         state.setReg(1, 10)
         state.setReg(2, 20)
-        ADD.implementation(inst, state)
+        ADDImpl(inst, state)
         assertEquals(30, state.getReg(3))
     }
 
@@ -24,7 +24,7 @@ class ADDTest {
         val state = SimulatorState()
         state.setReg(1, 2000000000)
         state.setReg(2, 2000000000)
-        ADD.implementation(inst, state)
+        ADDImpl(inst, state)
         assertEquals(-294967296, state.getReg(3))
     }
 }

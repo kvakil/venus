@@ -12,7 +12,7 @@ class SLLITest {
         val inst = Instruction(0b00000000001000010001000010110011)
         val state = SimulatorState()
         state.setReg(2, 20)
-        SLLI.implementation(inst, state)
+        SLLIImpl(inst, state)
         assertEquals(80, state.getReg(1))
     }
 }
