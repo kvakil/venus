@@ -1,7 +1,7 @@
 package venus.simulator
 
 import venus.riscv.Instruction
-import venus.simulator.impl.*
+import venus.simulator.impl.* // ktlint-disable no-wildcard-imports
 
 /** Describes each instruction for dispatching */
 enum class InstructionDispatcher(val implementation: InstructionImplementation,

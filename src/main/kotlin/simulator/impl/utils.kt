@@ -12,7 +12,7 @@ fun setBitslice(x: Int, y: Int, start: Int, end: Int): Int {
     return (mask and x) or (y shl start)
 }
 
-fun constructBranchImmediate(inst: Instruction): Int { 
+fun constructBranchImmediate(inst: Instruction): Int {
     val imm_11: Int = inst.getField(InstructionField.IMM_11_B)
     val imm_4_1: Int = inst.getField(InstructionField.IMM_4_1)
     val imm_10_5: Int = inst.getField(InstructionField.IMM_10_5)
@@ -22,6 +22,5 @@ fun constructBranchImmediate(inst: Instruction): Int {
     imm = setBitslice(imm, imm_4_1, 1, 5)
     imm = setBitslice(imm, imm_10_5, 5, 11)
     imm = setBitslice(imm, imm_12, 12, 13)
-    println(imm)
     return signExtend(imm, 13)
 }

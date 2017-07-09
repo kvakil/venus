@@ -8,7 +8,7 @@ import venus.simulator.FieldTest
 import venus.simulator.InstructionImplementation
 
 object SLLI {
-    val implementation = object: InstructionImplementation {
+    val implementation = object : InstructionImplementation {
         override operator fun invoke(inst: Instruction, state: SimulatorState) {
             val rs1: Int = inst.getField(InstructionField.RS1)
             val shamt: Int = inst.getField(InstructionField.SHAMT)

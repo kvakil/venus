@@ -3,11 +3,7 @@ package venus.simulator.impl
 import org.junit.Test
 import kotlin.test.assertEquals
 import venus.riscv.Instruction
-import venus.riscv.InstructionField
 import venus.simulator.SimulatorState
-import venus.simulator.DispatchTest
-import venus.simulator.FieldTest
-import venus.simulator.InstructionImplementation
 
 class SLTUTest {
     @Test

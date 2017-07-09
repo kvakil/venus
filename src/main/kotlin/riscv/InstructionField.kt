@@ -3,6 +3,7 @@ package venus.riscv
 /** Masks to get specific fields from RV32 instruction formats */
 enum class InstructionField(val mask: Int) {
     /* requires .toInt() as per KT-4749 */
+    /* ktlint-disable no-multi-spaces */
     OPCODE              (0b00000000000000000000000001111111.toInt()),
     RD                  (0b00000000000000000000111110000000.toInt()),
     FUNCT3              (0b00000000000000000111000000000000.toInt()),
@@ -22,4 +23,5 @@ enum class InstructionField(val mask: Int) {
     IMM_10_0            (0b01111111111000000000000000000000.toInt()),
     IMM_20              (0b10000000000000000000000000000000.toInt()),
     SHAMT               (0b00000001111100000000000000000000.toInt()),
+    /* ktlint-enable no-multi-spaces */
 }

@@ -2,7 +2,7 @@ package venus.simulator
 
 import org.junit.Test
 import kotlin.test.assertEquals
-import venus.riscv.*
+import venus.riscv.Instruction
 
 class InstructionDispatcherTest {
     @Test

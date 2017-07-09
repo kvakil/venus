@@ -15,11 +15,30 @@ buildscript {
 apply plugin: 'kotlin2js'
 apply from: "kotlinjs.gradle"
 
+configurations {
+    ktlint
+}
+
 repositories {
     mavenCentral()
 }
 
+task ktlint(type: JavaExec) {
+    main = "com.github.shyiko.ktlint.Main"
+    classpath = configurations.ktlint
+    args "--verbose", "src/**/*.kt"
+}
+
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec) {
+    main = "com.github.shyiko.ktlint.Main"
+    classpath = configurations.ktlint
+    args "-F", "src/**/*.kt"
+}
+
 dependencies {
+    ktlint 'com.github.shyiko:ktlint:0.8.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
