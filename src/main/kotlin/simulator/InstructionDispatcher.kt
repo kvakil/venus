@@ -2,7 +2,7 @@ package venus.simulator
 
 import venus.riscv.Instruction
 import venus.riscv.InstructionFormat
-import venus.simulator.impl.* // ktlint-disable no-wildcard-imports
+import venus.simulator.impls.* // ktlint-disable no-wildcard-imports
 import venus.riscv.formats.* // ktlint-disable no-wildcard-imports
 
 /** Describes each instruction for dispatching */
