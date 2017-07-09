@@ -1,9 +1,12 @@
 package venus.assembler.writers
 
+import venus.assembler.AssemblerError
+
 fun regNameToNumber(reg: String): Int {
     if (reg.startsWith("x")) {
         val ret = reg.drop(1).toInt()
-        return if (ret in 0..31) ret else -1
+        if (ret in 0..31) return ret
+        throw AssemblerError("register ${reg} not recognized")
     }
     return when (reg) {
         "zero" -> 0
@@ -38,6 +41,24 @@ fun regNameToNumber(reg: String): Int {
         "t4" -> 29
         "t5" -> 30
         "t6" -> 31
-        else -> -1
+        else -> throw AssemblerError("register ${reg} not recognized")
     }
+}
+
+fun checkArgsLength(args: List<String>, required: Int) {
+    if (args.size != required)
+        throw AssemblerError("got ${args.size} arguments, wanted ${required}")
+}
+
+fun getImmediate(str: String, min: Int, max: Int): Int {
+    val imm = try {
+        str.toInt()
+    } catch (e: NumberFormatException) {
+        throw AssemblerError("invalid number, got ${str} (might be too large?)")
+    }
+
+    if (imm !in min..max)
+        throw AssemblerError("immediate out of range")
+
+    return imm
 }
