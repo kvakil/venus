@@ -16,7 +16,7 @@ object BEQ {
             if (state.getReg(rs1) == state.getReg(rs2))
                 state.pc += imm
             else
-                state.pc += 4
+                state.pc += inst.length
         }
     }
 

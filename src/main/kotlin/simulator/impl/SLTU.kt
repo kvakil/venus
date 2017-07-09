@@ -21,7 +21,7 @@ object SLTU {
                 state.setReg(rd, 1)
             else
                 state.setReg(rd, 0)
-            state.pc += 4
+            state.pc += inst.length
         }
     }
 

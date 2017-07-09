@@ -14,7 +14,7 @@ object ADDI {
             val imm: Int = signExtend(inst.getField(InstructionField.IMM_11_0), 12)
             val rd: Int = inst.getField(InstructionField.RD)
             state.setReg(rd, state.getReg(rs1) + imm)
-            state.pc += 4
+            state.pc += inst.length
         }
     }
 

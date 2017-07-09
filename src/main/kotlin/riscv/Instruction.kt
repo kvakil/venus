@@ -10,6 +10,8 @@ fun numberOfTrailingZeros(n: Int): Int {
 }
 
 class Instruction(private val encoding: Int) {
+    val length = 4
+
     fun getField(ifield: InstructionField): Int {
         return (encoding and ifield.mask) ushr numberOfTrailingZeros(ifield.mask)
     }

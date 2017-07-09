@@ -11,8 +11,9 @@ class Simulator(insts: List<Instruction>) {
 
     init {
         for (inst in insts) {
+            /* TODO: abstract away instruction length */
             state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
-            maxpc += 4
+            maxpc += inst.length
         }
     }
 
@@ -23,6 +24,7 @@ class Simulator(insts: List<Instruction>) {
     }
 
     fun step(): Boolean {
+        /* TODO: abstract away instruction length */
         val inst: Instruction = Instruction(state.mem.loadWord(state.pc))
         val impl = InstructionDispatcher.dispatch(inst)
         if (impl == null) return false
