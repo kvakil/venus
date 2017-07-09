@@ -36,6 +36,7 @@ enum class InstructionDispatcher(val implementation: InstructionImplementation,
     sw(SW.implementation, SW.tests),
     sub(SUB.implementation, SUB.tests),
     xor(XOR.implementation, XOR.tests),
+    xori(XORI.implementation, XORI.tests),
     ;
     companion object {
         /** Find the first Implementation which passes all the tests */
