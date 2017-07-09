@@ -2,6 +2,7 @@ package venus.simulator.impl
 
 import org.junit.Test
 import kotlin.test.assertEquals
+import venus.riscv.Instruction
 
 class UtilsTest {
     @Test
@@ -19,5 +20,13 @@ class UtilsTest {
     @Test
     fun testSetBitsliceEdge() {
         assertEquals(-2, setBitslice(0, -1, 1, 32))
+    }
+
+    @Test
+    fun testConstructBranchImmediate() {
+        val inst = Instruction(0b10101010000000000000101011100011.toInt())
+        assertEquals(-1356, constructBranchImmediate(inst))
+        val inst2 = Instruction(0b00101010000000000000101011100011.toInt())
+        assertEquals(2740, constructBranchImmediate(inst2))
     }
 }
