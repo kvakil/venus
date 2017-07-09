@@ -4,6 +4,7 @@ package venus.riscv
 enum class InstructionField(val mask: Int) {
     /* requires .toInt() as per KT-4749 */
     /* ktlint-disable no-multi-spaces */
+    ENTIRE              (0b11111111111111111111111111111111.toInt()),
     OPCODE              (0b00000000000000000000000001111111.toInt()),
     RD                  (0b00000000000000000000111110000000.toInt()),
     FUNCT3              (0b00000000000000000111000000000000.toInt()),
