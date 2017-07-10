@@ -2,6 +2,7 @@ package venus.assembler
 
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import venus.simulator.Simulator
 
 class AssemblerTest {
@@ -26,12 +27,12 @@ class AssemblerTest {
         lw x2 -40(x1)
         """)
         var sim = Simulator(prog.dump())
-        sim.step()
+        assertTrue(sim.step())
         assertEquals(100, sim.state.getReg(1))
-        sim.step()
+        assertTrue(sim.step())
         assertEquals(100, sim.state.getReg(1))
         assertEquals(100, sim.state.mem.loadWord(60))
-        sim.step()
+        assertTrue(sim.step())
         //assertEquals(100, sim.state.getReg(1))
         assertEquals(100, sim.state.getReg(2))
     }
