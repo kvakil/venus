@@ -36,4 +36,18 @@ class AssemblerTest {
         //assertEquals(100, sim.state.getReg(1))
         assertEquals(100, sim.state.getReg(2))
     }
+
+    @Test
+    fun branchTest() {
+        val prog = Assembler.assemble("""
+        add x2 x2 x3
+        addi x1 x0 5
+        start: add x2 x2 x3
+        addi x3 x3 1
+        bne x3 x1 start
+        """)
+        var sim = Simulator(prog.dump())
+        for (i in 1..16) assertTrue(sim.step())
+        assertEquals(10, sim.state.getReg(2))
+    }
 }
