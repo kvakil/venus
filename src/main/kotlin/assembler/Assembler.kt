@@ -6,7 +6,6 @@ object Assembler {
     fun addInstruction(prog: Program, tokens: LineTokens) {
         if (tokens.size < 1) return
         val cmd = tokens[0].toLowerCase()
-        if (cmd == "") return
         val disp: WriterDispatcher = try {
             WriterDispatcher.valueOf(cmd)
         } catch (e: IllegalStateException) {
@@ -24,7 +23,7 @@ object Assembler {
                 prog.addLabel(label, offset)
             /* TODO: add pseudoinstruction support here */
             /* TODO: abstract byte offset to InstructionFormat */
-            if (args.size >= 1) {
+            if (args.size >= 1 and args[0] != "") {
                 instructions.add(args)
                 offset += 4
             }
