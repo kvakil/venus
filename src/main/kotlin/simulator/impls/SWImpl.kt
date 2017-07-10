@@ -10,7 +10,8 @@ object SWImpl : InstructionImplementation {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val rs2: Int = inst.getField(InstructionField.RS2)
         val imm: Int = constructStoreImmediate(inst)
-        state.mem.storeWord(state.getReg(rs1) + imm, rs2)
+        println("M[${state.getReg(rs1)} + ${imm}] = ${state.getReg(rs2)}")
+        state.mem.storeWord(state.getReg(rs1) + imm, state.getReg(rs2))
         state.pc += inst.length
     }
 }
