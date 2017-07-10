@@ -13,8 +13,8 @@ object STypeWriter : InstructionWriter() {
         checkArgsLength(args, 3)
 
         val rs1 = regNameToNumber(args[0])
-        val rs2 = regNameToNumber(args[1])
-        val imm = getImmediate(args[2], MIN_S_VALUE, MAX_S_VALUE)
+        val rs2 = regNameToNumber(args[2])
+        val imm = getImmediate(args[1], MIN_S_VALUE, MAX_S_VALUE)
 
         var imm_lo = imm and 0b11111
         var imm_hi = imm and 0b11111.inv()
