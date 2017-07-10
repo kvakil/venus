@@ -47,7 +47,7 @@ class AssemblerTest {
         bne x3 x1 start
         """)
         var sim = Simulator(prog.dump())
-        for (i in 1..16) assertTrue(sim.step())
+        for (i in 1..17) assertTrue(sim.step())
         assertEquals(10, sim.state.getReg(2))
     }
 }
