@@ -44,4 +44,12 @@ class LexerTest {
         assertEquals(listOf("sw", "x1", "0", "x2"), args)
     }
 
+    @Test
+    fun lexNothing() {
+        val line = ""
+        val (label, args) = Lexer.lexLine(line)
+        assertEquals("", label)
+        assertEquals(listOf(""), args)
+    }
+
 }
