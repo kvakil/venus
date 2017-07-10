@@ -49,9 +49,9 @@ class AssemblerBasicTest {
         try {
             val prog = Program()
             Assembler.addInstruction(prog, listOf(""))
-            fail("exception not thrown for empty line")
-        } catch (e: AssemblerError) {
             assertTrue(true)
+        } catch (e: AssemblerError) {
+            fail("exception thrown for empty line")
         }
 
         try {

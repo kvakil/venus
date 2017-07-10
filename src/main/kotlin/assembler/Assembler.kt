@@ -6,10 +6,11 @@ object Assembler {
     fun addInstruction(prog: Program, tokens: LineTokens) {
         if (tokens.size < 1) return
         val cmd = tokens[0].toLowerCase()
+        if (cmd == "") return
         val disp: WriterDispatcher = try {
             WriterDispatcher.valueOf(cmd)
         } catch (e: IllegalStateException) {
-            throw AssemblerError("no such instruction")
+            throw AssemblerError("no such instruction ${cmd}")
         }
         disp.writer(prog, disp.iform, tokens.subList(1, tokens.size))
     }
