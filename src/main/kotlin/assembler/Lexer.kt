@@ -2,7 +2,8 @@ package venus.assembler
 
 object Lexer {
     private fun stripComment(line: String) = line.replaceAfter('#', "").replace("#", "")
-    private fun getLabel(line: String) = stripComment(line).substringBefore(':', "")
+    private fun cleanForLabel(line: String) = stripComment(line).trim()
+    private fun getLabel(line: String) = cleanForLabel(line).substringBefore(':', "")
     private fun stripLabel(line: String) = line.replaceBefore(':', "").replace(":", "")
     private fun cleanLine(line: String): String {
         var cleanedLine = line

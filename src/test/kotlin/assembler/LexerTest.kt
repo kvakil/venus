@@ -14,10 +14,10 @@ class LexerTest {
 
     @Test
     fun lexLabel() {
-        val line = "hi: add x0 x0 x0"
+        val line = "start: add x2 x2 x3"
         val (label, args) = Lexer.lexLine(line)
-        assertEquals("hi", label)
-        assertEquals(listOf("add", "x0", "x0", "x0"), args)
+        assertEquals("start", label)
+        assertEquals(listOf("add", "x2", "x2", "x3"), args)
     }
 
     @Test
@@ -33,6 +33,14 @@ class LexerTest {
         val line = "add x0, x1, x2"
         val (label, args) = Lexer.lexLine(line)
         assertEquals("", label)
+        assertEquals(listOf("add", "x0", "x1", "x2"), args)
+    }
+
+    @Test
+    fun lexLabelSpace() {
+        val line = "  \t  start: add x0, x1, x2"
+        val (label, args) = Lexer.lexLine(line)
+        assertEquals("start", label)
         assertEquals(listOf("add", "x0", "x1", "x2"), args)
     }
 
