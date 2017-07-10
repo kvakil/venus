@@ -3,5 +3,6 @@ jdk: oraclejdk8
 before_install:
   - npm install
 script:
-  - ./gradlew build
+  - ./gradlew build -x ktlint
+  - ./gradlew ktlint
   - grunt test
