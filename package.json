@@ -1,0 +1,24 @@
+{
+  "name": "venus",
+  "version": "0.0.1",
+  "description": "RISC-V assembler and emulator",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kvakil/venus.git"
+  },
+  "author": "Keyhan Vakil",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kvakil/venus/issues"
+  },
+  "homepage": "https://github.com/kvakil/venus#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-qunit": "^2.0.0"
+  }
+}

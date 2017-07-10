@@ -1,5 +1,9 @@
-grunt.loadNpmTasks('grunt-contrib-qunit');
-gruntConfig.qunit = {
-    src: ['test.html']
+module.exports = function(grunt) {
+    grunt.initConfig({
+        qunit: {
+            src: ['test.html']
+        }
+    });
+    grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.registerTask('test', 'qunit:src');
 };
-grunt.registerTask('test', 'qunit:src');
