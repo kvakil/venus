@@ -12,12 +12,12 @@ object STypeWriter : InstructionWriter() {
     override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
         checkArgsLength(args, 3)
 
-        val rs1 = regNameToNumber(args[0])
+        val rs1 = regNameToNumber(args[1])
         val rs2 = regNameToNumber(args[2])
-        val imm = getImmediate(args[1], MIN_S_VALUE, MAX_S_VALUE)
+        val imm = getImmediate(args[0], MIN_S_VALUE, MAX_S_VALUE)
 
         var imm_lo = imm and 0b11111
-        var imm_hi = imm and 0b11111.inv()
+        var imm_hi = (imm and 0b11111.inv()) shr 5
 
         inst.setField(InstructionField.RS1, rs1)
         inst.setField(InstructionField.RS2, rs2)
