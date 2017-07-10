@@ -4,7 +4,7 @@ typealias LineTokens = List<String>
 
 object Assembler {
     fun addInstruction(prog: Program, tokens: LineTokens) {
-        if (tokens.size < 1) return
+        if (tokens.size < 1 || tokens[0] == "") return
         val cmd = tokens[0].toLowerCase()
         val disp: WriterDispatcher = try {
             WriterDispatcher.valueOf(cmd)
@@ -23,7 +23,7 @@ object Assembler {
                 prog.addLabel(label, offset)
             /* TODO: add pseudoinstruction support here */
             /* TODO: abstract byte offset to InstructionFormat */
-            if (args.size >= 1 and args[0] != "") {
+            if (args.size >= 1 && args[0] != "") {
                 instructions.add(args)
                 offset += 4
             }
