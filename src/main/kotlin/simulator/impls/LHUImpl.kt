@@ -10,7 +10,7 @@ object LHUImpl : InstructionImplementation {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val imm: Int = signExtend(inst.getField(InstructionField.IMM_11_0), 12)
         val rd: Int = inst.getField(InstructionField.RD)
-        val mem = state.mem.loadHalfWord(rs1 + imm)
+        val mem = state.mem.loadHalfWord(state.getReg(rs1) + imm)
         state.setReg(rd, mem)
         state.pc += inst.length
     }
