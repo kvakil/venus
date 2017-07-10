@@ -3,6 +3,5 @@ jdk: oraclejdk8
 before_install:
   - npm install
 script:
-  - ./gradlew assemble
   - ./gradlew build
   - grunt test
