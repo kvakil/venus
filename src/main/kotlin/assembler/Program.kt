@@ -6,12 +6,12 @@ class Program {
     /* TODO: abstract away these variables */
     public val insts: MutableList<Instruction>
     public val labels: HashMap<String, Int>
-    public val relocationTable: MutableList<Pair<String, Int>>
+    public val relocationTable: MutableList<RelocationInfo>
     public var size: Int
     init {
         insts = ArrayList<Instruction>()
         labels = HashMap<String, Int>()
-        relocationTable = ArrayList<Pair<String, Int>>()
+        relocationTable = ArrayList<RelocationInfo>()
         size = 0
     }
 
@@ -29,7 +29,7 @@ class Program {
     }
 
     /* TODO: relocation table and linker */
-    fun addJump(lbl: String) = relocationTable.add(Pair(lbl, size))
+    fun addJump(lbl: String) = relocationTable.add(RelocationInfo(lbl, size))
  
     /* TODO: add dump formats */
     fun dump(): List<Instruction> = insts

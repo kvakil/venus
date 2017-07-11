@@ -3,11 +3,13 @@ package venus.assembler
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
 
+data class RelocationInfo(val label: String, val offset: Int)
+
 object Linker {
     fun link(progs: List<Program>): Program {
         val linkedProgram = Program()
         val globalTable = HashMap<String, Int>()
-        val toRelocate = ArrayList<Pair<String, Int>>()
+        val toRelocate = ArrayList<RelocationInfo>()
         var programOffset = 0
 
         for (prog in progs) {
@@ -17,7 +19,7 @@ object Linker {
             }
 
             for ((label, offset) in prog.relocationTable) {
-                toRelocate.add(Pair(label, programOffset + offset))
+                toRelocate.add(RelocationInfo(label, programOffset + offset))
             }
 
             for (inst in prog.insts) {
