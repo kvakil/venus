@@ -12,7 +12,7 @@ object Linker {
 
         for (prog in progs) {
             for ((label, offset) in prog.labels) {
-                if (!label.startsWith("_"))
+                if (isGlobalLabel(label))
                     globalTable.put(label, programOffset + offset)
             }
 
@@ -52,4 +52,7 @@ object Linker {
         inst.setField(InstructionField.IMM_19_12, imm_19_12)
         inst.setField(InstructionField.IMM_11_J, imm_11)
     }
+
+    /* TODO: add a real .globl assembler directive */
+    private fun isGlobalLabel(lbl: String) = !lbl.startsWith("_")
 }
