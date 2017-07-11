@@ -3,6 +3,7 @@ package venus.assembler
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.test.fail
 import venus.simulator.Simulator
 
 class LinkerTest {
@@ -37,5 +38,25 @@ class LinkerTest {
         var sim = Simulator(linked.dump())
         sim.run()
         assertEquals(1, sim.state.getReg(8))
+    }
+
+    @Test
+    fun privateLabel() {
+        val prog1 = Assembler.assemble("""
+        foo:
+            jal x0 _bar
+            addi x8 x0 8
+        """)
+        val prog2 = Assembler.assemble("""
+        _bar:
+            addi x8 x8 1
+        """)
+
+        try {
+            val linked = Linker.link(listOf(prog1, prog2))
+            fail("allowed jump to 'private' label")
+        } catch (e: AssemblerError) {
+            assertTrue(true)
+        }
     }
 }
