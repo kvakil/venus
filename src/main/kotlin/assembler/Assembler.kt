@@ -33,7 +33,6 @@ object Assembler {
             val (label, args) = Lexer.lexLine(line)
             if (label != "")
                 prog.addLabel(label, offset)
-            /* TODO: add pseudoinstruction support here */
             /* TODO: abstract byte offset to InstructionFormat */
 
             if (args.size >= 1 && args[0] != "") {
