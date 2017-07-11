@@ -48,9 +48,9 @@ enum class InstructionDispatcher(val implementation: InstructionImplementation,
         /** Find the first Implementation which passes all the tests */
         fun dispatch(inst: Instruction): InstructionImplementation?
         = InstructionDispatcher.values().firstOrNull {
-            dispatch -> dispatch.iform.ifields.all({
+            dispatch -> dispatch.iform.ifields.all {
                 (ifield, required) -> inst.getField(ifield) == required
-            })
+            }
         }?.implementation
     }
 }
