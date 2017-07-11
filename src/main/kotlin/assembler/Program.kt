@@ -30,7 +30,7 @@ class Program {
 
     /* TODO: relocation table and linker */
     fun addJump(lbl: String) = relocationTable.add(RelocationInfo(lbl, size))
- 
+
     /* TODO: add dump formats */
     fun dump(): List<Instruction> = insts
 }

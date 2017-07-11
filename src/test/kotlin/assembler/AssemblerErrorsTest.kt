@@ -1,10 +1,8 @@
 package venus.assembler
 
 import org.junit.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.fail
-import venus.simulator.Simulator
 
 class AssemblerErrorsTest {
     @Test

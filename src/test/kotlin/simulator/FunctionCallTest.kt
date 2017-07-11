@@ -2,7 +2,6 @@ package venus.simulator
 
 import org.junit.Test
 import kotlin.test.assertEquals
-import venus.riscv.Instruction
 import venus.assembler.Assembler
 import venus.assembler.Linker
 
@@ -19,9 +18,9 @@ class FunctionCallTest {
             jal ra double
             add x1 a0 x0
         """)
-       val linked = Linker.link(listOf(prog))
-       var sim = Simulator(linked.dump())
-       sim.run()
-       assertEquals(10, sim.state.getReg(1))
+        val linked = Linker.link(listOf(prog))
+        var sim = Simulator(linked.dump())
+        sim.run()
+        assertEquals(10, sim.state.getReg(1))
     }
 }

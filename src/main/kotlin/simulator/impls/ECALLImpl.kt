@@ -1,7 +1,6 @@
 package venus.simulator.impls
 
 import venus.riscv.Instruction
-import venus.riscv.InstructionField
 import venus.simulator.SimulatorState
 import venus.simulator.InstructionImplementation
 
