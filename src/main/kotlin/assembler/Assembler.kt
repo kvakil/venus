@@ -47,7 +47,7 @@ object Assembler {
     fun assemble(text: String): Program {
         val prog = Program()
         val instructions = passOne(prog, text)
-        instructions.forEach({ addInstruction(prog, it) })
+        instructions.forEach { addInstruction(prog, it) }
         return prog
     }
 
