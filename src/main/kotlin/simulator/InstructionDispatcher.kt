@@ -46,8 +46,8 @@ enum class InstructionDispatcher(val implementation: InstructionImplementation,
     ;
     companion object {
         /** Find the first Implementation which passes all the tests */
-        fun dispatch(inst: Instruction): InstructionImplementation?
-        = InstructionDispatcher.values().firstOrNull {
+        fun dispatch(inst: Instruction): InstructionImplementation? =
+        InstructionDispatcher.values().firstOrNull {
             dispatch -> dispatch.iform.ifields.all {
                 (ifield, required) -> inst.getField(ifield) == required
             }
