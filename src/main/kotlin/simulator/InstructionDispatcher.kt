@@ -49,7 +49,7 @@ enum class InstructionDispatcher(val implementation: InstructionImplementation,
         fun dispatch(inst: Instruction): InstructionImplementation?
         = InstructionDispatcher.values().firstOrNull {
             dispatch -> dispatch.iform.ifields.all({
-                inst.getField(it.ifield) == it.required
+                (ifield, required) -> inst.getField(ifield) == required
             })
         }?.implementation
     }
