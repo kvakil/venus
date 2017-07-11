@@ -16,13 +16,10 @@ object STypeWriter : InstructionWriter() {
         val rs2 = regNameToNumber(args[2])
         val imm = getImmediate(args[0], MIN_S_VALUE, MAX_S_VALUE)
 
-        var imm_lo = imm and 0b11111
-        var imm_hi = (imm and 0b11111.inv()) shr 5
-
         inst.setField(InstructionField.RS1, rs1)
         inst.setField(InstructionField.RS2, rs2)
-        inst.setField(InstructionField.IMM_4_0, imm_lo)
-        inst.setField(InstructionField.IMM_11_5, imm_hi)
+        inst.setField(InstructionField.IMM_4_0, imm)
+        inst.setField(InstructionField.IMM_11_5, imm shr 5)
         prog.add(inst)
     }
 }
