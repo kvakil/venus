@@ -38,7 +38,7 @@ object Assembler {
             if (args.size >= 1 && args[0] != "") {
                 val expandedInsts = replacePseudoInstructions(args)
                 instructions.addAll(expandedInsts)
-                offset += 4
+                offset += 4 * expandedInsts.size
             }
         }
         return instructions
