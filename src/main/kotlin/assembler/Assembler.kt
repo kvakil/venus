@@ -14,7 +14,7 @@ object Assembler {
         disp.writer(prog, disp.iform, tokens.subList(1, tokens.size))
     }
 
-    fun replacePseudoInstructions(tokens: LineTokens): List<LineTokens> {
+    private fun replacePseudoInstructions(tokens: LineTokens): List<LineTokens> {
         try {
             val cmd = tokens[0].toLowerCase()
             val pw = PseudoDispatcher.valueOf(cmd).pw
