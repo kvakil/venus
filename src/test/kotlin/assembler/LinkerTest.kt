@@ -53,7 +53,7 @@ class LinkerTest {
         """)
 
         try {
-            val linked = Linker.link(listOf(prog1, prog2))
+            Linker.link(listOf(prog1, prog2))
             fail("allowed jump to 'private' label")
         } catch (e: AssemblerError) {
             assertTrue(true)

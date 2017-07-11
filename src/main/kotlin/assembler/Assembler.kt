@@ -14,6 +14,18 @@ object Assembler {
         disp.writer(prog, disp.iform, tokens.subList(1, tokens.size))
     }
 
+    fun replacePseudoInstructions(tokens: LineTokens): List<LineTokens> {
+        try {
+            val cmd = tokens[0].toLowerCase()
+            val pw = PseudoDispatcher.valueOf(cmd).pw
+            return pw(tokens)
+        } catch (t: Throwable) {
+            /* TODO: don't use throwable here */
+            /* not a pseudoinstruction, or expansion failure */
+            return listOf(tokens)
+        }
+    }
+
     private fun passOne(prog: Program, text: String): List<LineTokens> {
         var offset = 0
         val instructions = ArrayList<LineTokens>()
@@ -23,8 +35,10 @@ object Assembler {
                 prog.addLabel(label, offset)
             /* TODO: add pseudoinstruction support here */
             /* TODO: abstract byte offset to InstructionFormat */
+
             if (args.size >= 1 && args[0] != "") {
-                instructions.add(args)
+                val expandedInsts = replacePseudoInstructions(args)
+                instructions.addAll(expandedInsts)
                 offset += 4
             }
         }
