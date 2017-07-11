@@ -21,10 +21,10 @@ object BTypeWriter : InstructionWriter() {
         val imm = prog.getLabelOffset(args[2])
         if (imm == null) throw AssemblerError("could not find label ${args[2]}")
         /* TODO: add branch bounds checking */
-        val imm_11 = (imm and 0b0100000000000) shr 11
-        val imm_4_1 = (imm and 0b000000011110) shr 1
-        val imm_12 = (imm and 0b1000000000000) shr 12
-        val imm_10_5 = (imm and 0b0011111100000) shr 5
+        val imm_11 = imm shr 11
+        val imm_4_1 = imm shr 1
+        val imm_12 = imm shr 12
+        val imm_10_5 = imm shr 5
 
         inst.setField(InstructionField.IMM_11_B, imm_11)
         inst.setField(InstructionField.IMM_4_1, imm_4_1)
