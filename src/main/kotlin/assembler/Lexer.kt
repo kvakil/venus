@@ -9,11 +9,11 @@ object Lexer {
         var cleanedLine = line
         cleanedLine = stripComment(cleanedLine)
         cleanedLine = stripLabel(cleanedLine)
-        cleanedLine = cleanedLine.replace(',', ' ')
-        cleanedLine = cleanedLine.replace('(', ' ')
-        cleanedLine = cleanedLine.replace(')', ' ')
-        cleanedLine = cleanedLine.trim()
-        cleanedLine = cleanedLine.replace(Regex("\\s+"), " ")
+                        .replace(',', ' ')
+                        .replace('(', ' ')
+                        .replace(')', ' ')
+                        .trim()
+                        .replace(Regex("\\s+"), " ")
         return cleanedLine
     }
 
