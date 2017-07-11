@@ -29,10 +29,8 @@ class Program {
     }
 
     /* TODO: relocation table and linker */
-    fun addJump(lbl: String) {
-        relocationTable.add(Pair(lbl, size))
-    }
-
+    fun addJump(lbl: String) = relocationTable.add(Pair(lbl, size))
+ 
     /* TODO: add dump formats */
     fun dump(): List<Instruction> = insts
 }
