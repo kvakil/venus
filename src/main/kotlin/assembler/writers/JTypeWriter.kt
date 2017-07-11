@@ -15,7 +15,7 @@ object JTypeWriter : InstructionWriter() {
         val rd = regNameToNumber(args[0])
 
         inst.setField(InstructionField.RD, rd)
-        prog.add(inst)
         prog.addJump(args[1])
+        prog.add(inst)
     }
 }
