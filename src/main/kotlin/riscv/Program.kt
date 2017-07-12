@@ -1,6 +1,6 @@
-package venus.assembler
+package venus.riscv
 
-import venus.riscv.Instruction
+import venus.linker.RelocationInfo
 
 class Program {
     /* TODO: abstract away these variables */

@@ -3,7 +3,7 @@ package venus.simulator
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
-import venus.assembler.Program
+import venus.riscv.Program
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */

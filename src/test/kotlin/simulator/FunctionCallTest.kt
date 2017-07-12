@@ -3,7 +3,7 @@ package venus.simulator
 import org.junit.Test
 import kotlin.test.assertEquals
 import venus.assembler.Assembler
-import venus.assembler.Linker
+import venus.linker.Linker
 
 class FunctionCallTest {
     @Test

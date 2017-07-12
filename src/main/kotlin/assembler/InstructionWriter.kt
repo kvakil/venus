@@ -2,6 +2,7 @@ package venus.assembler
 
 import venus.riscv.Instruction
 import venus.riscv.InstructionFormat
+import venus.riscv.Program
 
 abstract class InstructionWriter {
     operator fun invoke(prog: Program, iform: InstructionFormat, args: List<String>) {

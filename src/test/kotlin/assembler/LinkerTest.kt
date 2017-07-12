@@ -1,10 +1,12 @@
-package venus.assembler
+package venus.linker
 
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.fail
 import venus.simulator.Simulator
+import venus.assembler.Assembler
+import venus.assembler.AssemblerError
 
 class LinkerTest {
     @Test

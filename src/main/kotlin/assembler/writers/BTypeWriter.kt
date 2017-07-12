@@ -1,7 +1,7 @@
 package venus.assembler.writers
 
 import venus.assembler.InstructionWriter
-import venus.assembler.Program
+import venus.riscv.Program
 import venus.assembler.AssemblerError
 import venus.riscv.Instruction
 import venus.riscv.InstructionField

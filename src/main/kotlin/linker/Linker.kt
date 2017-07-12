@@ -1,8 +1,10 @@
-package venus.assembler
+package venus.linker
 
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
+import venus.riscv.Program
+import venus.assembler.AssemblerError
 
 data class RelocationInfo(val label: String, val offset: Int)
 

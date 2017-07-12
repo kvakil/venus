@@ -3,6 +3,7 @@ package venus.assembler
 import org.junit.Test
 import kotlin.test.assertTrue
 import kotlin.test.fail
+import venus.riscv.Program
 
 class AssemblerErrorsTest {
     @Test
