@@ -37,6 +37,8 @@ object Linker {
                 linkedProgram.add(inst)
             }
 
+            linkedProgram.addToData(prog.dataSegment)
+
             textTotalOffset += prog.textSize
             dataTotalOffset += prog.dataSize
         }

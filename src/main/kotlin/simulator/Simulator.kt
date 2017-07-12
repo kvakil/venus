@@ -19,6 +19,12 @@ class Simulator(prog: Program) {
             state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
             maxpc += inst.length
         }
+
+        var dataOffset = MemorySegments.STATIC_BEGIN
+        for (datum in prog.dataSegment) {
+            state.mem.storeByte(dataOffset, datum.toInt())
+            dataOffset += 1
+        }
     }
 
     fun isDone(): Boolean = state.pc >= maxpc || cycles > 500
