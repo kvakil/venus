@@ -2,25 +2,32 @@ package venus.simulator
 
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
+import venus.riscv.MemorySegments
+import venus.assembler.Program
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
-class Simulator(insts: List<Instruction>) {
+class Simulator(prog: Program) {
     val state = SimulatorState()
-    var maxpc = 0
+    var maxpc = MemorySegments.TEXT_BEGIN
+    var cycles = 0
 
     init {
-        for (inst in insts) {
+        state.pc = MemorySegments.TEXT_BEGIN
+        for (inst in prog.insts) {
             /* TODO: abstract away instruction length */
             state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
             maxpc += inst.length
         }
     }
 
-    fun isDone(): Boolean = state.pc >= maxpc
+    fun isDone(): Boolean = state.pc >= maxpc || cycles > 500
 
     fun run() {
-        while (!isDone()) step()
+        while (!isDone()) {
+            step()
+            cycles += 1
+        }
     }
 
     fun step(): Boolean {

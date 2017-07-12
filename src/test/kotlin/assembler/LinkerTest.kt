@@ -18,7 +18,7 @@ class LinkerTest {
         skip:
         """)
         val linked = Linker.link(listOf(prog))
-        var sim = Simulator(linked.dump())
+        var sim = Simulator(linked)
         sim.run()
         assertEquals(2, sim.state.getReg(8))
     }
@@ -35,7 +35,7 @@ class LinkerTest {
             addi x8 x8 1
         """)
         val linked = Linker.link(listOf(prog1, prog2))
-        var sim = Simulator(linked.dump())
+        var sim = Simulator(linked)
         sim.run()
         assertEquals(1, sim.state.getReg(8))
     }

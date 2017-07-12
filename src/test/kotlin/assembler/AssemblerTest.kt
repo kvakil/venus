@@ -14,7 +14,7 @@ class AssemblerTest {
         add x3 x1 x2
         andi x3 x3 8
         """)
-        var sim = Simulator(prog.dump())
+        var sim = Simulator(prog)
         sim.run()
         assertEquals(8, sim.state.getReg(3))
     }
@@ -26,7 +26,7 @@ class AssemblerTest {
         sw 60(x0) x1
         lw x2 -40(x1)
         """)
-        var sim = Simulator(prog.dump())
+        var sim = Simulator(prog)
         assertTrue(sim.step())
         assertEquals(100, sim.state.getReg(1))
         assertTrue(sim.step())
@@ -46,7 +46,7 @@ class AssemblerTest {
         addi x3 x3 1
         bne x3 x1 start
         """)
-        var sim = Simulator(prog.dump())
+        var sim = Simulator(prog)
         for (i in 1..17) assertTrue(sim.step())
         assertEquals(10, sim.state.getReg(2))
     }

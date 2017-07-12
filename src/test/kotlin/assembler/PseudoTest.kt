@@ -11,7 +11,7 @@ class PseudoTest {
         addi x1 x0 5
         move x2 x1
         """)
-        var sim = Simulator(prog.dump())
+        var sim = Simulator(prog)
         sim.run()
         assertEquals(5, sim.state.getReg(2))
     }

@@ -39,7 +39,7 @@ class AssemblerBasicTest {
         } catch (e: AssemblerError) {
             fail("exception thrown")
         }
-        val sim = Simulator(prog.dump())
+        val sim = Simulator(prog)
         sim.run()
         assertEquals(4, sim.state.getReg(1))
     }

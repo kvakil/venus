@@ -19,7 +19,7 @@ class FunctionCallTest {
             add x1 a0 x0
         """)
         val linked = Linker.link(listOf(prog))
-        var sim = Simulator(linked.dump())
+        var sim = Simulator(linked)
         sim.run()
         assertEquals(10, sim.state.getReg(1))
     }
