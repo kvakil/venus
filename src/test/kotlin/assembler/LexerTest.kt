@@ -2,6 +2,8 @@ package venus.assembler
 
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 class LexerTest {
     @Test
@@ -60,4 +62,42 @@ class LexerTest {
         assertEquals(listOf(""), args)
     }
 
+    @Test
+    fun lexAsciizBadStrings() {
+        try {
+            Assembler.assemble("""
+            .data
+            .asciiz   unquoted
+            .text
+            nop
+            """)
+            fail("didn't error on unquoted")
+        } catch (e: AssemblerError) {
+            assertTrue(true)
+        }
+
+        try {
+            Assembler.assemble("""
+            .data
+            .asciiz   "no end quote
+            .text
+            nop
+            """)
+            fail("didn't error on missing end quote")
+        } catch (e: AssemblerError) {
+            assertTrue(true)
+        }
+
+        try {
+            Assembler.assemble("""
+            .data
+            .asciiz   "good" junk
+            .text
+            nop
+            """)
+            fail("didn't error on junk")
+        } catch (e: AssemblerError) {
+            assertTrue(true)
+        }
+    }
 }

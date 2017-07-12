@@ -43,43 +43,4 @@ class StaticDataTest {
             offset++
         }
     }
-
-    @Test
-    fun asciizBadStrings() {
-        try {
-            Assembler.assemble("""
-            .data
-            .asciiz   unquoted
-            .text
-            nop
-            """)
-            fail("didn't error on unquoted")
-        } catch (e: AssemblerError) {
-            assertTrue(true)
-        }
-
-        try {
-            Assembler.assemble("""
-            .data
-            .asciiz   "no end quote
-            .text
-            nop
-            """)
-            fail("didn't error on missing end quote")
-        } catch (e: AssemblerError) {
-            assertTrue(true)
-        }
-
-        try {
-            Assembler.assemble("""
-            .data
-            .asciiz   "good" junk
-            .text
-            nop
-            """)
-            fail("didn't error on junk")
-        } catch (e: AssemblerError) {
-            assertTrue(true)
-        }
-    }
 }
