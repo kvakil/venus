@@ -21,4 +21,8 @@ object Lexer {
 
     /** Lex a line into a label (if there) and a list of arguments */
     fun lexLine(line: String) = Pair(getLabel(line), cleanLine(line).split(' '))
+
+    private val asciizPattern = "\\s*\\.asciiz\\s+\"((?:[^\"\\\\]|\\\\.)*)\"\\s*".toRegex()
+    fun lexAsciizPseudo(line: String): String? =
+        asciizPattern.matchEntire(line)?.groups?.get(1)?.value
 }

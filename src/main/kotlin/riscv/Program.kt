@@ -24,7 +24,12 @@ class Program {
         textSize += inst.length
     }
 
-    fun addToData(bytes: List<Byte>) {
+    fun addToData(byte: Byte) {
+        dataSegment.add(byte)
+        dataSize++
+    }
+
+    fun addAllToData(bytes: List<Byte>) {
         dataSegment.addAll(bytes)
         dataSize += bytes.size
     }

@@ -55,8 +55,20 @@ object Assembler {
                 } else if (args[0] == ".text") {
                     inTextSegment = true
                 } else if (args[0] == ".byte") {
-                    prog.addToData(args.subList(1, args.size).map { it.toByte() })
+                    prog.addAllToData(args.subList(1, args.size).map { it.toByte() })
                     dataSize += 1
+                } else if (args[0] == ".asciiz" || args[0] == ".string") {
+                    val asciiString = Lexer.lexAsciizPseudo(line)
+                    if (asciiString == null) {
+                        throw AssemblerError("expected a quoted string: ${line}")
+                    }
+
+                    for (c in asciiString) {
+                        if (c.toInt() !in 0..127) {
+                            throw AssemblerError("unexpected non-ascii character: ${c}")
+                        }
+                        prog.addToData(c.toByte())
+                    }
                 }
             } else {
                 val expandedInsts = replacePseudoInstructions(args)
