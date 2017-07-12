@@ -46,6 +46,8 @@ object Linker {
             if (toAddress == null) {
                 throw AssemblerError("jump to invalid label ${label}")
             }
+
+            /* TODO: allow for relocating things other than jumps */
             fillInJump(inst, offset, toAddress)
         }
 
