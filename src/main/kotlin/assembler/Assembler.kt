@@ -1,5 +1,7 @@
 package venus.assembler
 
+import venus.riscv.MemorySegments
+
 typealias LineTokens = List<String>
 
 object Assembler {
@@ -27,22 +29,38 @@ object Assembler {
     }
 
     private fun passOne(prog: Program, text: String): List<LineTokens> {
-        var offset = 0
         val instructions = ArrayList<LineTokens>()
+        var inTextSegment = true
+        var textSize = 0
+        var dataSize = 0
         for (line in text.split('\n')) {
+            val offset = if (inTextSegment) textSize else dataSize
+            val start = if (inTextSegment) MemorySegments.TEXT_BEGIN else MemorySegments.STATIC_BEGIN
+
             val (label, args) = Lexer.lexLine(line)
-            if (label != "")
-                prog.addLabel(label, offset)
+            if (label != "") {
+                prog.addLabel(label, start + offset)
+            }
             /* TODO: abstract byte offset to InstructionFormat */
 
-            if (args.size >= 1 && args[0] != "") {
+            if (args.size == 0 || args[0] == "") continue; // empty line
+
+            if (isAssemblerDirective(args[0])) {
+                if (args[0] == ".data") {
+                    inTextSegment = false
+                } else if (args[0] == ".text") {
+                    inTextSegment = true
+                }
+            } else {
                 val expandedInsts = replacePseudoInstructions(args)
                 instructions.addAll(expandedInsts)
-                offset += 4 * expandedInsts.size
+                textSize += 4 * expandedInsts.size
             }
         }
         return instructions
     }
+
+    private fun isAssemblerDirective(cmd: String) = cmd.startsWith(".")
 
     fun assemble(text: String): Program {
         val prog = Program()

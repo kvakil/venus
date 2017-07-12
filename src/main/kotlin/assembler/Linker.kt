@@ -2,6 +2,7 @@ package venus.assembler
 
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
+import venus.riscv.MemorySegments
 
 data class RelocationInfo(val label: String, val offset: Int)
 
@@ -10,23 +11,32 @@ object Linker {
         val linkedProgram = Program()
         val globalTable = HashMap<String, Int>()
         val toRelocate = ArrayList<RelocationInfo>()
-        var programOffset = 0
+        var textTotalOffset = 0
+        var dataTotalOffset = 0
 
         for (prog in progs) {
             for ((label, offset) in prog.labels) {
-                if (isGlobalLabel(label))
-                    globalTable.put(label, programOffset + offset)
+                val start = if (offset >= MemorySegments.STATIC_BEGIN) {
+                    dataTotalOffset
+                } else {
+                    textTotalOffset
+                }
+
+                if (isGlobalLabel(label)) {
+                    globalTable.put(label, start + offset)
+                }
             }
 
             for ((label, offset) in prog.relocationTable) {
-                toRelocate.add(RelocationInfo(label, programOffset + offset))
+                toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
             }
 
             for (inst in prog.insts) {
                 linkedProgram.add(inst)
             }
 
-            programOffset += prog.size
+            textTotalOffset += prog.textSize
+            dataTotalOffset += prog.dataSize
         }
 
         for ((label, offset) in toRelocate) {
