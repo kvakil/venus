@@ -2,10 +2,7 @@ package venus.simulator
 
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
-import kotlin.test.fail
 import venus.assembler.Assembler
-import venus.assembler.AssemblerError
 import venus.linker.Linker
 import venus.riscv.MemorySegments
 
