@@ -5,6 +5,8 @@ import venus.riscv.MemorySegments
 typealias LineTokens = List<String>
 
 object Assembler {
+    /* TODO: refactor Assembler from singleton pattern
+     * this will let us more easily use state for directives */
     fun addInstruction(prog: Program, tokens: LineTokens) {
         if (tokens.size < 1 || tokens[0] == "") return
         val cmd = tokens[0].toLowerCase()
@@ -45,11 +47,15 @@ object Assembler {
 
             if (args.size == 0 || args[0] == "") continue; // empty line
 
+            /* TODO: change this; completely. */
             if (isAssemblerDirective(args[0])) {
                 if (args[0] == ".data") {
                     inTextSegment = false
                 } else if (args[0] == ".text") {
                     inTextSegment = true
+                } else if (args[0] == ".byte") {
+                    prog.addToData(args.subList(1, args.size).map { it.toByte() })
+                    dataSize += 1
                 }
             } else {
                 val expandedInsts = replacePseudoInstructions(args)
