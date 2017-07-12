@@ -4,7 +4,6 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import venus.simulator.Simulator
-import venus.riscv.Program
 
 class AssemblerTest {
     @Test
