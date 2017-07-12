@@ -7,14 +7,14 @@ class Program {
     public val insts: MutableList<Instruction>
     public val labels: HashMap<String, Int>
     public val relocationTable: MutableList<RelocationInfo>
-    public val dataSegment: MutableList<Int>
+    public val dataSegment: MutableList<Byte>
     public var textSize: Int
     public var dataSize: Int
     init {
         insts = ArrayList<Instruction>()
         labels = HashMap<String, Int>()
         relocationTable = ArrayList<RelocationInfo>()
-        dataSegment = ArrayList<Int>()
+        dataSegment = ArrayList<Byte>()
         textSize = 0
         dataSize = 0
     }
@@ -24,9 +24,9 @@ class Program {
         textSize += inst.length
     }
 
-    fun addToData(words: List<Int>) {
-        dataSegment.addAll(words)
-        dataSize += 4 * words.size
+    fun addToData(bytes: List<Byte>) {
+        dataSegment.addAll(bytes)
+        dataSize += bytes.size
     }
 
     fun addLabel(lbl: String, offset: Int) = labels.put(lbl, offset)
