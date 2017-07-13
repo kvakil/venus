@@ -37,6 +37,12 @@ task ktlintFormat(type: JavaExec) {
     args "-F", "src/**/*.kt"
 }
 
+task gruntTest(type: Exec) {
+    commandLine 'grunt', 'test'
+}
+
+test.dependsOn gruntTest
+
 dependencies {
     ktlint 'com.github.shyiko:ktlint:0.8.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
