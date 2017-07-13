@@ -6,6 +6,6 @@ import venus.riscv.Instruction
 
 object DoNothingWriter : InstructionWriter() {
     override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
-        /* do nothing */
+        prog.add(inst)
     }
 }
