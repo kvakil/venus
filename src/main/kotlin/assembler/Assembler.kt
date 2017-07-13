@@ -85,12 +85,18 @@ object Assembler {
         return instructions
     }
 
+    private fun passTwo(prog: Program, instructions: List<LineTokens>) {
+        for (inst in instructions) {
+            addInstruction(prog, inst)
+        }
+    }
+
     private fun isAssemblerDirective(cmd: String) = cmd.startsWith(".")
 
     fun assemble(text: String): Program {
         val prog = Program()
         val instructions = passOne(prog, text)
-        instructions.forEach { addInstruction(prog, it) }
+        passTwo(prog, instructions)
         return prog
     }
 
