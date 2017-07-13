@@ -9,7 +9,7 @@ class PseudoTest {
     fun moveTest() {
         val prog = Assembler.assemble("""
         addi x1 x0 5
-        move x2 x1
+        mv x2 x1
         """)
         var sim = Simulator(prog)
         sim.run()
