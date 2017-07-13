@@ -40,4 +40,20 @@ class StaticDataTest {
             offset++
         }
     }
+
+    @Test
+    fun asciizNulTerminated() {
+        val prog = Assembler.assemble("""
+        .data
+        .asciiz "a"
+        .asciiz "b"
+        """)
+        val linked = Linker.link(listOf(prog))
+        var sim = Simulator(linked)
+        var offset = MemorySegments.STATIC_BEGIN
+        assertEquals('a'.toInt(), sim.state.mem.loadByte(offset))
+        assertEquals(0, sim.state.mem.loadByte(offset + 1))
+        assertEquals('b'.toInt(), sim.state.mem.loadByte(offset + 2))
+        assertEquals(0, sim.state.mem.loadByte(offset + 3))
+    }
 }

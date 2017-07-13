@@ -69,6 +69,8 @@ object Assembler {
                         }
                         prog.addToData(c.toByte())
                     }
+
+                    prog.addToData(0)
                 }
             } else {
                 val expandedInsts = replacePseudoInstructions(args)
