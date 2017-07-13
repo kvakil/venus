@@ -16,7 +16,7 @@ object Assembler {
         } catch (e: IllegalStateException) {
             throw AssemblerError("no such instruction ${cmd}")
         }
-        disp.writer(prog, disp.iform, tokens.subList(1, tokens.size))
+        disp.writer(prog, disp.iform, tokens.drop(1))
     }
 
     private fun replacePseudoInstructions(tokens: LineTokens): List<LineTokens> {
@@ -55,8 +55,8 @@ object Assembler {
                 } else if (args[0] == ".text") {
                     inTextSegment = true
                 } else if (args[0] == ".byte") {
-                    for (i in 1 until args.size) {
-                        prog.addToData(args[i].toByte())
+                    for (arg in args.drop(1)) {
+                        prog.addToData(arg.toByte())
                         dataSize++
                     }
                 } else if (args[0] == ".asciiz" || args[0] == ".string") {
