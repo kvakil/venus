@@ -59,8 +59,8 @@ object Assembler {
                         prog.addToData(arg.toByte())
                         dataSize++
                     }
-                } else if (args[0] == ".asciiz" || args[0] == ".string") {
-                    val asciiString = Lexer.lexAsciizPseudo(line)
+                } else if (args[0] == ".asciiz") {
+                    val asciiString = Lexer.lexAsciizDirective(line)
                     if (asciiString == null) {
                         throw AssemblerError("expected a quoted string: ${line}")
                     }
