@@ -4,7 +4,7 @@ import venus.assembler.InstructionWriter
 import venus.riscv.Program
 import venus.riscv.Instruction
 
-object ECALLWriter : InstructionWriter() {
+object DoNothingWriter : InstructionWriter() {
     override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
         /* do nothing */
     }
