@@ -11,14 +11,14 @@ import venus.assembler.AssemblerError
 class LinkerTest {
     @Test
     fun linkOneFile() {
-        val prog = Assembler.assemble("""
+        val prog = Assembler("""
         start:
         addi x8 x8 1
         addi x9 x0 2
         beq x8 x9 skip
         jal x0 start
         skip:
-        """)
+        """).assemble()
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
         sim.run()
@@ -27,15 +27,15 @@ class LinkerTest {
 
     @Test
     fun linkTwoFiles() {
-        val prog1 = Assembler.assemble("""
+        val prog1 = Assembler("""
         foo:
             jal x0 bar
             addi x8 x0 8
-        """)
-        val prog2 = Assembler.assemble("""
+        """).assemble()
+        val prog2 = Assembler("""
         bar:
             addi x8 x8 1
-        """)
+        """).assemble()
         val linked = Linker.link(listOf(prog1, prog2))
         var sim = Simulator(linked)
         sim.run()
@@ -44,15 +44,15 @@ class LinkerTest {
 
     @Test
     fun privateLabel() {
-        val prog1 = Assembler.assemble("""
+        val prog1 = Assembler("""
         foo:
             jal x0 _bar
             addi x8 x0 8
-        """)
-        val prog2 = Assembler.assemble("""
+        """).assemble()
+        val prog2 = Assembler("""
         _bar:
             addi x8 x8 1
-        """)
+        """).assemble()
 
         try {
             Linker.link(listOf(prog1, prog2))
