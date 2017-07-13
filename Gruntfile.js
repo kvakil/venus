@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         qunit: {
-            src: ['test.html'],
+            src: ['qunit/test.html'],
             force: true
         }
     });
