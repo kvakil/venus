@@ -57,7 +57,7 @@ object Assembler {
                 } else if (args[0] == ".byte") {
                     for (i in 1 until args.size) {
                         prog.addToData(args[i].toByte())
-                        dataSize += 1
+                        dataSize++
                     }
                 } else if (args[0] == ".asciiz" || args[0] == ".string") {
                     val asciiString = Lexer.lexAsciizPseudo(line)
@@ -70,9 +70,11 @@ object Assembler {
                             throw AssemblerError("unexpected non-ascii character: ${c}")
                         }
                         prog.addToData(c.toByte())
+                        dataSize++
                     }
 
                     prog.addToData(0)
+                    dataSize++
                 }
             } else {
                 val expandedInsts = replacePseudoInstructions(args)
