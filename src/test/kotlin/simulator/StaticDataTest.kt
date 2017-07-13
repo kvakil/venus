@@ -56,4 +56,21 @@ class StaticDataTest {
         assertEquals('b'.toInt(), sim.state.mem.loadByte(offset + 2))
         assertEquals(0, sim.state.mem.loadByte(offset + 3))
     }
+
+    @Test
+    fun linkedStaticBytes() {
+        val prog1 = Assembler.assemble("""
+        .data
+        .byte 1
+        """)
+        val prog2 = Assembler.assemble("""
+        .data
+        .byte 2
+        """)
+        val linked = Linker.link(listOf(prog1, prog2))
+        var sim = Simulator(linked)
+        var offset = MemorySegments.STATIC_BEGIN
+        assertEquals(1, sim.state.mem.loadByte(offset))
+        assertEquals(2, sim.state.mem.loadByte(offset + 1))
+    }
 }

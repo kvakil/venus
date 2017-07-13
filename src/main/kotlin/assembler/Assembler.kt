@@ -55,8 +55,10 @@ object Assembler {
                 } else if (args[0] == ".text") {
                     inTextSegment = true
                 } else if (args[0] == ".byte") {
-                    prog.addAllToData(args.subList(1, args.size).map { it.toByte() })
-                    dataSize += 1
+                    for (i in 1 until args.size) {
+                        prog.addToData(args[i].toByte())
+                        dataSize += 1
+                    }
                 } else if (args[0] == ".asciiz" || args[0] == ".string") {
                     val asciiString = Lexer.lexAsciizPseudo(line)
                     if (asciiString == null) {
