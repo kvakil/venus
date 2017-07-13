@@ -43,7 +43,8 @@ class Program {
     }
 
     /* TODO: relocation table and linker */
-    fun addJump(lbl: String) = relocationTable.add(RelocationInfo(lbl, textSize))
+    fun addRelocation(lbl: String, offset: Int = 0) =
+        relocationTable.add(RelocationInfo(lbl, textSize + offset))
 
     /* TODO: add dump formats */
     fun dump(): List<Instruction> = insts
