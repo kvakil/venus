@@ -6,3 +6,12 @@ script:
   - ./gradlew build -x ktlint
   - ./gradlew ktlint
   - grunt test
+after_success:
+  - grunt dist
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: out
+  on:
+    branch: master
