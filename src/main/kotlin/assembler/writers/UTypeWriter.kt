@@ -6,8 +6,8 @@ import venus.riscv.Instruction
 import venus.riscv.InstructionField
 
 object UTypeWriter : InstructionWriter() {
-    const val MAX_U_VALUE = 524287
-    const val MIN_U_VALUE = -524288
+    const val MAX_U_VALUE = 1048575
+    const val MIN_U_VALUE = 0
 
     override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
         checkArgsLength(args, 2)
