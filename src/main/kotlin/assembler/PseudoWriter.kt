@@ -1,5 +1,8 @@
 package venus.assembler
 
+import venus.assembler.Assembler.AssemblerState
+
 abstract class PseudoWriter {
-    abstract operator fun invoke(args: LineTokens): List<LineTokens>
+    internal abstract operator fun invoke(args: LineTokens,
+        state: AssemblerState): List<LineTokens>
 }
