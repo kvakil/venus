@@ -10,7 +10,17 @@ object ECALLImpl : InstructionImplementation {
         when (which) {
             1 -> { // print integer
                 val arg = state.getReg(11)
-                println(arg)
+                print(arg)
+            }
+            4 -> { // print string
+                var arg = state.getReg(11)
+                var c = state.mem.loadByte(arg)
+                arg++
+                while (c != 0) {
+                    print(c.toChar())
+                    c = state.mem.loadByte(arg)
+                    arg++
+                }
             }
             9 -> { // malloc
                 val bytes = state.getReg(11)
@@ -21,6 +31,10 @@ object ECALLImpl : InstructionImplementation {
             10 -> { // exit
                 state.pc = Int.MAX_VALUE
                 return
+            }
+            11 -> { // print char
+                var arg = state.getReg(11)
+                print(arg.toChar())
             }
             else -> {
                 println("Invalid ecall ${which}")
