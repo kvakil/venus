@@ -100,6 +100,8 @@ object Assembler {
                     prog.addToData(0)
                     currentDataOffset++
                 }
+
+                else -> throw AssemblerError("unknown assembler directive ${directive}")
             }
         }
 
