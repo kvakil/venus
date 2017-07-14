@@ -11,6 +11,7 @@ class Simulator(prog: Program) {
     val state = SimulatorState()
     var maxpc = MemorySegments.TEXT_BEGIN
     var cycles = 0
+    val MAX_CYCLES = 1000
 
     init {
         state.pc = MemorySegments.TEXT_BEGIN
@@ -27,7 +28,7 @@ class Simulator(prog: Program) {
         }
     }
 
-    fun isDone(): Boolean = state.pc >= maxpc || cycles > 500
+    fun isDone(): Boolean = state.pc >= maxpc || cycles > MAX_CYCLES
 
     fun run() {
         while (!isDone()) {
