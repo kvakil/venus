@@ -17,9 +17,15 @@ object Assembler {
         private var inTextSegment = true
         private val TALInstructions = ArrayList<LineTokens>()
 
+        fun assemble(): Program {
+            passOne()
+            passTwo()
+            return prog
+        }
+
         private fun addInstruction(tokens: LineTokens) {
             if (tokens.size < 1 || tokens[0] == "") return
-            val cmd = tokens[0].toLowerCase()
+            val cmd = getInstruction(tokens)
             val disp: WriterDispatcher = try {
                 WriterDispatcher.valueOf(cmd)
             } catch (e: IllegalStateException) {
@@ -30,7 +36,7 @@ object Assembler {
 
         private fun replacePseudoInstructions(tokens: LineTokens): List<LineTokens> {
             try {
-                val cmd = tokens[0].toLowerCase()
+                val cmd = getInstruction(tokens)
                 val pw = PseudoDispatcher.valueOf(cmd).pw
                 return pw(tokens)
             } catch (t: Throwable) {
@@ -53,38 +59,46 @@ object Assembler {
 
                 if (args.size == 0 || args[0] == "") continue; // empty line
 
-                /* TODO: change this; completely. */
                 if (isAssemblerDirective(args[0])) {
-                    if (args[0] == ".data") {
-                        inTextSegment = false
-                    } else if (args[0] == ".text") {
-                        inTextSegment = true
-                    } else if (args[0] == ".byte") {
-                        for (arg in args.drop(1)) {
-                            prog.addToData(arg.toByte())
-                            currentDataOffset++
-                        }
-                    } else if (args[0] == ".asciiz") {
-                        val asciiString = Lexer.lexAsciizDirective(line)
-                        if (asciiString == null) {
-                            throw AssemblerError("expected a quoted string: ${line}")
-                        }
-
-                        for (c in asciiString) {
-                            if (c.toInt() !in 0..127) {
-                                throw AssemblerError("unexpected non-ascii character: ${c}")
-                            }
-                            prog.addToData(c.toByte())
-                            currentDataOffset++
-                        }
-
-                        prog.addToData(0)
-                        currentDataOffset++
-                    }
+                    parseAssemblerDirective(args, line)
                 } else {
                     val expandedInsts = replacePseudoInstructions(args)
                     TALInstructions.addAll(expandedInsts)
                     currentTextOffset += 4 * expandedInsts.size
+                }
+            }
+        }
+
+        private fun parseAssemblerDirective(args: LineTokens, line: String) {
+            val directive = args[0]
+            when (directive) {
+                ".data" -> inTextSegment = false
+                ".text" -> inTextSegment = true
+
+                ".byte" -> {
+                    for (arg in args.drop(1)) {
+                        prog.addToData(arg.toByte())
+                        currentDataOffset++
+                    }
+                }
+
+                ".asciiz" -> {
+                    val asciiString = Lexer.lexAsciizDirective(line)
+
+                    if (asciiString == null) {
+                        throw AssemblerError("expected a quoted string: ${line}")
+                    }
+
+                    for (c in asciiString) {
+                        if (c.toInt() !in 0..127) {
+                            throw AssemblerError("unexpected non-ascii character: ${c}")
+                        }
+                        prog.addToData(c.toByte())
+                        currentDataOffset++
+                    }
+
+                    prog.addToData(0)
+                    currentDataOffset++
                 }
             }
         }
@@ -96,12 +110,7 @@ object Assembler {
         }
 
         private fun isAssemblerDirective(cmd: String) = cmd.startsWith(".")
-
-        fun assemble(): Program {
-            passOne()
-            passTwo()
-            return prog
-        }
+        private fun getInstruction(tokens: LineTokens) = tokens[0].toLowerCase()
     }
     /* TODO: add actual parser */
 }
