@@ -9,12 +9,12 @@ import venus.riscv.MemorySegments
 class StaticDataTest {
     @Test
     fun easyManualLoad() {
-        val prog = Assembler("""
+        val prog = Assembler.assemble("""
         .data
         .byte 1 2 3 4
         .text
         nop
-        """).assemble()
+        """)
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
         assertEquals(1, sim.state.mem.loadByte(MemorySegments.STATIC_BEGIN))
@@ -26,12 +26,12 @@ class StaticDataTest {
     @Test
     fun asciizManualLoad() {
         val expected = """This ' is a \"string\"!"""
-        val prog = Assembler("""
+        val prog = Assembler.assemble("""
         .data
         .asciiz   "${expected}"
         .text
         nop
-        """).assemble()
+        """)
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
         var offset = MemorySegments.STATIC_BEGIN
@@ -43,11 +43,11 @@ class StaticDataTest {
 
     @Test
     fun asciizNulTerminated() {
-        val prog = Assembler("""
+        val prog = Assembler.assemble("""
         .data
         .asciiz "a"
         .asciiz "b"
-        """).assemble()
+        """)
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
         var offset = MemorySegments.STATIC_BEGIN
@@ -59,14 +59,14 @@ class StaticDataTest {
 
     @Test
     fun linkedStaticBytes() {
-        val prog1 = Assembler("""
+        val prog1 = Assembler.assemble("""
         .data
         .byte 1
-        """).assemble()
-        val prog2 = Assembler("""
+        """)
+        val prog2 = Assembler.assemble("""
         .data
         .byte 2
-        """).assemble()
+        """)
         val linked = Linker.link(listOf(prog1, prog2))
         var sim = Simulator(linked)
         var offset = MemorySegments.STATIC_BEGIN

@@ -65,36 +65,36 @@ class LexerTest {
     @Test
     fun lexAsciizBadStrings() {
         try {
-            Assembler("""
+            Assembler.assemble("""
             .data
             .asciiz   unquoted
             .text
             nop
-            """).assemble()
+            """)
             fail("didn't error on unquoted")
         } catch (e: AssemblerError) {
             assertTrue(true)
         }
 
         try {
-            Assembler("""
+            Assembler.assemble("""
             .data
             .asciiz   "no end quote
             .text
             nop
-            """).assemble()
+            """)
             fail("didn't error on missing end quote")
         } catch (e: AssemblerError) {
             assertTrue(true)
         }
 
         try {
-            Assembler("""
+            Assembler.assemble("""
             .data
             .asciiz   "good" junk
             .text
             nop
-            """).assemble()
+            """)
             fail("didn't error on junk")
         } catch (e: AssemblerError) {
             assertTrue(true)

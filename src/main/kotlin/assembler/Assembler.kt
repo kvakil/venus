@@ -7,7 +7,7 @@ typealias LineTokens = List<String>
 
 object Assembler {
     fun assemble(text: String): Program {
-        return AssemblyFile(text).prog
+        return AssemblyFile(text).assemble()
     }
 
     private class AssemblyFile(val text: String) {
