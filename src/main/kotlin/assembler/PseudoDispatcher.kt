@@ -6,6 +6,7 @@ import venus.assembler.pseudos.* // ktlint-disable no-wildcard-imports
 enum class PseudoDispatcher(val pw: PseudoWriter) {
     j(J),
     jal(JAL),
+    jalr(JALR),
     la(LA),
     li(LI),
     mv(MV),
