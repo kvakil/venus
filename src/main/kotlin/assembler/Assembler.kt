@@ -17,9 +17,7 @@ object Assembler {
         private var inTextSegment = true
         private val TALInstructions = ArrayList<LineTokens>()
 
-        /* TODO: refactor Assembler from singleton pattern
-        * this will let us more easily use state for directives */
-        fun addInstruction(tokens: LineTokens) {
+        private fun addInstruction(tokens: LineTokens) {
             if (tokens.size < 1 || tokens[0] == "") return
             val cmd = tokens[0].toLowerCase()
             val disp: WriterDispatcher = try {
