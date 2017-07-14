@@ -73,4 +73,17 @@ class StaticDataTest {
         assertEquals(1, sim.state.mem.loadByte(offset))
         assertEquals(2, sim.state.mem.loadByte(offset + 1))
     }
+
+    @Test
+    fun wordManualLoad() {
+        val prog = Assembler.assemble("""
+        .data
+        .word -21231234
+        .text
+        nop
+        """)
+        val linked = Linker.link(listOf(prog))
+        var sim = Simulator(linked)
+        assertEquals(-21231234, sim.state.mem.loadWord(MemorySegments.STATIC_BEGIN))
+    }
 }

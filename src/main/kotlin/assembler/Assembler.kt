@@ -116,6 +116,17 @@ object Assembler {
                     currentDataOffset++
                 }
 
+                ".word" -> {
+                    for (arg in args.drop(1)) {
+                        val word = arg.toInt()
+                        prog.addToData(word.toByte())
+                        prog.addToData((word shr 8).toByte())
+                        prog.addToData((word shr 16).toByte())
+                        prog.addToData((word shr 24).toByte())
+                        currentDataOffset += 4
+                    }
+                }
+
                 else -> throw AssemblerError("unknown assembler directive ${directive}")
             }
         }
