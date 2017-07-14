@@ -34,17 +34,17 @@ class Program {
         dataSize += bytes.size
     }
 
-    fun addLabel(lbl: String, offset: Int) = labels.put(lbl, offset)
+    fun addLabel(label: String, offset: Int) = labels.put(label, offset)
 
-    fun getLabelOffset(lbl: String): Int? {
-        val loc = labels.get(lbl)
+    fun getLabelOffset(label: String): Int? {
+        val loc = labels.get(label)
         if (loc == null) return null
         return loc - textSize
     }
 
     /* TODO: relocation table and linker */
-    fun addRelocation(lbl: String, offset: Int = 0) =
-        relocationTable.add(RelocationInfo(lbl, textSize + offset))
+    fun addRelocation(label: String, offset: Int = textSize) =
+        relocationTable.add(RelocationInfo(label, offset))
 
     /* TODO: add dump formats */
     fun dump(): List<Instruction> = insts
