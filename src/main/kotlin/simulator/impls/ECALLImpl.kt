@@ -12,7 +12,13 @@ object ECALLImpl : InstructionImplementation {
                 val arg = state.getReg(11)
                 println(arg)
             }
-            10 -> {
+            9 -> { // malloc
+                val bytes = state.getReg(11)
+                if (bytes < 0) return
+                state.setReg(10, state.heapEnd)
+                state.heapEnd += bytes
+            }
+            10 -> { // exit
                 state.pc = Int.MAX_VALUE
                 return
             }
