@@ -8,10 +8,10 @@ typealias LineTokens = List<String>
 
 object Assembler {
     fun assemble(text: String): Program {
-        return AssemblyFile(text).assemble()
+        return AssemblerState(text).assemble()
     }
 
-    private class AssemblyFile(val text: String) {
+    internal class AssemblerState(val text: String) {
         val prog = Program()
         private var currentTextOffset = MemorySegments.TEXT_BEGIN
         private var currentDataOffset = MemorySegments.STATIC_BEGIN
@@ -31,7 +31,7 @@ object Assembler {
                 val offset = getOffset()
 
                 val (label, args) = Lexer.lexLine(line)
-                if (label != "" && isGlobalLabel(label)) {
+                if (label != "") {
                     symbolTable.put(label, offset)
                 }
 
@@ -76,7 +76,7 @@ object Assembler {
             try {
                 val cmd = getInstruction(tokens)
                 val pw = PseudoDispatcher.valueOf(cmd).pw
-                return pw(tokens)
+                return pw(tokens, this)
             } catch (t: Throwable) {
                 /* TODO: don't use throwable here */
                 /* not a pseudoinstruction, or expansion failure */
@@ -123,7 +123,6 @@ object Assembler {
         private fun getOffset() = if (inTextSegment) currentTextOffset else currentDataOffset
         private fun isAssemblerDirective(cmd: String) = cmd.startsWith(".")
         private fun getInstruction(tokens: LineTokens) = tokens[0].toLowerCase()
-        private fun isGlobalLabel(label: String) = !label.startsWith("_")
     }
     /* TODO: add actual parser */
 }
