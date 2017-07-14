@@ -26,6 +26,9 @@ class Simulator(prog: Program) {
             state.mem.storeByte(dataOffset, datum.toInt())
             dataOffset += 1
         }
+
+        state.setReg(2, MemorySegments.STACK_BEGIN)
+        state.setReg(3, MemorySegments.STATIC_BEGIN)
     }
 
     fun isDone(): Boolean = state.pc >= maxpc || cycles > MAX_CYCLES

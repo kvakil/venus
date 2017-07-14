@@ -39,14 +39,14 @@ class AssemblerTest {
     @Test
     fun branchTest() {
         val prog = Assembler.assemble("""
-        add x2 x2 x3
-        addi x1 x0 5
-        start: add x2 x2 x3
-        addi x3 x3 1
-        bne x3 x1 start
+        add x8 x8 x9
+        addi x7 x0 5
+        start: add x8 x8 x9
+        addi x9 x9 1
+        bne x9 x6 start
         """)
         var sim = Simulator(prog)
         for (i in 1..17) assertTrue(sim.step())
-        assertEquals(10, sim.state.getReg(2))
+        assertEquals(10, sim.state.getReg(8))
     }
 }
