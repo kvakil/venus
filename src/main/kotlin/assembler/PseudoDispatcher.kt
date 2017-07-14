@@ -7,6 +7,7 @@ enum class PseudoDispatcher(val pw: PseudoWriter) {
     j(J),
     jal(JAL),
     jalr(JALR),
+    jr(JR),
     la(LA),
     li(LI),
     mv(MV),
