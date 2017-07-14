@@ -61,4 +61,19 @@ class LinkerTest {
             assertTrue(true)
         }
     }
+
+    @Test
+    fun loadAddress() {
+        val prog = Assembler.assemble("""
+        .data
+        magic: .byte 42
+        .text
+        la x8 magic
+        lb x9 0(x8)
+        """)
+        val linked = Linker.link(listOf(prog))
+        val sim = Simulator(linked)
+        sim.run()
+        assertEquals(42, sim.state.getReg(9))
+    }
 }
