@@ -2,6 +2,7 @@ package venus.assembler
 
 import venus.riscv.MemorySegments
 import venus.riscv.Program
+import venus.linker.RelocationInfo
 
 typealias LineTokens = List<String>
 
@@ -16,6 +17,8 @@ object Assembler {
         private var currentDataOffset = MemorySegments.STATIC_BEGIN
         private var inTextSegment = true
         private val TALInstructions = ArrayList<LineTokens>()
+        private val symbolTable = HashMap<String, Int>()
+        private val relocationTable = ArrayList<RelocationInfo>()
 
         fun assemble(): Program {
             passOne()
@@ -28,8 +31,8 @@ object Assembler {
                 val offset = getOffset()
 
                 val (label, args) = Lexer.lexLine(line)
-                if (label != "") {
-                    prog.addLabel(label, offset)
+                if (label != "" && isGlobalLabel(label)) {
+                    symbolTable.put(label, offset)
                 }
 
                 if (args.size == 0 || args[0] == "") continue; // empty line
@@ -41,6 +44,14 @@ object Assembler {
                     TALInstructions.addAll(expandedInsts)
                     currentTextOffset += 4 * expandedInsts.size
                 }
+            }
+
+            for ((label, offset) in symbolTable) {
+                prog.addLabel(label, offset)
+            }
+
+            for ((label, offset) in relocationTable) {
+                prog.addRelocation(label, offset)
             }
         }
 
@@ -112,6 +123,7 @@ object Assembler {
         private fun getOffset() = if (inTextSegment) currentTextOffset else currentDataOffset
         private fun isAssemblerDirective(cmd: String) = cmd.startsWith(".")
         private fun getInstruction(tokens: LineTokens) = tokens[0].toLowerCase()
+        private fun isGlobalLabel(label: String) = !label.startsWith("_")
     }
     /* TODO: add actual parser */
 }
