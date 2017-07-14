@@ -49,4 +49,30 @@ class FunctionCallTest {
         sim.run()
         assertEquals(7, sim.state.getReg(8))
     }
+
+    @Test
+    fun nestedPseudoJumps() {
+        val prog = Assembler.assemble("""
+            j main
+        foo:
+            addi s0 s0 1
+            ret
+        bar:
+            addi sp sp -4
+            sw 0(sp) ra
+            addi s0 s0 2
+            jal ra foo
+            lw ra 0(sp)
+            addi sp sp 4
+            ret
+        main:
+            addi s0 s0 4
+            addi sp sp 1000
+            jal ra bar
+        """)
+        val linked = Linker.link(listOf(prog))
+        val sim = Simulator(linked)
+        sim.run()
+        assertEquals(7, sim.state.getReg(8))
+    }
 }
