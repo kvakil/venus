@@ -12,13 +12,13 @@ object Assembler {
     }
 
     internal class AssemblerState(val text: String) {
-        val prog = Program()
-        private var currentTextOffset = MemorySegments.TEXT_BEGIN
-        private var currentDataOffset = MemorySegments.STATIC_BEGIN
-        private var inTextSegment = true
-        private val TALInstructions = ArrayList<LineTokens>()
-        private val symbolTable = HashMap<String, Int>()
-        private val relocationTable = ArrayList<RelocationInfo>()
+        internal val prog = Program()
+        internal var currentTextOffset = MemorySegments.TEXT_BEGIN
+        internal var currentDataOffset = MemorySegments.STATIC_BEGIN
+        internal var inTextSegment = true
+        internal val TALInstructions = ArrayList<LineTokens>()
+        internal val symbolTable = HashMap<String, Int>()
+        internal val relocationTable = ArrayList<RelocationInfo>()
 
         fun assemble(): Program {
             passOne()
