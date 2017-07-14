@@ -23,6 +23,33 @@ object Assembler {
             return prog
         }
 
+        private fun passOne() {
+            for (line in text.split('\n')) {
+                val offset = getOffset()
+
+                val (label, args) = Lexer.lexLine(line)
+                if (label != "") {
+                    prog.addLabel(label, offset)
+                }
+
+                if (args.size == 0 || args[0] == "") continue; // empty line
+
+                if (isAssemblerDirective(args[0])) {
+                    parseAssemblerDirective(args, line)
+                } else {
+                    val expandedInsts = replacePseudoInstructions(args)
+                    TALInstructions.addAll(expandedInsts)
+                    currentTextOffset += 4 * expandedInsts.size
+                }
+            }
+        }
+
+        private fun passTwo() {
+            for (inst in TALInstructions) {
+                addInstruction(inst)
+            }
+        }
+
         private fun addInstruction(tokens: LineTokens) {
             if (tokens.size < 1 || tokens[0] == "") return
             val cmd = getInstruction(tokens)
@@ -43,29 +70,6 @@ object Assembler {
                 /* TODO: don't use throwable here */
                 /* not a pseudoinstruction, or expansion failure */
                 return listOf(tokens)
-            }
-        }
-
-        private fun getOffset() = if (inTextSegment) currentTextOffset else currentDataOffset
-
-        private fun passOne() {
-            for (line in text.split('\n')) {
-                val offset = getOffset()
-
-                val (label, args) = Lexer.lexLine(line)
-                if (label != "") {
-                    prog.addLabel(label, offset)
-                }
-
-                if (args.size == 0 || args[0] == "") continue; // empty line
-
-                if (isAssemblerDirective(args[0])) {
-                    parseAssemblerDirective(args, line)
-                } else {
-                    val expandedInsts = replacePseudoInstructions(args)
-                    TALInstructions.addAll(expandedInsts)
-                    currentTextOffset += 4 * expandedInsts.size
-                }
             }
         }
 
@@ -105,12 +109,7 @@ object Assembler {
             }
         }
 
-        private fun passTwo() {
-            for (inst in TALInstructions) {
-                addInstruction(inst)
-            }
-        }
-
+        private fun getOffset() = if (inTextSegment) currentTextOffset else currentDataOffset
         private fun isAssemblerDirective(cmd: String) = cmd.startsWith(".")
         private fun getInstruction(tokens: LineTokens) = tokens[0].toLowerCase()
     }
