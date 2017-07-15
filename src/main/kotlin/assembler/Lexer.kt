@@ -24,5 +24,5 @@ object Lexer {
 
     private val asciizPattern = "\\s*\\.asciiz\\s+\"((?:[^\"\\\\]|\\\\.)*)\"\\s*".toRegex()
     fun lexAsciizDirective(line: String): String? =
-        asciizPattern.matchEntire(line)?.groups?.get(1)?.value
+        asciizPattern.matchEntire(stripLabel(line))?.groups?.get(1)?.value
 }
