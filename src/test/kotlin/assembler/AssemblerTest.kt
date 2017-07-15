@@ -30,7 +30,7 @@ class AssemblerTest {
         assertEquals(100, sim.getReg(1))
         sim.step()
         assertEquals(100, sim.getReg(1))
-        assertEquals(100, sim.state.mem.loadWord(60))
+        assertEquals(100, sim.loadWord(60))
         sim.step()
         assertEquals(100, sim.getReg(2))
     }

@@ -17,10 +17,10 @@ class StaticDataTest {
         """)
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
-        assertEquals(1, sim.state.mem.loadByte(MemorySegments.STATIC_BEGIN))
-        assertEquals(2, sim.state.mem.loadByte(MemorySegments.STATIC_BEGIN + 1))
-        assertEquals(3, sim.state.mem.loadByte(MemorySegments.STATIC_BEGIN + 2))
-        assertEquals(4, sim.state.mem.loadByte(MemorySegments.STATIC_BEGIN + 3))
+        assertEquals(1, sim.loadByte(MemorySegments.STATIC_BEGIN))
+        assertEquals(2, sim.loadByte(MemorySegments.STATIC_BEGIN + 1))
+        assertEquals(3, sim.loadByte(MemorySegments.STATIC_BEGIN + 2))
+        assertEquals(4, sim.loadByte(MemorySegments.STATIC_BEGIN + 3))
     }
 
     @Test
@@ -36,7 +36,7 @@ class StaticDataTest {
         var sim = Simulator(linked)
         var offset = MemorySegments.STATIC_BEGIN
         for (c in expected) {
-            assertEquals(c.toInt(), sim.state.mem.loadByte(offset))
+            assertEquals(c.toInt(), sim.loadByte(offset))
             offset++
         }
     }
@@ -51,10 +51,10 @@ class StaticDataTest {
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
         var offset = MemorySegments.STATIC_BEGIN
-        assertEquals('a'.toInt(), sim.state.mem.loadByte(offset))
-        assertEquals(0, sim.state.mem.loadByte(offset + 1))
-        assertEquals('b'.toInt(), sim.state.mem.loadByte(offset + 2))
-        assertEquals(0, sim.state.mem.loadByte(offset + 3))
+        assertEquals('a'.toInt(), sim.loadByte(offset))
+        assertEquals(0, sim.loadByte(offset + 1))
+        assertEquals('b'.toInt(), sim.loadByte(offset + 2))
+        assertEquals(0, sim.loadByte(offset + 3))
     }
 
     @Test
@@ -70,8 +70,8 @@ class StaticDataTest {
         val linked = Linker.link(listOf(prog1, prog2))
         var sim = Simulator(linked)
         var offset = MemorySegments.STATIC_BEGIN
-        assertEquals(1, sim.state.mem.loadByte(offset))
-        assertEquals(2, sim.state.mem.loadByte(offset + 1))
+        assertEquals(1, sim.loadByte(offset))
+        assertEquals(2, sim.loadByte(offset + 1))
     }
 
     @Test
@@ -84,6 +84,6 @@ class StaticDataTest {
         """)
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
-        assertEquals(-21231234, sim.state.mem.loadWord(MemorySegments.STATIC_BEGIN))
+        assertEquals(-21231234, sim.loadWord(MemorySegments.STATIC_BEGIN))
     }
 }
