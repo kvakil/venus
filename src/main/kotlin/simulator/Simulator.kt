@@ -24,7 +24,7 @@ class Simulator(prog: Program) {
         var dataOffset = MemorySegments.STATIC_BEGIN
         for (datum in prog.dataSegment) {
             state.mem.storeByte(dataOffset, datum.toInt())
-            dataOffset += 1
+            dataOffset++
         }
 
         state.setReg(2, MemorySegments.STACK_BEGIN)
@@ -36,7 +36,7 @@ class Simulator(prog: Program) {
     fun run() {
         while (!isDone()) {
             step()
-            cycles += 1
+            cycles++
         }
     }
 
