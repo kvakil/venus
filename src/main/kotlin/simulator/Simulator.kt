@@ -52,7 +52,7 @@ class Simulator(prog: Program) {
         val impl = InstructionDispatcher.dispatch(inst)
         /* TODO: throw an error here */
         if (impl == null) return listOf()
-        impl(inst, state)
+        impl(inst, this)
         history.add(preInstruction)
         return postInstruction.toList()
     }
@@ -74,6 +74,12 @@ class Simulator(prog: Program) {
     fun setPC(newPC: Int) {
         preInstruction.add(PCDiff(state.pc))
         state.pc = newPC
+        postInstruction.add(PCDiff(state.pc))
+    }
+
+    fun incrementPC(inc: Int) {
+        preInstruction.add(PCDiff(state.pc))
+        state.pc += inc
         postInstruction.add(PCDiff(state.pc))
     }
 }
