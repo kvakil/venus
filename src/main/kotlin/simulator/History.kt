@@ -1,5 +1,6 @@
 package venus.simulator
 
+/* TODO: add a way to have a limit (maybe a deque?) */
 class History {
     private val diffs = ArrayList<List<Diff>>()
 
