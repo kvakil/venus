@@ -58,6 +58,7 @@ class Simulator(prog: Program) {
     }
 
     fun undo() {
+        if (history.isEmpty()) return /* TODO: error here? */
         val (pre, _) = history.pop()
         for (diff in pre) {
             diff(state)
