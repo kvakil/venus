@@ -3,6 +3,8 @@ package venus.driver
 import venus.assembler.Assembler
 import venus.linker.Linker
 import venus.simulator.Simulator
+import venus.simulator.Diff
+import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
 
 @JsName("Driver")
 object Driver {
@@ -18,20 +20,31 @@ object Driver {
 
     @JsName("step")
     fun step(): Boolean {
-        sim.step()
-        updateAll()
+        val diffs = sim.step()
+        updateFromDiffs(diffs)
         return sim.isDone()
     }
 
     @JsName("undo")
     fun undo() {
-        sim.undo()
-        updateAll()
+        val diffs = sim.undo()
+        updateFromDiffs(diffs)
     }
 
     internal fun updateAll() {
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
+        }
+    }
+
+    internal fun updateFromDiffs(diffs: List<Diff>) {
+        for (diff in diffs) {
+            when (diff) {
+                is RegisterDiff -> updateRegister(diff.id, diff.v)
+                else -> {
+                    println("diff not yet implemented")
+                }
+            }
         }
     }
 
