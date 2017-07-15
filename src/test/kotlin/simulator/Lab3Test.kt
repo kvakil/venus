@@ -36,6 +36,6 @@ finish: 	addi    a0, x0, 1
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         sim.run()
-        assertEquals(34, sim.state.getReg(11))
+        assertEquals(34, sim.getReg(11))
     }
 }

@@ -21,7 +21,7 @@ class FunctionCallTest {
         val linked = Linker.link(listOf(prog))
         var sim = Simulator(linked)
         sim.run()
-        assertEquals(10, sim.state.getReg(1))
+        assertEquals(10, sim.getReg(1))
     }
 
     @Test
@@ -47,7 +47,7 @@ class FunctionCallTest {
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         sim.run()
-        assertEquals(7, sim.state.getReg(8))
+        assertEquals(7, sim.getReg(8))
     }
 
     @Test
@@ -73,6 +73,6 @@ class FunctionCallTest {
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         sim.run()
-        assertEquals(7, sim.state.getReg(8))
+        assertEquals(7, sim.getReg(8))
     }
 }

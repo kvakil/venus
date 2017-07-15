@@ -9,7 +9,7 @@ import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
 class Simulator(prog: Program) {
-    val state = SimulatorState()
+    private val state = SimulatorState()
     var maxpc = MemorySegments.TEXT_BEGIN
     var cycles = 0
     val MAX_CYCLES = 1000
@@ -64,12 +64,15 @@ class Simulator(prog: Program) {
             diff(state)
         }
     }
+    fun getReg(id: Int) = state.getReg(id)
 
     fun setReg(id: Int, v: Int) {
         preInstruction.add(RegisterDiff(id, state.getReg(id)))
         state.setReg(id, v)
         postInstruction.add(RegisterDiff(id, state.getReg(id)))
     }
+
+    fun getPC() = state.pc
 
     fun setPC(newPC: Int) {
         preInstruction.add(PCDiff(state.pc))
@@ -82,4 +85,11 @@ class Simulator(prog: Program) {
         state.pc += inc
         postInstruction.add(PCDiff(state.pc))
     }
+
+    fun loadByte(addr: Int): Int = state.mem.loadByte(addr)
+    fun loadHalfWord(addr: Int): Int = state.mem.loadHalfWord(addr)
+    fun loadWord(addr: Int): Int = state.mem.loadWord(addr)
+    fun storeByte(addr: Int, value: Int) = state.mem.storeByte(addr, value)
+    fun storeHalfWord(addr: Int, value: Int) = state.mem.storeHalfWord(addr, value)
+    fun storeWord(addr: Int, value: Int) = state.mem.storeWord(addr, value)
 }

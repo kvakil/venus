@@ -11,7 +11,7 @@ abstract class ITypeImpl : InstructionImplementation {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val imm: Int = signExtend(inst.getField(InstructionField.IMM_11_0), 12)
         val rd: Int = inst.getField(InstructionField.RD)
-        val vrs1: Int = sim.state.getReg(rs1)
+        val vrs1: Int = sim.getReg(rs1)
         sim.setReg(rd, evaluate(vrs1, imm))
         sim.incrementPC(inst.length)
     }

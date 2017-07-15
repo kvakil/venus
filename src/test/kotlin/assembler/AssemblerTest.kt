@@ -15,7 +15,7 @@ class AssemblerTest {
         """)
         var sim = Simulator(prog)
         sim.run()
-        assertEquals(8, sim.state.getReg(3))
+        assertEquals(8, sim.getReg(3))
     }
 
     @Test
@@ -27,12 +27,12 @@ class AssemblerTest {
         """)
         var sim = Simulator(prog)
         sim.step()
-        assertEquals(100, sim.state.getReg(1))
+        assertEquals(100, sim.getReg(1))
         sim.step()
-        assertEquals(100, sim.state.getReg(1))
+        assertEquals(100, sim.getReg(1))
         assertEquals(100, sim.state.mem.loadWord(60))
         sim.step()
-        assertEquals(100, sim.state.getReg(2))
+        assertEquals(100, sim.getReg(2))
     }
 
     @Test
@@ -46,6 +46,6 @@ class AssemblerTest {
         """)
         var sim = Simulator(prog)
         for (i in 1..17) sim.step()
-        assertEquals(10, sim.state.getReg(8))
+        assertEquals(10, sim.getReg(8))
     }
 }

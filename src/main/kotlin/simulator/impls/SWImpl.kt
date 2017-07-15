@@ -1,10 +1,10 @@
 package venus.simulator.impls
 
 import venus.simulator.impls.types.STypeImpl
-import venus.simulator.Memory
+import venus.simulator.Simulator
 
 object SWImpl : STypeImpl() {
-    override fun evaluate(mem: Memory, addr: Int, vrs2: Int) {
-        mem.storeWord(addr, vrs2)
+    override fun evaluate(sim: Simulator, addr: Int, vrs2: Int) {
+        sim.storeWord(addr, vrs2)
     }
 }

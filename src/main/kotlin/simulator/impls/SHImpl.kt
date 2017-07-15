@@ -1,10 +1,10 @@
 package venus.simulator.impls
 
 import venus.simulator.impls.types.STypeImpl
-import venus.simulator.Memory
+import venus.simulator.Simulator
 
 object SHImpl : STypeImpl() {
-    override fun evaluate(mem: Memory, addr: Int, vrs2: Int) {
-        mem.storeHalfWord(addr, vrs2)
+    override fun evaluate(sim: Simulator, addr: Int, vrs2: Int) {
+        sim.storeHalfWord(addr, vrs2)
     }
 }

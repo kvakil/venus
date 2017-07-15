@@ -15,7 +15,7 @@ class ECALLTest {
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         sim.run()
-        assertEquals(10, sim.state.getReg(10))
+        assertEquals(10, sim.getReg(10))
     }
 
     @Test
@@ -41,6 +41,6 @@ class ECALLTest {
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         sim.run()
-        assertEquals(5, sim.state.getReg(9))
+        assertEquals(5, sim.getReg(9))
     }
 }

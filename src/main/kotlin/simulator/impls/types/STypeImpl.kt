@@ -4,7 +4,6 @@ import venus.riscv.Instruction
 import venus.riscv.InstructionField
 import venus.simulator.Simulator
 import venus.simulator.InstructionImplementation
-import venus.simulator.Memory
 import venus.simulator.impls.constructStoreImmediate
 
 abstract class STypeImpl : InstructionImplementation {
@@ -12,11 +11,11 @@ abstract class STypeImpl : InstructionImplementation {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val rs2: Int = inst.getField(InstructionField.RS2)
         val imm: Int = constructStoreImmediate(inst)
-        val addr: Int = sim.state.getReg(rs1) + imm
-        val vrs2: Int = sim.state.getReg(rs2)
-        evaluate(sim.state.mem, addr, vrs2)
+        val addr: Int = sim.getReg(rs1) + imm
+        val vrs2: Int = sim.getReg(rs2)
+        evaluate(sim, addr, vrs2)
         sim.incrementPC(inst.length)
     }
 
-    abstract fun evaluate(mem: Memory, addr: Int, vrs2: Int)
+    abstract fun evaluate(sim: Simulator, addr: Int, vrs2: Int)
 }

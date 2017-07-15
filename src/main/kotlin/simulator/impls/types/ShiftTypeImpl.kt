@@ -10,7 +10,7 @@ abstract class ShiftTypeImpl : InstructionImplementation {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val shamt: Int = inst.getField(InstructionField.SHAMT)
         val rd: Int = inst.getField(InstructionField.RD)
-        sim.setReg(rd, evaluate(sim.state.getReg(rs1), shamt))
+        sim.setReg(rd, evaluate(sim.getReg(rs1), shamt))
         sim.incrementPC(inst.length)
     }
 

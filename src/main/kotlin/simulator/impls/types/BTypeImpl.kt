@@ -11,8 +11,8 @@ abstract class BTypeImpl : InstructionImplementation {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val rs2: Int = inst.getField(InstructionField.RS2)
         val imm: Int = constructBranchImmediate(inst)
-        val vrs1: Int = sim.state.getReg(rs1)
-        val vrs2: Int = sim.state.getReg(rs2)
+        val vrs1: Int = sim.getReg(rs1)
+        val vrs2: Int = sim.getReg(rs2)
         if (evaluate(vrs1, vrs2))
             sim.incrementPC(imm)
         else

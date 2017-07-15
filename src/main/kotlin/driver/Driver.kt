@@ -22,7 +22,7 @@ class Driver(val text: String) {
 
     internal fun updateAll() {
         for (i in 0..31) {
-            updateRegister(i, sim.state.getReg(i))
+            updateRegister(i, sim.getReg(i))
         }
     }
 

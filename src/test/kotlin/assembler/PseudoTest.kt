@@ -13,7 +13,7 @@ class PseudoTest {
         """)
         var sim = Simulator(prog)
         sim.run()
-        assertEquals(5, sim.state.getReg(2))
+        assertEquals(5, sim.getReg(2))
     }
 
     @Test
@@ -26,9 +26,9 @@ class PseudoTest {
         """)
         var sim = Simulator(prog)
         sim.run()
-        assertEquals(2000000000, sim.state.getReg(8))
-        assertEquals(1001, sim.state.getReg(9))
-        assertEquals(-1294967291, sim.state.getReg(10))
-        assertEquals(-1234, sim.state.getReg(11))
+        assertEquals(2000000000, sim.getReg(8))
+        assertEquals(1001, sim.getReg(9))
+        assertEquals(-1294967291, sim.getReg(10))
+        assertEquals(-1234, sim.getReg(11))
     }
 }
