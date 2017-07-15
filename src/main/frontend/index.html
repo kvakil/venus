@@ -25,7 +25,8 @@
     <div id="left">
         <textarea id="asmfile"></textarea><br>
         <button type="button" onclick="asm()">Assemble</button>
-        <button type="button" onclick="step()" id="stepbtn" disabled="false">Step</button>
+        <button type="button" onclick="step()" id="stepbtn" disabled="true">Step</button>
+        <button type="button" onclick="undo()" id="undobtn" disabled="true">Undo</button>
     </div>
     <div id="right">    
         <table>
@@ -229,12 +230,13 @@
     </div>
     <script type="text/javascript" src="venus.js"></script>
     <script type="text/javascript">
-        var driver;
+        var driver = venus_main.venus.driver.Driver;
         function asm() {
             try {
                 var text = document.getElementById("asmfile").value
-                driver = new venus_main.venus.driver.Driver(text)
+                driver.assemble(text)
                 document.getElementById("stepbtn").disabled = false
+                document.getElementById("undobtn").disabled = true
             } catch (err) {
                 alert(err)
             }
@@ -242,9 +244,15 @@
 
         function step() {
             var done = driver.step()
+            document.getElementById("undobtn").disabled = false
             if (done) {
                 document.getElementById("stepbtn").disabled = true
             }
+        }
+
+        function undo() {
+            document.getElementById("stepbtn").disabled = false
+            driver.undo()            
         }
     </script>
 </body>

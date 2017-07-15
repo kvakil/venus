@@ -5,19 +5,28 @@ import venus.linker.Linker
 import venus.simulator.Simulator
 
 @JsName("Driver")
-class Driver(val text: String) {
-    val sim: Simulator
-    init {
+object Driver {
+    lateinit var sim: Simulator
+
+    @JsName("assemble")
+    fun assemble(text: String) {
         val prog = Assembler.assemble(text)
         val linked = Linker.link(listOf(prog))
         sim = Simulator(linked)
         updateAll()
     }
 
+    @JsName("step")
     fun step(): Boolean {
         sim.step()
         updateAll()
         return sim.isDone()
+    }
+
+    @JsName("undo")
+    fun undo() {
+        sim.undo()
+        updateAll()
     }
 
     internal fun updateAll() {
