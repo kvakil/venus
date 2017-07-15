@@ -5,6 +5,7 @@ import venus.riscv.InstructionField
 import venus.simulator.SimulatorState
 import venus.simulator.InstructionImplementation
 import venus.simulator.Memory
+import venus.simulator.impls.signExtend
 
 abstract class LoadTypeImpl : InstructionImplementation {
     override operator fun invoke(inst: Instruction, state: SimulatorState) {

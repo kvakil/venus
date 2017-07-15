@@ -4,6 +4,7 @@ import venus.riscv.Instruction
 import venus.riscv.InstructionField
 import venus.simulator.SimulatorState
 import venus.simulator.InstructionImplementation
+import venus.simulator.impls.constructBranchImmediate
 
 abstract class BTypeImpl : InstructionImplementation {
     override operator fun invoke(inst: Instruction, state: SimulatorState) {
