@@ -26,6 +26,7 @@ class Driver(val text: String) {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     internal fun updateRegister(id: Int, value: Int) {
         val htmlId = "reg${id}"
         js("document.getElementById(htmlId).innerHTML = value;")
