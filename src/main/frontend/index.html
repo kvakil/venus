@@ -231,9 +231,13 @@
     <script type="text/javascript">
         var driver;
         function asm() {
-            var text = document.getElementById("asmfile").value
-            driver = new venus_main.venus.driver.Driver(text)
-            document.getElementById("stepbtn").disabled = false
+            try {
+                var text = document.getElementById("asmfile").value
+                driver = new venus_main.venus.driver.Driver(text)
+                document.getElementById("stepbtn").disabled = false
+            } catch (err) {
+                alert(err)
+            }
         }
 
         function step() {
