@@ -2,14 +2,14 @@ package venus.simulator.impls
 
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
-import venus.simulator.SimulatorState
+import venus.simulator.Simulator
 import venus.simulator.InstructionImplementation
 
 object JALImpl : InstructionImplementation {
-    override operator fun invoke(inst: Instruction, state: SimulatorState) {
+    override operator fun invoke(inst: Instruction, sim: Simulator) {
         val rd: Int = inst.getField(InstructionField.RD)
         val imm: Int = constructJALImmediate(inst)
-        state.setReg(rd, state.pc + inst.length)
-        state.pc += imm shl 1
+        sim.setReg(rd, sim.state.pc + inst.length)
+        sim.incrementPC(imm shl 1)
     }
 }
