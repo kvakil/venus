@@ -50,19 +50,20 @@ class Simulator(prog: Program) {
         /* TODO: abstract away instruction length */
         val inst: Instruction = Instruction(state.mem.loadWord(state.pc))
         val impl = InstructionDispatcher.dispatch(inst)
-        /* TODO: throw an error here */
+        /* TODO: error here? */
         if (impl == null) return listOf()
         impl(inst, this)
         history.add(preInstruction)
         return postInstruction.toList()
     }
 
-    fun undo() {
-        if (history.isEmpty()) return /* TODO: error here? */
-        val beforeLast = history.pop()
-        for (diff in beforeLast) {
+    fun undo(): List<Diff> {
+        if (history.isEmpty()) return listOf() /* TODO: error here? */
+        val diffs = history.pop()
+        for (diff in diffs) {
             diff(state)
         }
+        return diffs
     }
 
     fun getReg(id: Int) = state.getReg(id)
