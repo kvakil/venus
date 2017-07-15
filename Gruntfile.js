@@ -10,7 +10,17 @@ module.exports = function(grunt) {
             },
             venus: {
                 files: {
-                    'out/venus.js': ['build/classes/main/**/*.js']
+                    'out/venus.js': ['build/classes/main/**/*.js', 'src/main/js/**/*.js']
+                }
+            },
+            venus_dev: {
+                options: {
+                    compress: false,
+                    mangle: false,
+                    beautify: true
+                },
+                files: {
+                    'out/venus.js': ['build/classes/main/**/*.js', 'src/main/js/**/*.js']
                 }
             },
             venus_test: {
@@ -28,6 +38,11 @@ module.exports = function(grunt) {
             }
         },
         htmlmin: {
+            venus_dev: {
+                files: {
+                    'out/index.html': ['src/main/frontend/index.html']
+                }
+            },
             venus_test: {
                 files: {
                     'out/test/index.html': ['qunit/test_min.html']
@@ -40,5 +55,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.registerTask('dist', ['uglify', 'cssmin', 'htmlmin']);
+    grunt.registerTask('dist', ['uglify:venus', 'uglify:venus_test', 'cssmin', 'htmlmin']);
+    grunt.registerTask('devdist', ['uglify:venus_dev', 'cssmin', 'htmlmin']);
 };
