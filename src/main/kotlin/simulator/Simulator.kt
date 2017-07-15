@@ -64,6 +64,7 @@ class Simulator(prog: Program) {
             diff(state)
         }
     }
+
     fun getReg(id: Int) = state.getReg(id)
 
     fun setReg(id: Int, v: Int) {
@@ -89,7 +90,22 @@ class Simulator(prog: Program) {
     fun loadByte(addr: Int): Int = state.mem.loadByte(addr)
     fun loadHalfWord(addr: Int): Int = state.mem.loadHalfWord(addr)
     fun loadWord(addr: Int): Int = state.mem.loadWord(addr)
-    fun storeByte(addr: Int, value: Int) = state.mem.storeByte(addr, value)
-    fun storeHalfWord(addr: Int, value: Int) = state.mem.storeHalfWord(addr, value)
-    fun storeWord(addr: Int, value: Int) = state.mem.storeWord(addr, value)
+
+    fun storeByte(addr: Int, value: Int) {
+        preInstruction.add(MemoryDiff(addr, loadWord(addr)))
+        state.mem.storeByte(addr, value)
+        postInstruction.add(MemoryDiff(addr, loadWord(addr)))
+    }
+
+    fun storeHalfWord(addr: Int, value: Int) {
+        preInstruction.add(MemoryDiff(addr, loadWord(addr)))
+        state.mem.storeHalfWord(addr, value)
+        postInstruction.add(MemoryDiff(addr, loadWord(addr)))
+    }
+
+    fun storeWord(addr: Int, value: Int) {
+        preInstruction.add(MemoryDiff(addr, loadWord(addr)))
+        state.mem.storeWord(addr, value)
+        postInstruction.add(MemoryDiff(addr, loadWord(addr)))
+    }
 }
