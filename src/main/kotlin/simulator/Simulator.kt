@@ -109,4 +109,12 @@ class Simulator(prog: Program) {
         state.mem.storeWord(addr, value)
         postInstruction.add(MemoryDiff(addr, loadWord(addr)))
     }
+
+    fun getHeapEnd() = state.heapEnd
+
+    fun addHeapSpace(bytes: Int) {
+        preInstruction.add(HeapSpaceDiff(state.heapEnd))
+        state.heapEnd += bytes
+        postInstruction.add(HeapSpaceDiff(state.heapEnd))
+    }
 }

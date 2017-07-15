@@ -23,7 +23,10 @@ object ECALLImpl : InstructionImplementation {
                 }
             }
             9 -> { // malloc
-                TODO("implement malloc")
+                var bytes = sim.getReg(11)
+                if (bytes < 0) return
+                sim.setReg(10, sim.getHeapEnd())
+                sim.addHeapSpace(bytes)
             }
             10 -> { // exit
                 sim.setPC(Int.MAX_VALUE)
