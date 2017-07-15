@@ -1,203 +1,247 @@
 <html>
+<head>
+    <title>venus</title>
+    <style>
+        #left {
+            width: 50%;
+            float: left;
+        }
+
+        #right {
+            margin-left: 50%;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        #asmfile {
+            width: 90%;
+            height: 90%;
+        }
+    </style>
+</head>
 <body>
+    <div id="left">
+        <textarea id="asmfile"></textarea><br>
+        <button type="button" onclick="asm()">Assemble</button>
+        <button type="button" onclick="step()" id="stepbtn" disabled="false">Step</button>
+    </div>
+    <div id="right">    
+        <table>
+            <tr>
+                <th>Register Number</th>
+                <th>Register Value</th>
+            </tr>
+
+
+            <tr>
+                <td>0</td>
+                <td id="reg0">0</td>
+            </tr>
+
+
+            <tr>
+                <td>1</td>
+                <td id="reg1">0</td>
+            </tr>
+
+
+            <tr>
+                <td>2</td>
+                <td id="reg2">0</td>
+            </tr>
+
+
+            <tr>
+                <td>3</td>
+                <td id="reg3">0</td>
+            </tr>
+
+
+            <tr>
+                <td>4</td>
+                <td id="reg4">0</td>
+            </tr>
+
+
+            <tr>
+                <td>5</td>
+                <td id="reg5">0</td>
+            </tr>
+
+
+            <tr>
+                <td>6</td>
+                <td id="reg6">0</td>
+            </tr>
+
+
+            <tr>
+                <td>7</td>
+                <td id="reg7">0</td>
+            </tr>
+
+
+            <tr>
+                <td>8</td>
+                <td id="reg8">0</td>
+            </tr>
+
+
+            <tr>
+                <td>9</td>
+                <td id="reg9">0</td>
+            </tr>
+
+
+            <tr>
+                <td>10</td>
+                <td id="reg10">0</td>
+            </tr>
+
+
+            <tr>
+                <td>11</td>
+                <td id="reg11">0</td>
+            </tr>
+
+
+            <tr>
+                <td>12</td>
+                <td id="reg12">0</td>
+            </tr>
+
+
+            <tr>
+                <td>13</td>
+                <td id="reg13">0</td>
+            </tr>
+
+
+            <tr>
+                <td>14</td>
+                <td id="reg14">0</td>
+            </tr>
+
+
+            <tr>
+                <td>15</td>
+                <td id="reg15">0</td>
+            </tr>
+
+
+            <tr>
+                <td>16</td>
+                <td id="reg16">0</td>
+            </tr>
+
+
+            <tr>
+                <td>17</td>
+                <td id="reg17">0</td>
+            </tr>
+
+
+            <tr>
+                <td>18</td>
+                <td id="reg18">0</td>
+            </tr>
+
+
+            <tr>
+                <td>19</td>
+                <td id="reg19">0</td>
+            </tr>
+
+
+            <tr>
+                <td>20</td>
+                <td id="reg20">0</td>
+            </tr>
+
+
+            <tr>
+                <td>21</td>
+                <td id="reg21">0</td>
+            </tr>
+
+
+            <tr>
+                <td>22</td>
+                <td id="reg22">0</td>
+            </tr>
+
+
+            <tr>
+                <td>23</td>
+                <td id="reg23">0</td>
+            </tr>
+
+
+            <tr>
+                <td>24</td>
+                <td id="reg24">0</td>
+            </tr>
+
+
+            <tr>
+                <td>25</td>
+                <td id="reg25">0</td>
+            </tr>
+
+
+            <tr>
+                <td>26</td>
+                <td id="reg26">0</td>
+            </tr>
+
+
+            <tr>
+                <td>27</td>
+                <td id="reg27">0</td>
+            </tr>
+
+
+            <tr>
+                <td>28</td>
+                <td id="reg28">0</td>
+            </tr>
+
+
+            <tr>
+                <td>29</td>
+                <td id="reg29">0</td>
+            </tr>
+
+
+            <tr>
+                <td>30</td>
+                <td id="reg30">0</td>
+            </tr>
+
+
+            <tr>
+                <td>31</td>
+                <td id="reg31">0</td>
+            </tr>
+        </table>
+    </div>
     <script type="text/javascript" src="venus.js"></script>
-    <table>
-        <tr>
-            <th>Register Number</th>
-            <th>Register Value</th>
-        </tr>
-
-
-        <tr>
-            <td>0</td>
-            <td id="reg0">0</td>
-        </tr>
-
-
-        <tr>
-            <td>1</td>
-            <td id="reg1">0</td>
-        </tr>
-
-
-        <tr>
-            <td>2</td>
-            <td id="reg2">0</td>
-        </tr>
-
-
-        <tr>
-            <td>3</td>
-            <td id="reg3">0</td>
-        </tr>
-
-
-        <tr>
-            <td>4</td>
-            <td id="reg4">0</td>
-        </tr>
-
-
-        <tr>
-            <td>5</td>
-            <td id="reg5">0</td>
-        </tr>
-
-
-        <tr>
-            <td>6</td>
-            <td id="reg6">0</td>
-        </tr>
-
-
-        <tr>
-            <td>7</td>
-            <td id="reg7">0</td>
-        </tr>
-
-
-        <tr>
-            <td>8</td>
-            <td id="reg8">0</td>
-        </tr>
-
-
-        <tr>
-            <td>9</td>
-            <td id="reg9">0</td>
-        </tr>
-
-
-        <tr>
-            <td>10</td>
-            <td id="reg10">0</td>
-        </tr>
-
-
-        <tr>
-            <td>11</td>
-            <td id="reg11">0</td>
-        </tr>
-
-
-        <tr>
-            <td>12</td>
-            <td id="reg12">0</td>
-        </tr>
-
-
-        <tr>
-            <td>13</td>
-            <td id="reg13">0</td>
-        </tr>
-
-
-        <tr>
-            <td>14</td>
-            <td id="reg14">0</td>
-        </tr>
-
-
-        <tr>
-            <td>15</td>
-            <td id="reg15">0</td>
-        </tr>
-
-
-        <tr>
-            <td>16</td>
-            <td id="reg16">0</td>
-        </tr>
-
-
-        <tr>
-            <td>17</td>
-            <td id="reg17">0</td>
-        </tr>
-
-
-        <tr>
-            <td>18</td>
-            <td id="reg18">0</td>
-        </tr>
-
-
-        <tr>
-            <td>19</td>
-            <td id="reg19">0</td>
-        </tr>
-
-
-        <tr>
-            <td>20</td>
-            <td id="reg20">0</td>
-        </tr>
-
-
-        <tr>
-            <td>21</td>
-            <td id="reg21">0</td>
-        </tr>
-
-
-        <tr>
-            <td>22</td>
-            <td id="reg22">0</td>
-        </tr>
-
-
-        <tr>
-            <td>23</td>
-            <td id="reg23">0</td>
-        </tr>
-
-
-        <tr>
-            <td>24</td>
-            <td id="reg24">0</td>
-        </tr>
-
-
-        <tr>
-            <td>25</td>
-            <td id="reg25">0</td>
-        </tr>
-
-
-        <tr>
-            <td>26</td>
-            <td id="reg26">0</td>
-        </tr>
-
-
-        <tr>
-            <td>27</td>
-            <td id="reg27">0</td>
-        </tr>
-
-
-        <tr>
-            <td>28</td>
-            <td id="reg28">0</td>
-        </tr>
-
-
-        <tr>
-            <td>29</td>
-            <td id="reg29">0</td>
-        </tr>
-
-
-        <tr>
-            <td>30</td>
-            <td id="reg30">0</td>
-        </tr>
-
-
-        <tr>
-            <td>31</td>
-            <td id="reg31">0</td>
-        </tr>
-    </table>
+    <script type="text/javascript">
+        var driver;
+        function asm() {
+            var text = document.getElementById("asmfile").value
+            driver = new venus_main.venus.driver.Driver(text)
+            document.getElementById("stepbtn").disabled = false
+        }
+
+        function step() {
+            var done = driver.step()
+            if (done) {
+                document.getElementById("stepbtn").disabled = true
+            }
+        }
+    </script>
 </body>
 </html>
