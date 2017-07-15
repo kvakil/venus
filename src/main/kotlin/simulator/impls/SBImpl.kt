@@ -1,16 +1,10 @@
 package venus.simulator.impls
 
-import venus.riscv.Instruction
-import venus.riscv.InstructionField
-import venus.simulator.SimulatorState
-import venus.simulator.InstructionImplementation
+import venus.simulator.impls.types.STypeImpl
+import venus.simulator.Memory
 
-object SBImpl : InstructionImplementation {
-    override operator fun invoke(inst: Instruction, state: SimulatorState) {
-        val rs1: Int = inst.getField(InstructionField.RS1)
-        val rs2: Int = inst.getField(InstructionField.RS2)
-        val imm: Int = constructStoreImmediate(inst)
-        state.mem.storeByte(state.getReg(rs1) + imm, state.getReg(rs2))
-        state.pc += inst.length
+object SBImpl : STypeImpl() {
+    override fun evaluate(mem: Memory, addr: Int, vrs2: Int) {
+        mem.storeByte(addr, vrs2)
     }
 }
