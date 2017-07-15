@@ -1,14 +1,9 @@
 package venus.simulator
 
-typealias InstructionDiff = Pair<List<Diff>, List<Diff>>
-
 class History {
-    private val diffs = ArrayList<InstructionDiff>()
+    private val diffs = ArrayList<List<Diff>>()
 
-    fun add(pre: List<Diff>, post: List<Diff>) {
-        diffs.add(InstructionDiff(pre.toList(), post.toList()))
-    }
-
+    fun add(pre: List<Diff>) = diffs.add(pre.toList())
     fun peek() = diffs.last()
     fun pop() = diffs.removeAt(diffs.size - 1)
     fun isEmpty() = diffs.isEmpty()

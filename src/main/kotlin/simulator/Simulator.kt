@@ -4,7 +4,7 @@ import venus.riscv.Instruction
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
 import venus.riscv.Program
-import venus.simulator.diffs.RegisterDiff
+import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
@@ -44,23 +44,23 @@ class Simulator(prog: Program) {
         }
     }
 
-    fun step(): Boolean {
+    fun step(): List<Diff> {
+        preInstruction.clear()
+        postInstruction.clear()
         /* TODO: abstract away instruction length */
         val inst: Instruction = Instruction(state.mem.loadWord(state.pc))
         val impl = InstructionDispatcher.dispatch(inst)
         /* TODO: throw an error here */
-        if (impl == null) return false
+        if (impl == null) return listOf()
         impl(inst, state)
-        history.add(preInstruction, postInstruction)
-        preInstruction.clear()
-        postInstruction.clear()
-        return true
+        history.add(preInstruction)
+        return postInstruction.toList()
     }
 
     fun undo() {
         if (history.isEmpty()) return /* TODO: error here? */
-        val (pre, _) = history.pop()
-        for (diff in pre) {
+        val beforeLast = history.pop()
+        for (diff in beforeLast) {
             diff(state)
         }
     }
@@ -69,5 +69,11 @@ class Simulator(prog: Program) {
         preInstruction.add(RegisterDiff(id, state.getReg(id)))
         state.setReg(id, v)
         postInstruction.add(RegisterDiff(id, state.getReg(id)))
+    }
+
+    fun setPC(newPC: Int) {
+        preInstruction.add(PCDiff(state.pc))
+        state.pc = newPC
+        postInstruction.add(PCDiff(state.pc))
     }
 }
