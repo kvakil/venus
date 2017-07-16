@@ -35,6 +35,10 @@ object Linker {
                 linkedProgram.prog.add(inst)
             }
 
+            for (dbg in prog.debugInfo) {
+                linkedProgram.dbg.add(ProgramDebugInfo(prog.name, dbg))
+            }
+
             linkedProgram.prog.addAllToData(prog.dataSegment)
 
             textTotalOffset += prog.textSize
