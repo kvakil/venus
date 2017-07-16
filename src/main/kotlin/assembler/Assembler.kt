@@ -90,7 +90,7 @@ object Assembler {
             try {
                 val cmd = getInstruction(tokens)
                 val pw = PseudoDispatcher.valueOf(cmd).pw
-                return pw(tokens, this)
+                return pw(tokens.drop(1), this)
             } catch (t: Throwable) {
                 /* TODO: don't use throwable here */
                 /* not a pseudoinstruction, or expansion failure */

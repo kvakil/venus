@@ -8,7 +8,7 @@ import venus.assembler.Assembler.AssemblerState
 object JAL : PseudoWriter() {
     internal override operator fun invoke(args: LineTokens,
         state: AssemblerState): List<LineTokens> {
-        checkArgsLength(args, 2)
-        return listOf(listOf("jal", "x1", args[1]))
+        checkArgsLength(args, 1)
+        return listOf(listOf("jal", "x1", args[0]))
     }
 }
