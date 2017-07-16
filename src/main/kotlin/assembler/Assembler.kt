@@ -51,8 +51,8 @@ object Assembler {
                     val expandedInsts = replacePseudoInstructions(args)
                     for (inst in expandedInsts) {
                         TALInstructions.add(Pair(currentLineNumber, inst))
+                        currentTextOffset += inst.length
                     }
-                    currentTextOffset += 4 * expandedInsts.size
                 }
             }
 
