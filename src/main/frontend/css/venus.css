@@ -31,3 +31,7 @@ body, html {
     height: 88vh;
     font-family: Courier New, Courier, monospace;
 }
+
+.section {
+    padding: 0rem 1.5rem;
+}
