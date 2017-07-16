@@ -5,7 +5,7 @@ import venus.riscv.Program
 import venus.linker.RelocationInfo
 
 typealias LineTokens = List<String>
-typealias Line = Pair<Int, LineTokens>
+typealias LineNoInstruction = Pair<Int, LineTokens>
 
 object Assembler {
     fun assemble(text: String): Program {
@@ -17,7 +17,7 @@ object Assembler {
         internal var currentTextOffset = MemorySegments.TEXT_BEGIN
         internal var currentDataOffset = MemorySegments.STATIC_BEGIN
         internal var inTextSegment = true
-        internal val TALInstructions = ArrayList<Line>()
+        internal val TALInstructions = ArrayList<LineNoInstruction>()
         internal val symbolTable = HashMap<String, Int>()
         internal val relocationTable = ArrayList<RelocationInfo>()
         internal var currentLineNumber = 0
