@@ -15,18 +15,19 @@ body, html {
     background-image: linear-gradient(rgba(25, 181, 254, 0.7),rgba(25,181,254, 0.4)),linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.4));
 }
 
-#section-simulator {
+#simulator-tab-view {
     display: none;
 }
 
-#section-editor {
+#editor-tab-view {
     overflow: hidden;
-    padding: 0 1vw 0 1vw;
+    height: 100%;
+    width: 100%;
 }
 
 #asm-editor {
     padding: 5px;
-    width: 98vw;
+    width: 100%;
     height: 88vh;
     font-family: Courier New, Courier, monospace;
 }

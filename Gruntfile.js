@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                     beautify: true
                 },
                 files: {
-                    'out/venus.js': ['build/classes/main/**/*.js', 'src/main/js/**/*.js']
+                    'out/venus.js': ['build/classes/main/**/*.js', 'src/main/frontend/js/*.js']
                 }
             },
             venus_test: {

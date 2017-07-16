@@ -7,23 +7,24 @@
   <title>venus</title>
   <link rel="stylesheet" type="text/css" href="css/bulma.css">
   <link rel="stylesheet" type="text/css" href="css/venus.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <div class="tabs is-centered">
+  <div class="tabs is-toggle is-centered">
     <ul>
-      <li class="is-active"><a>Editor</a></li>
-      <li><a>Simulator</a></li>
+      <li id="editor-tab" class="is-active"><a onclick="driver.openEditor()">Editor</a></li>
+      <li id="simulator-tab"><a onclick="driver.openSimulator()">Simulator</a></li>
     </ul>
   </div>
-  <section class="section editor" id="section-editor">
+  <div id="editor-tab-view">
     <textarea id="asm-editor"></textarea>
-  </section>
-  <section class="section" id="section-simulator">
+  </div>
+  <div id="simulator-tab-view">
     <div class="container">
       <div class="tile is-ancestor">
       </div>
     </div>
-  </section>
+  </div>
+  <script type="text/javascript" src="venus.js"></script>
+  <script type="text/javascript">var driver = venus_main.venus.glue.Driver;</script>
 </body>
 </html>
