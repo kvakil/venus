@@ -7,8 +7,8 @@ import venus.assembler.AssemblerError
 data class RelocationInfo(val label: String, val offset: Int)
 
 object Linker {
-    fun link(progs: List<Program>): Program {
-        val linkedProgram = Program()
+    fun link(progs: List<Program>): LinkedProgram {
+        val linkedProgram = LinkedProgram()
         val globalTable = HashMap<String, Int>()
         val toRelocate = ArrayList<RelocationInfo>()
         var textTotalOffset = 0
@@ -32,10 +32,10 @@ object Linker {
             }
 
             for (inst in prog.insts) {
-                linkedProgram.add(inst)
+                linkedProgram.prog.add(inst)
             }
 
-            linkedProgram.addAllToData(prog.dataSegment)
+            linkedProgram.prog.addAllToData(prog.dataSegment)
 
             textTotalOffset += prog.textSize
             dataTotalOffset += prog.dataSize
@@ -43,7 +43,7 @@ object Linker {
 
         for ((label, offset) in toRelocate) {
             /* FIXME: variable instruction sizes WILL break this */
-            val inst = linkedProgram.insts[offset / 4]
+            val inst = linkedProgram.prog.insts[offset / 4]
             val toAddress = globalTable.get(label)
             if (toAddress == null) {
                 throw AssemblerError("label ${label} used but not defined")

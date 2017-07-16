@@ -3,12 +3,12 @@ package venus.simulator
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
-import venus.riscv.Program
+import venus.linker.LinkedProgram
 import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
-class Simulator(prog: Program) {
+class Simulator(linkedProgram: LinkedProgram) {
     private val state = SimulatorState()
     var maxpc = MemorySegments.TEXT_BEGIN
     var cycles = 0
@@ -19,14 +19,14 @@ class Simulator(prog: Program) {
 
     init {
         state.pc = MemorySegments.TEXT_BEGIN
-        for (inst in prog.insts) {
+        for (inst in linkedProgram.prog.insts) {
             /* TODO: abstract away instruction length */
             state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
             maxpc += inst.length
         }
 
         var dataOffset = MemorySegments.STATIC_BEGIN
-        for (datum in prog.dataSegment) {
+        for (datum in linkedProgram.prog.dataSegment) {
             state.mem.storeByte(dataOffset, datum.toInt())
             dataOffset++
         }

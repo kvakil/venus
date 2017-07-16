@@ -5,7 +5,9 @@ import venus.riscv.Program
 import venus.linker.RelocationInfo
 
 typealias LineTokens = List<String>
-typealias LineNoInstruction = Pair<Int, LineTokens>
+
+data class DebugInfo(val lineNo: Int, val line: String)
+data class DebugInstruction(val debug: DebugInfo, val LineTokens: List<String>)
 
 object Assembler {
     fun assemble(text: String): Program {
@@ -17,7 +19,8 @@ object Assembler {
         internal var currentTextOffset = MemorySegments.TEXT_BEGIN
         internal var currentDataOffset = MemorySegments.STATIC_BEGIN
         internal var inTextSegment = true
-        internal val TALInstructions = ArrayList<LineNoInstruction>()
+        internal val TALInstructions = ArrayList<DebugInstruction>()
+        internal val instructionDebugInfo = ArrayList<DebugInfo>()
         internal val symbolTable = HashMap<String, Int>()
         internal val relocationTable = ArrayList<RelocationInfo>()
         internal var currentLineNumber = 0
@@ -50,8 +53,9 @@ object Assembler {
                 } else {
                     val expandedInsts = replacePseudoInstructions(args)
                     for (inst in expandedInsts) {
-                        TALInstructions.add(Pair(currentLineNumber, inst))
-                        currentTextOffset += inst.size
+                        val dbg = DebugInfo(currentLineNumber, line)
+                        TALInstructions.add(DebugInstruction(dbg, inst))
+                        currentTextOffset += 4
                     }
                 }
             }
@@ -66,10 +70,12 @@ object Assembler {
         }
 
         private fun passTwo() {
-            for ((lineNumber, inst) in TALInstructions) {
+            for ((dbg, inst) in TALInstructions) {
                 try {
                     addInstruction(inst)
+                    prog.addDebugInfo(dbg)
                 } catch (e: AssemblerError) {
+                    val (lineNumber, _) = dbg
                     throw AssemblerError(lineNumber, e)
                 }
             }
