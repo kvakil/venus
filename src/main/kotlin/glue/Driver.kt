@@ -1,6 +1,7 @@
 package venus.glue
 
 import venus.assembler.Assembler
+import venus.assembler.AssemblerError
 import venus.linker.Linker
 import venus.simulator.Simulator
 
@@ -10,7 +11,12 @@ object Driver {
 
     @JsName("openSimulator")
     fun openSimulator() {
-        assemble(getText())
+        try {
+            assemble(getText())
+        } catch (e: AssemblerError) {
+            Renderer.displayError(e)
+            return
+        }
         Renderer.renderSimulator(sim)
     }
 

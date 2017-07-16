@@ -1,5 +1,6 @@
 package venus.glue
 
+import venus.assembler.AssemblerError
 import venus.simulator.Simulator
 import venus.simulator.Diff
 import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
@@ -34,6 +35,11 @@ internal object Renderer {
     @Suppress("UNUSED_PARAMETER")
     fun setClass(id: String, clazz: String) {
         js("document.getElementById(id).className = clazz")
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun displayError(e: AssemblerError) {
+        js("alert(e.message)")
     }
 
     fun updateAll(sim: Simulator) {
