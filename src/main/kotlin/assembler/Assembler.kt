@@ -5,6 +5,7 @@ import venus.riscv.Program
 import venus.linker.RelocationInfo
 
 typealias LineTokens = List<String>
+typealias Line = Pair<Int, LineTokens>
 
 object Assembler {
     fun assemble(text: String): Program {
@@ -16,18 +17,25 @@ object Assembler {
         internal var currentTextOffset = MemorySegments.TEXT_BEGIN
         internal var currentDataOffset = MemorySegments.STATIC_BEGIN
         internal var inTextSegment = true
-        internal val TALInstructions = ArrayList<LineTokens>()
+        internal val TALInstructions = ArrayList<Line>()
         internal val symbolTable = HashMap<String, Int>()
         internal val relocationTable = ArrayList<RelocationInfo>()
+        internal var currentLineNumber = 0
 
         fun assemble(): Program {
-            passOne()
+            try {
+                passOne()
+            } catch (e: AssemblerError) {
+                throw AssemblerError(currentLineNumber, e)
+            }
             passTwo()
             return prog
         }
 
         private fun passOne() {
             for (line in text.split('\n')) {
+                currentLineNumber++
+
                 val offset = getOffset()
 
                 val (label, args) = Lexer.lexLine(line)
@@ -41,7 +49,9 @@ object Assembler {
                     parseAssemblerDirective(args, line)
                 } else {
                     val expandedInsts = replacePseudoInstructions(args)
-                    TALInstructions.addAll(expandedInsts)
+                    for (inst in expandedInsts) {
+                        TALInstructions.add(Pair(currentLineNumber, inst))
+                    }
                     currentTextOffset += 4 * expandedInsts.size
                 }
             }
@@ -56,8 +66,12 @@ object Assembler {
         }
 
         private fun passTwo() {
-            for (inst in TALInstructions) {
-                addInstruction(inst)
+            for ((lineNumber, inst) in TALInstructions) {
+                try {
+                    addInstruction(inst)
+                } catch (e: AssemblerError) {
+                    throw AssemblerError(lineNumber, e)
+                }
             }
         }
 
