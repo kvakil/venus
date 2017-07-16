@@ -1,259 +1,29 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>venus</title>
-    <style>
-        #left {
-            width: 50%;
-            float: left;
-        }
-
-        #right {
-            margin-left: 50%;
-        }
-
-        .clear {
-            clear: both;
-        }
-
-        #asmfile {
-            width: 90%;
-            height: 90%;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>venus</title>
+  <link rel="stylesheet" type="text/css" href="css/bulma.css">
+  <link rel="stylesheet" type="text/css" href="css/venus.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div id="left">
-        <textarea id="asmfile"></textarea><br>
-        <button type="button" onclick="asm()">Assemble</button>
-        <button type="button" onclick="step()" id="stepbtn" disabled="true">Step</button>
-        <button type="button" onclick="undo()" id="undobtn" disabled="true">Undo</button>
+  <div class="tabs is-centered">
+    <ul>
+      <li class="is-active"><a>Editor</a></li>
+      <li><a>Simulator</a></li>
+    </ul>
+  </div>
+  <section class="section editor" id="section-editor">
+    <textarea id="asm-editor"></textarea>
+  </section>
+  <section class="section" id="section-simulator">
+    <div class="container">
+      <div class="tile is-ancestor">
+      </div>
     </div>
-    <div id="right">    
-        <table>
-            <tr>
-                <th>Register Number</th>
-                <th>Register Value</th>
-            </tr>
-
-
-            <tr>
-                <td>0</td>
-                <td id="reg0">0</td>
-            </tr>
-
-
-            <tr>
-                <td>1</td>
-                <td id="reg1">0</td>
-            </tr>
-
-
-            <tr>
-                <td>2</td>
-                <td id="reg2">0</td>
-            </tr>
-
-
-            <tr>
-                <td>3</td>
-                <td id="reg3">0</td>
-            </tr>
-
-
-            <tr>
-                <td>4</td>
-                <td id="reg4">0</td>
-            </tr>
-
-
-            <tr>
-                <td>5</td>
-                <td id="reg5">0</td>
-            </tr>
-
-
-            <tr>
-                <td>6</td>
-                <td id="reg6">0</td>
-            </tr>
-
-
-            <tr>
-                <td>7</td>
-                <td id="reg7">0</td>
-            </tr>
-
-
-            <tr>
-                <td>8</td>
-                <td id="reg8">0</td>
-            </tr>
-
-
-            <tr>
-                <td>9</td>
-                <td id="reg9">0</td>
-            </tr>
-
-
-            <tr>
-                <td>10</td>
-                <td id="reg10">0</td>
-            </tr>
-
-
-            <tr>
-                <td>11</td>
-                <td id="reg11">0</td>
-            </tr>
-
-
-            <tr>
-                <td>12</td>
-                <td id="reg12">0</td>
-            </tr>
-
-
-            <tr>
-                <td>13</td>
-                <td id="reg13">0</td>
-            </tr>
-
-
-            <tr>
-                <td>14</td>
-                <td id="reg14">0</td>
-            </tr>
-
-
-            <tr>
-                <td>15</td>
-                <td id="reg15">0</td>
-            </tr>
-
-
-            <tr>
-                <td>16</td>
-                <td id="reg16">0</td>
-            </tr>
-
-
-            <tr>
-                <td>17</td>
-                <td id="reg17">0</td>
-            </tr>
-
-
-            <tr>
-                <td>18</td>
-                <td id="reg18">0</td>
-            </tr>
-
-
-            <tr>
-                <td>19</td>
-                <td id="reg19">0</td>
-            </tr>
-
-
-            <tr>
-                <td>20</td>
-                <td id="reg20">0</td>
-            </tr>
-
-
-            <tr>
-                <td>21</td>
-                <td id="reg21">0</td>
-            </tr>
-
-
-            <tr>
-                <td>22</td>
-                <td id="reg22">0</td>
-            </tr>
-
-
-            <tr>
-                <td>23</td>
-                <td id="reg23">0</td>
-            </tr>
-
-
-            <tr>
-                <td>24</td>
-                <td id="reg24">0</td>
-            </tr>
-
-
-            <tr>
-                <td>25</td>
-                <td id="reg25">0</td>
-            </tr>
-
-
-            <tr>
-                <td>26</td>
-                <td id="reg26">0</td>
-            </tr>
-
-
-            <tr>
-                <td>27</td>
-                <td id="reg27">0</td>
-            </tr>
-
-
-            <tr>
-                <td>28</td>
-                <td id="reg28">0</td>
-            </tr>
-
-
-            <tr>
-                <td>29</td>
-                <td id="reg29">0</td>
-            </tr>
-
-
-            <tr>
-                <td>30</td>
-                <td id="reg30">0</td>
-            </tr>
-
-
-            <tr>
-                <td>31</td>
-                <td id="reg31">0</td>
-            </tr>
-        </table>
-    </div>
-    <script type="text/javascript" src="venus.js"></script>
-    <script type="text/javascript">
-        var driver = venus_main.venus.driver.Driver;
-        function asm() {
-            try {
-                var text = document.getElementById("asmfile").value
-                driver.assemble(text)
-                document.getElementById("stepbtn").disabled = false
-                document.getElementById("undobtn").disabled = true
-            } catch (err) {
-                alert(err)
-            }
-        }
-
-        function step() {
-            var done = driver.step()
-            document.getElementById("undobtn").disabled = false
-            if (done) {
-                document.getElementById("stepbtn").disabled = true
-            }
-        }
-
-        function undo() {
-            document.getElementById("stepbtn").disabled = false
-            driver.undo()            
-        }
-    </script>
+  </section>
 </body>
 </html>

@@ -1,0 +1,32 @@
+body, html {
+    overflow: hidden;
+}
+.stat-tile {
+	padding: 30px 0;
+}
+.stat-tile .title {
+	font-size: 40px;
+}
+.stat-tile .subtitle {
+	color: rgba(255,255,255,0.6);
+	padding-top: 10px;
+}
+.tile.is-primary.stat-tile {
+    background-image: linear-gradient(rgba(25, 181, 254, 0.7),rgba(25,181,254, 0.4)),linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.4));
+}
+
+#section-simulator {
+    display: none;
+}
+
+#section-editor {
+    overflow: hidden;
+    padding: 0 1vw 0 1vw;
+}
+
+#asm-editor {
+    padding: 5px;
+    width: 98vw;
+    height: 88vh;
+    font-family: Courier New, Courier, monospace;
+}
