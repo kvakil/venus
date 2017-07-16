@@ -62,4 +62,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.registerTask('dist', ['uglify:venus', 'uglify:venus_test', 'cssmin', 'htmlmin']);
     grunt.registerTask('devdist', ['uglify:venus_dev', 'cssmin', 'htmlmin']);
+    grunt.registerTask('frontend', ['cssmin:venus', 'htmlmin:venus']);
 };
