@@ -31,6 +31,11 @@ module.exports = function(grunt) {
             }
         },
         cssmin: {
+            venus: {
+                files: {
+                    'out/css/venus.css': ['src/main/frontend/css/*.css']
+                }
+            },
             venus_test: {
                 files: {
                     'out/test/qunit.css': ['qunit/qunit.css']
@@ -38,7 +43,7 @@ module.exports = function(grunt) {
             }
         },
         htmlmin: {
-            venus_dev: {
+            venus: {
                 files: {
                     'out/index.html': ['src/main/frontend/index.html']
                 }
