@@ -1,5 +1,6 @@
 package venus.glue
 
+import venus.riscv.InstructionField
 import venus.assembler.AssemblerError
 import venus.simulator.Simulator
 import venus.simulator.Diff
@@ -45,10 +46,14 @@ internal object Renderer {
 
     fun renderProgramListing(sim: Simulator) {
         clearProgramListing()
-        for (programDebug in sim.linkedProgram.dbg) {
+        for (i in 0 until sim.linkedProgram.prog.insts.size) {
+            val programDebug = sim.linkedProgram.dbg[i]
             val (programName, dbg) = programDebug
             val (lineNumber, line) = dbg
-            addToProgramListing("0x00000000", line)
+            val inst = sim.linkedProgram.prog.insts[i]
+            /* TODO: convert to hex */
+            val code = inst.getField(InstructionField.ENTIRE).toString()
+            addToProgramListing(code, line)
         }
     }
 
