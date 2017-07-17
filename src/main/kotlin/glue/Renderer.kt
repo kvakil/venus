@@ -47,9 +47,7 @@ internal object Renderer {
         for (programDebug in sim.linkedProgram.dbg) {
             val (programName, dbg) = programDebug
             val (lineNumber, line) = dbg
-            console.log(programName)
-            console.log(lineNumber)
-            console.log(line)
+            addToProgramListing("0x00000000", line)
         }
     }
 
@@ -68,6 +66,20 @@ internal object Renderer {
                 }
             }
         }
+    }
+
+    @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
+    fun addToProgramListing(code: String, progLine: String) {
+        js("""
+        var tbl = document.getElementById('program-listing-body');
+        var newRow = tbl.insertRow();
+        var machineCode = newRow.insertCell(0);
+        var machineCodeText = document.createTextNode(code);
+        machineCode.appendChild(machineCodeText);
+        var line = newRow.insertCell(1);
+        var lineText = document.createTextNode(progLine);
+        line.appendChild(lineText);
+        """)
     }
 
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
