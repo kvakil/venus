@@ -53,7 +53,7 @@ object Assembler {
                 } else {
                     val expandedInsts = replacePseudoInstructions(args)
                     for (inst in expandedInsts) {
-                        val dbg = DebugInfo(currentLineNumber, inst.joinToString(" "))
+                        val dbg = DebugInfo(currentLineNumber, line)
                         TALInstructions.add(DebugInstruction(dbg, inst))
                         currentTextOffset += 4
                     }
