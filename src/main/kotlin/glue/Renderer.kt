@@ -44,6 +44,7 @@ internal object Renderer {
     }
 
     fun renderProgramListing(sim: Simulator) {
+        clearProgramListing()
         for (programDebug in sim.linkedProgram.dbg) {
             val (programName, dbg) = programDebug
             val (lineNumber, line) = dbg
@@ -66,6 +67,13 @@ internal object Renderer {
                 }
             }
         }
+    }
+
+    fun clearProgramListing() {
+        js("""
+        var tbl = document.getElementById('program-listing-body');
+        tbl.innerHTML = '';
+        """)
     }
 
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
