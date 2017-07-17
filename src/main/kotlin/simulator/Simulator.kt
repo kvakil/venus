@@ -8,7 +8,7 @@ import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
-class Simulator(linkedProgram: LinkedProgram) {
+class Simulator(val linkedProgram: LinkedProgram) {
     private val state = SimulatorState()
     var maxpc = MemorySegments.TEXT_BEGIN
     var cycles = 0

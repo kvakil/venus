@@ -9,6 +9,7 @@ internal object Renderer {
     fun renderSimulator(sim: Simulator) {
         tabSetVisibility("editor", false)
         tabSetVisibility("simulator", true)
+        renderProgramListing(sim)
         updateAll(sim)
     }
 
@@ -40,6 +41,16 @@ internal object Renderer {
     @Suppress("UNUSED_PARAMETER")
     fun displayError(e: AssemblerError) {
         js("alert(e.message)")
+    }
+
+    fun renderProgramListing(sim: Simulator) {
+        for (programDebug in sim.linkedProgram.dbg) {
+            val (programName, dbg) = programDebug
+            val (lineNumber, line) = dbg
+            console.log(programName)
+            console.log(lineNumber)
+            console.log(line)
+        }
     }
 
     fun updateAll(sim: Simulator) {
