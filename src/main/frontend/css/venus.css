@@ -33,6 +33,7 @@ body, html {
 
 #program-listing {
     height: 80vh;
+    font-family: Courier New, Courier, monospace;
 }
 
 #program-listing-body {
