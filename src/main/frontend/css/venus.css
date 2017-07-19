@@ -41,7 +41,7 @@ body, html {
 }
 
 #program-listing-container {
-  min-height: 80vh;
-  max-height: 80vh;
-  overflow-y: scroll;
+    min-height: 80vh;
+    max-height: 80vh;
+    overflow-y: scroll;
 }
