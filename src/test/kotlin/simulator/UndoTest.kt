@@ -59,4 +59,22 @@ class UndoTest {
         sim.undo()
         assertEquals(0, sim.getReg(8))
     }
+
+    @Test
+    fun undoMemoryLoad() {
+        val prog = Assembler.assemble("""
+        addi x8 x0 5
+        sw 100(x0) x8
+        lw x9 100(x0)
+        """)
+        val linked = Linker.link(listOf(prog))
+        val sim = Simulator(linked)
+        sim.step()
+        assertEquals(5, sim.getReg(8))
+        sim.step()
+        sim.step()
+        assertEquals(5, sim.getReg(9))
+        sim.undo()
+        assertEquals(0, sim.getReg(9))
+    }
 }
