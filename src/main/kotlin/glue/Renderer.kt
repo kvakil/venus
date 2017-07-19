@@ -1,17 +1,33 @@
 package venus.glue
-
-import org.w3c.dom.* // ktlint-disable no-wildcard-imports
-import org.w3c.dom.css.* // ktlint-disable no-wildcard-imports
+/* ktlint-disable no-wildcard-imports */
+import kotlin.browser.*
+import org.w3c.dom.*
+import org.w3c.dom.css.*
 
 import venus.riscv.InstructionField
 import venus.assembler.AssemblerError
 import venus.simulator.Simulator
 import venus.simulator.Diff
-import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
+import venus.simulator.diffs.*
+/* ktlint-enable no-wildcard-imports */
 
 internal object Renderer {
-    private val document = Document()
-    private val programTable = document.getElementById("program-listing-body") as HTMLTableElement
+    private val programTable: HTMLTableElement
+    private val registers: ArrayList<HTMLElement>
+    private val activeRegisters: ArrayList<HTMLElement>
+
+    init {
+        registers = ArrayList<HTMLElement>()
+        for (id in 0..31) {
+            val regId = "$id-reg"
+            val register = document.getElementById(regId) as HTMLElement
+            registers.add(register)
+        }
+
+        programTable = document.getElementById("program-listing-body") as HTMLTableElement
+
+        activeRegisters = ArrayList<HTMLElement>()
+    }
 
     fun renderSimulator(sim: Simulator) {
         tabSetVisibility("editor", false)
@@ -26,24 +42,15 @@ internal object Renderer {
     }
 
     fun tabSetVisibility(tab: String, visible: Boolean) {
-        val tabView = "$tab-tab-view"
-        val tabDisplay = "$tab-tab"
-        if (visible) {
-            setDisplay(tabView, "block")
-            setClass(tabDisplay, "is-active")
-        } else {
-            setDisplay(tabView, "none")
-            setClass(tabDisplay, "")
-        }
+        val tabView = document.getElementById("$tab-tab-view") as HTMLElement
+        val tabDisplay = document.getElementById("$tab-tab") as HTMLElement
+        tabView.style.display = if (visible) "block" else "none"
+        tabDisplay.className = if (visible) "is-active" else ""
     }
 
     fun setDisplay(id: String, disp: String) {
         val ele = document.getElementById(id) as HTMLElement
         ele.style.display = disp
-    }
-
-    fun setClass(id: String, clazz: String) {
-        document.getElementById(id)!!.className = clazz
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -93,6 +100,13 @@ internal object Renderer {
         val line = newRow.insertCell(1)
         val lineText = document.createTextNode(progLine)
         line.appendChild(lineText)
+    }
+
+    fun clearActiveRegisters() {
+        for (register in activeRegisters) {
+            register.className = ""
+        }
+        activeRegisters.clear()
     }
 
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
