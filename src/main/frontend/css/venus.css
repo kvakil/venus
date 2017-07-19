@@ -39,3 +39,9 @@ body, html {
 #program-listing-body {
     overflow: auto;
 }
+
+#program-listing-container {
+  min-height: 80vh;
+  max-height: 80vh;
+  overflow-y: scroll;
+}
