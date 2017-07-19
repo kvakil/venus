@@ -23,7 +23,11 @@
         <div class="tile">
           <div class="tile is-parent">
             <article class="tile is-child">
-              simulator controls
+              <div class="control">
+                <button class="button" onclick="driver.undo()">Prev</button>
+                <button class="button is-primary" onclick="driver.run()">Run</button>
+                <button class="button" onclick="driver.step()">Step</button>
+              </div>
             </article>
           </div>
         </div>
