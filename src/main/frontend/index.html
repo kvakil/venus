@@ -23,10 +23,16 @@
         <div class="tile">
           <div class="tile is-parent">
             <article class="tile is-child">
-              <div class="control">
-                <button class="button" onclick="driver.undo()">Prev</button>
-                <button class="button is-primary" onclick="driver.run()">Run</button>
-                <button class="button" onclick="driver.step()">Step</button>
+              <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                  <button class="button" onclick="driver.undo()">Prev</button>
+                </div>
+                <div class="control">
+                  <button class="button is-primary" onclick="driver.run()">Run</button>
+                </div>
+                <div class="control">
+                  <button class="button" onclick="driver.step()">Step</button>
+                </div>
               </div>
             </article>
           </div>
