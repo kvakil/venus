@@ -45,3 +45,9 @@ body, html {
     max-height: 60vh;
     overflow-y: auto;
 }
+
+#register-listing-container {
+    min-height: 80vh;
+    max-height: 80vh;
+    overflow-y: auto;
+}
