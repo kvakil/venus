@@ -10,7 +10,7 @@ module.exports = function(grunt) {
             },
             venus: {
                 files: {
-                    'out/venus.js': ['build/classes/main/**/*.js', 'src/main/js/**/*.js']
+                    'out/venus.js': ['build/classes/main/dependencies/*.js', 'src/main/js/**/*.js']
                 }
             },
             venus_dev: {
@@ -44,6 +44,14 @@ module.exports = function(grunt) {
         },
         htmlmin: {
             venus: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeEmptyAttributes: true,
+                    removeCommentsFromCDATA: true,
+                    removeRedundantAttributes: true,
+                    collapseBooleanAttributes: true,
+                },
                 files: {
                     'out/index.html': ['src/main/frontend/index.html']
                 }
