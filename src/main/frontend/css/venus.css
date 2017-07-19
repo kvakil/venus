@@ -43,5 +43,5 @@ body, html {
 #program-listing-container {
     min-height: 60vh;
     max-height: 60vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
