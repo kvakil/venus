@@ -15,7 +15,6 @@ buildscript {
 
 apply plugin: 'kotlin2js'
 apply plugin: 'kotlin-dce-js'
-apply from: "kotlinjs.gradle"
 
 configurations {
     ktlint
