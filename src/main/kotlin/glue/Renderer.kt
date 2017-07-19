@@ -79,8 +79,8 @@ internal object Renderer {
     }
 
     fun addToProgramListing(code: String, progLine: String) {
-        val programTable = getElement("program-listing") as HTMLTableElement
-        val newRow = programTable.insertRow()
+        val programTable = getElement("program-listing-body") as HTMLTableSectionElement
+        val newRow = programTable.insertRow() as HTMLTableRowElement
         val machineCode = newRow.insertCell(0)
         val machineCodeText = document.createTextNode(code)
         machineCode.appendChild(machineCodeText)
