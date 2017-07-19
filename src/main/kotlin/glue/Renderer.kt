@@ -11,6 +11,7 @@ import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
 
 internal object Renderer {
     private val document = Document()
+    private val programTable = document.getElementById("program-listing-body") as HTMLTableElement
 
     fun renderSimulator(sim: Simulator) {
         tabSetVisibility("editor", false)
@@ -25,14 +26,14 @@ internal object Renderer {
     }
 
     fun tabSetVisibility(tab: String, visible: Boolean) {
-        val tabview = "$tab-tab-view"
-        val tab = "$tab-tab"
+        val tabView = "$tab-tab-view"
+        val tabDisplay = "$tab-tab"
         if (visible) {
-            setDisplay(tabview, "block")
-            setClass(tab, "is-active")
+            setDisplay(tabView, "block")
+            setClass(tabDisplay, "is-active")
         } else {
-            setDisplay(tabview, "none")
-            setClass(tab, "")
+            setDisplay(tabView, "none")
+            setClass(tabDisplay, "")
         }
     }
 
@@ -81,13 +82,11 @@ internal object Renderer {
     }
 
     fun clearProgramListing() {
-        val tbl = document.getElementById("program-listing-body") as HTMLTableElement
-        tbl.innerHTML = ""
+        programTable.innerHTML = ""
     }
 
     fun addToProgramListing(code: String, progLine: String) {
-        val tbl = document.getElementById("program-listing-body") as HTMLTableElement
-        val newRow = tbl.insertRow()
+        val newRow = programTable.insertRow()
         val machineCode = newRow.insertCell(0)
         val machineCodeText = document.createTextNode(code)
         machineCode.appendChild(machineCodeText)
