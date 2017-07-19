@@ -1,5 +1,8 @@
 package venus.glue
 
+import org.w3c.dom.* // ktlint-disable no-wildcard-imports
+import org.w3c.dom.css.* // ktlint-disable no-wildcard-imports
+
 import venus.riscv.InstructionField
 import venus.assembler.AssemblerError
 import venus.simulator.Simulator
@@ -7,6 +10,8 @@ import venus.simulator.Diff
 import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
 
 internal object Renderer {
+    private val document = Document()
+
     fun renderSimulator(sim: Simulator) {
         tabSetVisibility("editor", false)
         tabSetVisibility("simulator", true)
@@ -20,23 +25,24 @@ internal object Renderer {
     }
 
     fun tabSetVisibility(tab: String, visible: Boolean) {
+        val tabview = "$tab-tab-view"
+        val tab = "$tab-tab"
         if (visible) {
-            setDisplay(tab + "-tab-view", "block")
-            setClass(tab + "-tab", "is-active")
+            setDisplay(tabview, "block")
+            setClass(tab, "is-active")
         } else {
-            setDisplay(tab + "-tab-view", "none")
-            setClass(tab + "-tab", "")
+            setDisplay(tabview, "none")
+            setClass(tab, "")
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
     fun setDisplay(id: String, disp: String) {
-        js("document.getElementById(id).style.display = disp")
+        val ele = document.getElementById(id) as HTMLElement
+        ele.style.display = disp
     }
 
-    @Suppress("UNUSED_PARAMETER")
     fun setClass(id: String, clazz: String) {
-        js("document.getElementById(id).className = clazz")
+        document.getElementById(id)!!.className = clazz
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -75,24 +81,19 @@ internal object Renderer {
     }
 
     fun clearProgramListing() {
-        js("""
-        var tbl = document.getElementById('program-listing-body');
-        tbl.innerHTML = '';
-        """)
+        val tbl = document.getElementById("program-listing-body")!!
+        tbl.innerHTML = ""
     }
 
-    @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
     fun addToProgramListing(code: String, progLine: String) {
-        js("""
-        var tbl = document.getElementById('program-listing-body');
-        var newRow = tbl.insertRow();
-        var machineCode = newRow.insertCell(0);
-        var machineCodeText = document.createTextNode(code);
-        machineCode.appendChild(machineCodeText);
-        var line = newRow.insertCell(1);
-        var lineText = document.createTextNode(progLine);
-        line.appendChild(lineText);
-        """)
+        val tbl = document.getElementById("program-listing-body") as HTMLTableElement
+        val newRow = tbl.insertRow()
+        val machineCode = newRow.insertCell(0)
+        val machineCodeText = document.createTextNode(code)
+        machineCode.appendChild(machineCodeText)
+        val line = newRow.insertCell(1)
+        val lineText = document.createTextNode(progLine)
+        line.appendChild(lineText)
     }
 
     @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
