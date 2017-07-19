@@ -10,7 +10,7 @@ module.exports = function(grunt) {
             },
             venus: {
                 files: {
-                    'out/venus.js': ['build/classes/main/dependencies/kotlin.js', 'build/classes/main/venus_main.js']
+                    'out/venus.js': ['build/classes/main/min/*.js']
                 }
             },
             venus_dev: {
