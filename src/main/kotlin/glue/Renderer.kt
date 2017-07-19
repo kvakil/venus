@@ -81,7 +81,7 @@ internal object Renderer {
     }
 
     fun clearProgramListing() {
-        val tbl = document.getElementById("program-listing-body")!!
+        val tbl = document.getElementById("program-listing-body") as HTMLTableElement
         tbl.innerHTML = ""
     }
 
