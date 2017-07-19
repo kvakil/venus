@@ -13,9 +13,9 @@ body, html {
 }
 
 #asm-editor {
-    padding: 5px;
     width: 100%;
     height: 88vh;
+    max-height: 88vh;
     font-family: Courier New, Courier, monospace;
 }
 
