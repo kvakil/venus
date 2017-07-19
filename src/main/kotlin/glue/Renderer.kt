@@ -12,22 +12,7 @@ import venus.simulator.diffs.*
 /* ktlint-enable no-wildcard-imports */
 
 internal object Renderer {
-    private val programTable: HTMLTableElement
-    private val registers: ArrayList<HTMLElement>
-    private val activeRegisters: ArrayList<HTMLElement>
-
-    init {
-        registers = ArrayList<HTMLElement>()
-        for (id in 0..31) {
-            val regId = "$id-reg"
-            val register = document.getElementById(regId) as HTMLElement
-            registers.add(register)
-        }
-
-        programTable = document.getElementById("program-listing-body") as HTMLTableElement
-
-        activeRegisters = ArrayList<HTMLElement>()
-    }
+    private val activeRegisters = ArrayList<HTMLElement>()
 
     fun renderSimulator(sim: Simulator) {
         tabSetVisibility("editor", false)
@@ -72,6 +57,7 @@ internal object Renderer {
     }
 
     fun updateAll(sim: Simulator) {
+        clearActiveRegisters()
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
         }
@@ -80,7 +66,7 @@ internal object Renderer {
     fun updateFromDiffs(diffs: List<Diff>) {
         for (diff in diffs) {
             when (diff) {
-                is RegisterDiff -> updateRegister(diff.id, diff.v)
+                is RegisterDiff -> updateRegister(diff.id, diff.v, true)
                 else -> {
                     println("diff not yet implemented")
                 }
@@ -89,10 +75,11 @@ internal object Renderer {
     }
 
     fun clearProgramListing() {
-        programTable.innerHTML = ""
+        getElement("program-listing-body").innerHTML = ""
     }
 
     fun addToProgramListing(code: String, progLine: String) {
+        val programTable = getElement("program-listing") as HTMLTableElement
         val newRow = programTable.insertRow()
         val machineCode = newRow.insertCell(0)
         val machineCodeText = document.createTextNode(code)
@@ -109,9 +96,15 @@ internal object Renderer {
         activeRegisters.clear()
     }
 
-    @Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
-    fun updateRegister(id: Int, value: Int) {
-        val htmlId = "reg${id}"
-        //js("document.getElementById(htmlId).innerHTML = value;")
+    fun getElement(id: String): HTMLElement = document.getElementById(id) as HTMLElement
+
+    fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
+        val registerValue = getElement("reg-$id-val")
+        registerValue.innerHTML = value.toString()
+        if (setActive) {
+            val register = getElement("reg-$id")
+            register.className = "active-register"
+            activeRegisters.add(register)
+        }
     }
 }
