@@ -2,9 +2,10 @@ group 'venus'
 version '0.0.1'
 
 buildscript {
-    ext.kotlin_version = '1.1.3'
+    ext.kotlin_version = '1.1.4-eap-11'
 
     repositories {
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap-1.1' }
         mavenCentral()
     }
     dependencies {
@@ -13,6 +14,7 @@ buildscript {
 }
 
 apply plugin: 'kotlin2js'
+apply plugin: 'kotlin-dce-js'
 apply from: "kotlinjs.gradle"
 
 configurations {
@@ -20,6 +22,7 @@ configurations {
 }
 
 repositories {
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap-1.1' }
     mavenCentral()
 }
 
