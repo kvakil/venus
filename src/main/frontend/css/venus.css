@@ -1,3 +1,7 @@
+html {
+    overflow-y: auto;
+}
+
 body {
     height: 100vh;
 }
@@ -8,7 +12,6 @@ body {
 
 #editor-tab-view {
     overflow: hidden;
-    height: 100%;
     width: 100%;
 }
 
