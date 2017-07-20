@@ -13,6 +13,7 @@ import venus.simulator.diffs.*
 
 internal object Renderer {
     private val activeRegisters = ArrayList<HTMLElement>()
+    private var activeInstruction: HTMLElement? = null
 
     fun renderSimulator(sim: Simulator) {
         tabSetVisibility("editor", false)
@@ -52,12 +53,13 @@ internal object Renderer {
             val inst = sim.linkedProgram.prog.insts[i]
             /* TODO: convert to hex */
             val code = toHex(inst.getField(InstructionField.ENTIRE))
-            addToProgramListing(code, line)
+            addToProgramListing(i, code, line)
         }
     }
 
     fun updateAll(sim: Simulator) {
         clearActiveRegisters()
+        updatePC(0)
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
         }
@@ -67,6 +69,7 @@ internal object Renderer {
         for (diff in diffs) {
             when (diff) {
                 is RegisterDiff -> updateRegister(diff.id, diff.v, true)
+                is PCDiff -> updatePC(diff.pc)
                 else -> {
                     println("diff not yet implemented")
                 }
@@ -78,9 +81,10 @@ internal object Renderer {
         getElement("program-listing-body").innerHTML = ""
     }
 
-    fun addToProgramListing(code: String, progLine: String) {
+    fun addToProgramListing(idx: Int, code: String, progLine: String) {
         val programTable = getElement("program-listing-body") as HTMLTableSectionElement
         val newRow = programTable.insertRow() as HTMLTableRowElement
+        newRow.id = "instruction-$idx"
         val machineCode = newRow.insertCell(0)
         val machineCodeText = document.createTextNode(code)
         machineCode.appendChild(machineCodeText)
@@ -103,9 +107,19 @@ internal object Renderer {
         registerValue.innerHTML = toHex(value)
         if (setActive) {
             val register = getElement("reg-$id")
-            register.className = "active-register"
+            register.className = "is-selected"
             activeRegisters.add(register)
         }
+    }
+
+    fun updatePC(pc: Int) {
+        /* TODO: abstract away instruction length */
+        val idx = pc / 4
+        activeInstruction?.className = ""
+        val newActiveInstruction = document.getElementById("instruction-$idx") as HTMLElement?
+        newActiveInstruction?.className = "is-selected"
+        newActiveInstruction?.scrollIntoView(false)
+        activeInstruction = newActiveInstruction
     }
 
     /* TODO: move this? make it more efficient? */
