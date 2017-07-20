@@ -1,5 +1,5 @@
-body, html {
-    overflow: hidden;
+body {
+    height: 100vh;
 }
 
 #simulator-tab-view {
