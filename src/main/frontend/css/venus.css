@@ -55,3 +55,7 @@ body, html {
 #register-listing {
     font-family: Courier New, Courier, monospace;
 } 
+
+#console-output {
+    height: 100%;
+}
