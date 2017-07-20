@@ -51,3 +51,7 @@ body, html {
     max-height: 80vh;
     overflow-y: auto;
 }
+
+#register-listing {
+    font-family: Courier New, Courier, monospace;
+} 

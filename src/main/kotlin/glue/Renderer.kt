@@ -51,7 +51,7 @@ internal object Renderer {
             val (lineNumber, line) = dbg
             val inst = sim.linkedProgram.prog.insts[i]
             /* TODO: convert to hex */
-            val code = inst.getField(InstructionField.ENTIRE).toString()
+            val code = toHex(inst.getField(InstructionField.ENTIRE))
             addToProgramListing(code, line)
         }
     }
@@ -100,11 +100,31 @@ internal object Renderer {
 
     fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
         val registerValue = getElement("reg-$id-val")
-        registerValue.innerHTML = value.toString()
+        registerValue.innerHTML = toHex(value)
         if (setActive) {
             val register = getElement("reg-$id")
             register.className = "active-register"
             activeRegisters.add(register)
         }
+    }
+
+    /* TODO: move this? make it more efficient? */
+    private val hexMap = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        'a', 'b', 'c', 'd', 'e', 'f')
+    private fun toHex(value: Int): String {
+        var remainder = value.toLong()
+        var suffix = ""
+        if (remainder < 0) {
+            remainder += 0x1_0000_0000L
+        }
+        while (remainder > 0) {
+            val hexDigit = hexMap[(remainder % 16).toInt()]
+            suffix = hexDigit + suffix
+            remainder /= 16
+        }
+        while (suffix.length < 8) {
+            suffix = "0" + suffix
+        }
+        return "0x" + suffix
     }
 }
