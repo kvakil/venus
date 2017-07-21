@@ -16,6 +16,5 @@ object JTypeWriter : InstructionWriter() {
 
         inst.setField(InstructionField.RD, rd)
         prog.addRelocation(args[1])
-        prog.add(inst)
     }
 }

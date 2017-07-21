@@ -20,6 +20,5 @@ object STypeWriter : InstructionWriter() {
         inst.setField(InstructionField.RS2, rs2)
         inst.setField(InstructionField.IMM_4_0, imm)
         inst.setField(InstructionField.IMM_11_5, imm shr 5)
-        prog.add(inst)
     }
 }

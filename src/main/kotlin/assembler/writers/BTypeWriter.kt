@@ -40,7 +40,5 @@ object BTypeWriter : InstructionWriter() {
         inst.setField(InstructionField.IMM_4_1, imm shr 1)
         inst.setField(InstructionField.IMM_12, imm shr 12)
         inst.setField(InstructionField.IMM_10_5, imm shr 5)
-
-        prog.add(inst)
     }
 }

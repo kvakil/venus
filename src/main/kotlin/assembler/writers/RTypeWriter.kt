@@ -16,6 +16,5 @@ object RTypeWriter : InstructionWriter() {
         inst.setField(InstructionField.RD, rd)
         inst.setField(InstructionField.RS1, rs1)
         inst.setField(InstructionField.RS2, rs2)
-        prog.add(inst)
     }
 }

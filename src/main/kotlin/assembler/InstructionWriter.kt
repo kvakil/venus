@@ -9,6 +9,7 @@ abstract class InstructionWriter {
         val inst = Instruction(0)
         iform.ifields.forEach { (ifield, required) -> inst.setField(ifield, required) }
         this(prog, inst, args)
+        prog.add(inst)
     }
 
     abstract operator fun invoke(prog: Program, inst: Instruction, args: List<String>)

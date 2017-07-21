@@ -18,6 +18,5 @@ object UTypeWriter : InstructionWriter() {
 
         inst.setField(InstructionField.IMM_31_12, imm)
         inst.setField(InstructionField.RD, rd)
-        prog.add(inst)
     }
 }
