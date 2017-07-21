@@ -116,11 +116,8 @@ object Assembler {
                 }
 
                 ".asciiz" -> {
-                    val asciiString = Lexer.lexAsciizDirective(line)
-
-                    if (asciiString == null) {
-                        throw AssemblerError("expected a quoted string: ${line}")
-                    }
+                    val asciiString = Lexer.lexAsciizDirective(line) ?:
+                            throw AssemblerError("expected a quoted string: ${line}")
 
                     for (c in asciiString) {
                         if (c.toInt() !in 0..127) {
