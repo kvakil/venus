@@ -48,7 +48,7 @@ object Assembler {
                 if (args.isEmpty() || args[0] == "") continue; // empty line
 
                 if (isAssemblerDirective(args[0])) {
-                    parseAssemblerDirective(args, line)
+                    parseAssemblerDirective(args[0], args.drop(1), line)
                 } else {
                     val expandedInsts = replacePseudoInstructions(args)
                     for (inst in expandedInsts) {
@@ -103,14 +103,13 @@ object Assembler {
             }
         }
 
-        private fun parseAssemblerDirective(args: LineTokens, line: String) {
-            val directive = args[0]
+        private fun parseAssemblerDirective(directive: String, args: LineTokens, line: String) {
             when (directive) {
                 ".data" -> inTextSegment = false
                 ".text" -> inTextSegment = true
 
                 ".byte" -> {
-                    for (arg in args.drop(1)) {
+                    for (arg in args) {
                         prog.addToData(arg.toByte())
                         currentDataOffset++
                     }
@@ -136,7 +135,7 @@ object Assembler {
                 }
 
                 ".word" -> {
-                    for (arg in args.drop(1)) {
+                    for (arg in args) {
                         val word = arg.toInt()
                         prog.addToData(word.toByte())
                         prog.addToData((word shr 8).toByte())
