@@ -3,6 +3,7 @@ package venus.simulator.impls
 import venus.riscv.Instruction
 import venus.simulator.Simulator
 import venus.simulator.InstructionImplementation
+import venus.glue.Renderer
 
 object ECALLImpl : InstructionImplementation {
     override operator fun invoke(inst: Instruction, sim: Simulator) {
@@ -10,14 +11,14 @@ object ECALLImpl : InstructionImplementation {
         when (which) {
             1 -> { // print integer
                 val arg = sim.getReg(11)
-                print(arg)
+                Renderer.printConsole(arg)
             }
             4 -> { // print string
                 var arg = sim.getReg(11)
                 var c = sim.loadByte(arg)
                 arg++
                 while (c != 0) {
-                    print(c.toChar())
+                    Renderer.printConsole(c.toChar())
                     c = sim.loadByte(arg)
                     arg++
                 }
@@ -34,10 +35,10 @@ object ECALLImpl : InstructionImplementation {
             }
             11 -> { // print char
                 var arg = sim.getReg(11)
-                print(arg.toChar())
+                Renderer.printConsole(arg.toChar())
             }
             else -> {
-                println("Invalid ecall ${which}")
+                Renderer.printConsole("Invalid ecall ${which}")
             }
         }
         sim.incrementPC(inst.length)

@@ -12,13 +12,14 @@ import venus.simulator.diffs.*
 /* ktlint-enable no-wildcard-imports */
 
 internal object Renderer {
-    private val activeRegisters = ArrayList<HTMLElement>()
+    private var activeRegister: HTMLElement? = null
     private var activeInstruction: HTMLElement? = null
 
     fun renderSimulator(sim: Simulator) {
         tabSetVisibility("editor", false)
         tabSetVisibility("simulator", true)
         renderProgramListing(sim)
+        clearConsole()
         updateAll(sim)
     }
 
@@ -58,7 +59,6 @@ internal object Renderer {
     }
 
     fun updateAll(sim: Simulator) {
-        clearActiveRegisters()
         updatePC(0)
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
@@ -93,22 +93,16 @@ internal object Renderer {
         line.appendChild(lineText)
     }
 
-    fun clearActiveRegisters() {
-        for (register in activeRegisters) {
-            register.className = ""
-        }
-        activeRegisters.clear()
-    }
-
     fun getElement(id: String): HTMLElement = document.getElementById(id) as HTMLElement
 
     fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
         val registerValue = getElement("reg-$id-val")
         registerValue.innerHTML = toHex(value)
         if (setActive) {
-            val register = getElement("reg-$id")
-            register.className = "is-selected"
-            activeRegisters.add(register)
+            activeRegister?.className = ""
+            val newActiveRegister = getElement("reg-$id")
+            newActiveRegister.className = "is-selected"
+            activeRegister = newActiveRegister
         }
     }
 
@@ -120,6 +114,16 @@ internal object Renderer {
         newActiveInstruction?.className = "is-selected"
         newActiveInstruction?.scrollIntoView(false)
         activeInstruction = newActiveInstruction
+    }
+
+    internal fun printConsole(line: Any) {
+        val console = getElement("console-output") as HTMLTextAreaElement
+        console.value += line.toString()
+    }
+
+    fun clearConsole() {
+        val console = getElement("console-output") as HTMLTextAreaElement
+        console.value = ""
     }
 
     /* TODO: move this? make it more efficient? */
