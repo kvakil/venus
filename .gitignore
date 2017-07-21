@@ -18,3 +18,7 @@ gradle-app.setting
 
 # Node
 node_modules/
+
+# IntelliJ
+.idea/
+venus.iml
