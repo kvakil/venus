@@ -20,7 +20,6 @@ object Assembler {
         internal var currentDataOffset = MemorySegments.STATIC_BEGIN
         internal var inTextSegment = true
         internal val TALInstructions = ArrayList<DebugInstruction>()
-        internal val instructionDebugInfo = ArrayList<DebugInfo>()
         internal val symbolTable = HashMap<String, Int>()
         internal val relocationTable = ArrayList<RelocationInfo>()
         internal var currentLineNumber = 0
@@ -46,7 +45,7 @@ object Assembler {
                     symbolTable.put(label, offset)
                 }
 
-                if (args.size == 0 || args[0] == "") continue; // empty line
+                if (args.isEmpty() || args[0] == "") continue; // empty line
 
                 if (isAssemblerDirective(args[0])) {
                     parseAssemblerDirective(args, line)
@@ -82,12 +81,12 @@ object Assembler {
         }
 
         private fun addInstruction(tokens: LineTokens) {
-            if (tokens.size < 1 || tokens[0] == "") return
+            if (tokens.isEmpty() || tokens[0] == "") return
             val cmd = getInstruction(tokens)
             val disp: WriterDispatcher = try {
                 WriterDispatcher.valueOf(cmd)
             } catch (e: IllegalStateException) {
-                throw AssemblerError("no such instruction ${cmd}")
+                throw AssemblerError("no such instruction $cmd")
             }
             disp.writer(prog, disp.iform, tokens.drop(1))
         }
@@ -147,7 +146,7 @@ object Assembler {
                     }
                 }
 
-                else -> throw AssemblerError("unknown assembler directive ${directive}")
+                else -> throw AssemblerError("unknown assembler directive $directive")
             }
         }
 
