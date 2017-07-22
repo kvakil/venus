@@ -96,7 +96,6 @@ class LinkerTest {
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         sim.run()
-        println(sim.getReg(8))
         assertEquals(42, sim.getReg(9))
     }
 
