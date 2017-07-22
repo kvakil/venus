@@ -52,7 +52,6 @@ internal object Renderer {
             val (_, dbg) = programDebug
             val (_, line) = dbg
             val inst = sim.linkedProgram.prog.insts[i]
-            /* TODO: convert to hex */
             val code = toHex(inst.getField(InstructionField.ENTIRE))
             addToProgramListing(i, code, line)
         }
