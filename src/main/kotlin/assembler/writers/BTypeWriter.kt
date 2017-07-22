@@ -16,12 +16,14 @@ object BTypeWriter : InstructionWriter() {
     const val MIN_B_VALUE = -2048
 
     /**
-     * Sets instruction fields and adds the instruction to the given program.
+     * Sets instruction fields.
      *
      * @param prog the program to add the instruction to
      * @param inst the instruction to fill in and add
      * @param args the arguments given in the code
      *
+     * @throws AssemblerError if an invalid register is given
+     * @throws AssemblerError if the wrong number of arguments is given
      * @throws AssemblerError if the label doesn't exist, or is too far away
      */
     override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
