@@ -13,7 +13,7 @@ object UTypeWriter : InstructionWriter() {
     const val MAX_U_VALUE = 1048575
     /** Minimum immediate for a U-Type Instruction */
     const val MIN_U_VALUE = 0
-    
+
     /**
      * Sets instruction fields.
      *
