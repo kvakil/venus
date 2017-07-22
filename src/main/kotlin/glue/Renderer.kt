@@ -49,8 +49,8 @@ internal object Renderer {
         clearProgramListing()
         for (i in 0 until sim.linkedProgram.prog.insts.size) {
             val programDebug = sim.linkedProgram.dbg[i]
-            val (programName, dbg) = programDebug
-            val (lineNumber, line) = dbg
+            val (_, dbg) = programDebug
+            val (_, line) = dbg
             val inst = sim.linkedProgram.prog.insts[i]
             /* TODO: convert to hex */
             val code = toHex(inst.getField(InstructionField.ENTIRE))
