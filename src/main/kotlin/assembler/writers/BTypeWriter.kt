@@ -6,10 +6,26 @@ import venus.assembler.AssemblerError
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
 
+/**
+ * A singleton which can be invoked to write any BType instruction
+ */
 object BTypeWriter : InstructionWriter() {
+    /** The maximum immediate for a branch instruction */
     const val MAX_B_VALUE = 2047
+    /** The minimum immediate for a branch instruction */
     const val MIN_B_VALUE = -2048
 
+    /**
+     * Sets instruction fields.
+     *
+     * @param prog the program to add the instruction to
+     * @param inst the instruction to fill in and add
+     * @param args the arguments given in the code
+     *
+     * @throws AssemblerError if an invalid register is given
+     * @throws AssemblerError if the wrong number of arguments is given
+     * @throws AssemblerError if the label doesn't exist, or is too far away
+     */
     override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
         checkArgsLength(args, 3)
 
@@ -18,19 +34,17 @@ object BTypeWriter : InstructionWriter() {
 
         inst.setField(InstructionField.RS1, rs1)
         inst.setField(InstructionField.RS2, rs2)
-        val imm = prog.getLabelOffset(args[2])
-        if (imm == null) throw AssemblerError("could not find label ${args[2]}")
-        /* TODO: add branch bounds checking */
-        val imm_11 = imm shr 11
-        val imm_4_1 = imm shr 1
-        val imm_12 = imm shr 12
-        val imm_10_5 = imm shr 5
 
-        inst.setField(InstructionField.IMM_11_B, imm_11)
-        inst.setField(InstructionField.IMM_4_1, imm_4_1)
-        inst.setField(InstructionField.IMM_12, imm_12)
-        inst.setField(InstructionField.IMM_10_5, imm_10_5)
+        val label = args[2]
 
-        prog.add(inst)
+        val imm = prog.getLabelOffset(label) ?:
+                throw AssemblerError("could not find label $label")
+        if (imm !in MIN_B_VALUE..MAX_B_VALUE)
+            throw AssemblerError("branch to $label too far")
+
+        inst.setField(InstructionField.IMM_11_B, imm shr 11)
+        inst.setField(InstructionField.IMM_4_1, imm shr 1)
+        inst.setField(InstructionField.IMM_12, imm shr 12)
+        inst.setField(InstructionField.IMM_10_5, imm shr 5)
     }
 }

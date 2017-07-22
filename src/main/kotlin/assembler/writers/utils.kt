@@ -2,6 +2,16 @@ package venus.assembler.writers
 
 import venus.assembler.AssemblerError
 
+/**
+ * Converts a register name to its ID.
+ *
+ * Accepts ABI names (e.g., ra, fp) and RISC-V names (e.g., x1, x8)
+ *
+ * @param reg the name of the register
+ * @return the ID of the register
+ *
+ * @throws AssemblerError if given an invalid register
+ */
 fun regNameToNumber(reg: String): Int {
     if (reg.startsWith("x")) {
         val ret = reg.drop(1).toInt()
@@ -45,11 +55,29 @@ fun regNameToNumber(reg: String): Int {
     }
 }
 
+/**
+ * Checks to make sure the right number of arguments are given to an instruction
+ *
+ * @param args the arguments given to an instruction
+ * @param required the expected number of arguments
+ *
+ * @throws AssemblerError if the wrong number of arguments were given
+ */
 fun checkArgsLength(args: List<String>, required: Int) {
     if (args.size != required)
         throw AssemblerError("got ${args.size} arguments, wanted ${required}")
 }
 
+/**
+ * Gets the immediate from a string, checking if it is in range.
+ *
+ * @param str the immediate as a string
+ * @param min the minimum allowable value of the immediate
+ * @param max the maximum allowable value of the immediate
+ * @return the immediate, as an integer
+ *
+ * @throws AssemblerError if the wrong number of arguments is given
+ */
 fun getImmediate(str: String, min: Int, max: Int): Int {
     val imm = try {
         str.toInt()

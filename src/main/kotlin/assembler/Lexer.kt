@@ -1,6 +1,8 @@
 package venus.assembler
 
 object Lexer {
+    private val DELIMITERS = listOf('(', ')', ',')
+
     private fun stripComment(line: String) = line.replaceAfter('#', "").replace("#", "")
     private fun cleanForLabel(line: String) = stripComment(line).trim()
     private fun getLabel(line: String) = cleanForLabel(line).substringBefore(':', "")
@@ -9,11 +11,11 @@ object Lexer {
         var cleanedLine = line
         cleanedLine = stripComment(cleanedLine)
         cleanedLine = stripLabel(cleanedLine)
-                        .replace(',', ' ')
-                        .replace('(', ' ')
-                        .replace(')', ' ')
-                        .trim()
-                        .replace(Regex("\\s+"), " ")
+        for (delimiter in DELIMITERS) {
+            cleanedLine = cleanedLine.replace(delimiter, ' ')
+        }
+        cleanedLine = cleanedLine.trim()
+        cleanedLine = cleanedLine.replace(Regex("\\s+"), " ")
         return cleanedLine
     }
 

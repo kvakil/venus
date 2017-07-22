@@ -9,22 +9,50 @@ typealias LineTokens = List<String>
 data class DebugInfo(val lineNo: Int, val line: String)
 data class DebugInstruction(val debug: DebugInfo, val LineTokens: List<String>)
 
+/**
+ * This singleton implements a simple two-pass assembler to transform files into programs.
+ */
 object Assembler {
+    /**
+     * Assembles the given code into an unlinked Program.
+     *
+     * @param text the code to assemble.
+     * @return an unlinked program.
+     * @see venus.linker.Linker
+     * @see venus.simulator.Simulator
+     * @throws AssemblerError for invalid code inputs.
+     */
     fun assemble(text: String): Program {
         return AssemblerState(text).assemble()
     }
 
     internal class AssemblerState(val text: String) {
+        /** The program we are currently assembling */
         internal val prog = Program()
+        /** The text offset where the next instruction will be written */
         internal var currentTextOffset = MemorySegments.TEXT_BEGIN
+        /** The data offset where more data will be written */
         internal var currentDataOffset = MemorySegments.STATIC_BEGIN
+        /** Whether or not we are currently in the text segment */
         internal var inTextSegment = true
+        /** TAL Instructions which will be added to the program */
         internal val TALInstructions = ArrayList<DebugInstruction>()
-        internal val instructionDebugInfo = ArrayList<DebugInfo>()
+        /** Mapping from labels to offsets from [passOne] */
         internal val symbolTable = HashMap<String, Int>()
+        /** List of all labels in this file from [passOne] */
         internal val relocationTable = ArrayList<RelocationInfo>()
+        /** The current line number (for user-friendly errors) */
         internal var currentLineNumber = 0
 
+        /**
+         * Runs both passes of the assembler.
+         *
+         * @param text the code to assemble.
+         * @return an unlinked program.
+         * @see passOne
+         * @see passTwo
+         * @throws AssemblerError for invalid code inputs.
+         */
         fun assemble(): Program {
             try {
                 passOne()
@@ -35,6 +63,12 @@ object Assembler {
             return prog
         }
 
+        /**
+         * Pass #1 of our two pass assembler.
+         *
+         * It parses labels, expands pseudo-instructions and follows assembler directives.
+         * It populations [TALInstructions], which is then used by [passTwo] in order to actually assemble the code.
+         */
         private fun passOne() {
             for (line in text.split('\n')) {
                 currentLineNumber++
@@ -46,10 +80,10 @@ object Assembler {
                     symbolTable.put(label, offset)
                 }
 
-                if (args.size == 0 || args[0] == "") continue; // empty line
+                if (args.isEmpty() || args[0] == "") continue; // empty line
 
                 if (isAssemblerDirective(args[0])) {
-                    parseAssemblerDirective(args, line)
+                    parseAssemblerDirective(args[0], args.drop(1), line)
                 } else {
                     val expandedInsts = replacePseudoInstructions(args)
                     for (inst in expandedInsts) {
@@ -69,6 +103,13 @@ object Assembler {
             }
         }
 
+        /**
+         * Pass #2 of our two part assembler.
+         *
+         * It writes TAL instructions to the program, and also adds debug info to the program.
+         * @see addInstruction
+         * @see venus.riscv.Program.addDebugInfo
+         */
         private fun passTwo() {
             for ((dbg, inst) in TALInstructions) {
                 try {
@@ -81,17 +122,28 @@ object Assembler {
             }
         }
 
+        /**
+         * Adds machine code corresponding to our instruction to the program.
+         *
+         * @param tokens a list of strings corresponding to the space delimited line
+         */
         private fun addInstruction(tokens: LineTokens) {
-            if (tokens.size < 1 || tokens[0] == "") return
+            if (tokens.isEmpty() || tokens[0] == "") return
             val cmd = getInstruction(tokens)
             val disp: WriterDispatcher = try {
                 WriterDispatcher.valueOf(cmd)
             } catch (e: IllegalStateException) {
-                throw AssemblerError("no such instruction ${cmd}")
+                throw AssemblerError("no such instruction $cmd")
             }
             disp.writer(prog, disp.iform, tokens.drop(1))
         }
 
+        /**
+         * Replaces any pseudoinstructions which occur in our program.
+         *
+         * @param tokens a list of strings corresponding to the space delimited line
+         * @return the corresponding TAL instructions (possibly unchanged)
+         */
         private fun replacePseudoInstructions(tokens: LineTokens): List<LineTokens> {
             try {
                 val cmd = getInstruction(tokens)
@@ -104,40 +156,44 @@ object Assembler {
             }
         }
 
-        private fun parseAssemblerDirective(args: LineTokens, line: String) {
-            val directive = args[0]
+        /**
+         * Changes the assembler state in response to directives
+         *
+         * @param directive the assembler directive, starting with a "."
+         * @param args any arguments following the directive
+         * @param line the original line (which is needed for some directives)
+         */
+        private fun parseAssemblerDirective(directive: String, args: LineTokens, line: String) {
             when (directive) {
                 ".data" -> inTextSegment = false
                 ".text" -> inTextSegment = true
 
                 ".byte" -> {
-                    for (arg in args.drop(1)) {
+                    for (arg in args) {
                         prog.addToData(arg.toByte())
                         currentDataOffset++
                     }
                 }
 
                 ".asciiz" -> {
-                    val asciiString = Lexer.lexAsciizDirective(line)
-
-                    if (asciiString == null) {
-                        throw AssemblerError("expected a quoted string: ${line}")
-                    }
+                    val asciiString = Lexer.lexAsciizDirective(line) ?:
+                            throw AssemblerError("expected a quoted string: $line")
 
                     for (c in asciiString) {
                         if (c.toInt() !in 0..127) {
-                            throw AssemblerError("unexpected non-ascii character: ${c}")
+                            throw AssemblerError("unexpected non-ascii character: $c")
                         }
                         prog.addToData(c.toByte())
                         currentDataOffset++
                     }
 
+                    /* Add NUL terminator */
                     prog.addToData(0)
                     currentDataOffset++
                 }
 
                 ".word" -> {
-                    for (arg in args.drop(1)) {
+                    for (arg in args) {
                         val word = arg.toInt()
                         prog.addToData(word.toByte())
                         prog.addToData((word shr 8).toByte())
@@ -147,12 +203,28 @@ object Assembler {
                     }
                 }
 
-                else -> throw AssemblerError("unknown assembler directive ${directive}")
+                else -> throw AssemblerError("unknown assembler directive $directive")
             }
         }
 
+        /** Gets the current offset (either text or data) depending on where we are writing */
         private fun getOffset() = if (inTextSegment) currentTextOffset else currentDataOffset
+
+        /**
+         * Determines if the given token is an assembler directive
+         *
+         * @param cmd the token to check
+         * @return true if the token is an assembler directive
+         * @see parseAssemblerDirective
+         */
         private fun isAssemblerDirective(cmd: String) = cmd.startsWith(".")
+
+        /**
+         * Gets the instruction from a line of code
+         *
+         * @param tokens the tokens from the current line
+         * @return the instruction (aka the first argument, in lowercase)
+         */
         private fun getInstruction(tokens: LineTokens) = tokens[0].toLowerCase()
     }
     /* TODO: add actual parser */

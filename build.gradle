@@ -2,19 +2,22 @@ group 'venus'
 version '0.0.1'
 
 buildscript {
-    ext.kotlin_version = '1.1.4-eap-11'
+    ext.kotlin_version = '1.1.4-eap-33'
+    ext.dokka_version = '0.9.14'
 
     repositories {
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap-1.1' }
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
     }
 }
 
 apply plugin: 'kotlin2js'
 apply plugin: 'kotlin-dce-js'
+apply plugin: 'org.jetbrains.dokka'
 
 runDceKotlinJs.keep 'venus_main.venus.glue.Driver.run'
 
@@ -39,6 +42,11 @@ task ktlintFormat(type: JavaExec) {
     main = "com.github.shyiko.ktlint.Main"
     classpath = configurations.ktlint
     args "-F", "src/**/*.kt"
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "out/javadoc"
 }
 
 dependencies {
