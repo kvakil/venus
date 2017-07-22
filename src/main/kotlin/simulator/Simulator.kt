@@ -12,7 +12,6 @@ class Simulator(val linkedProgram: LinkedProgram) {
     private val state = SimulatorState()
     var maxpc = MemorySegments.TEXT_BEGIN
     var cycles = 0
-    val MAX_CYCLES = 1000
     val history = History()
     val preInstruction = ArrayList<Diff>()
     val postInstruction = ArrayList<Diff>()
@@ -35,7 +34,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
         state.setReg(3, MemorySegments.STATIC_BEGIN)
     }
 
-    fun isDone(): Boolean = state.pc >= maxpc || cycles > MAX_CYCLES
+    fun isDone(): Boolean = state.pc >= maxpc
 
     fun run() {
         while (!isDone()) {
