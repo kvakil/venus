@@ -48,15 +48,13 @@ object Linker {
         for ((label, offset) in toRelocate) {
             /* FIXME: variable instruction sizes WILL break this */
             val inst = linkedProgram.prog.insts[offset / 4]
-            val toAddress = globalTable.get(label)
-            if (toAddress == null) {
-                throw AssemblerError("label ${label} used but not defined")
-            }
 
-            val relocator = RelocatorDispatcher.dispatch(inst)
-            if (relocator == null) {
-                throw AssemblerError("don't know how to relocate instruction")
-            }
+            val toAddress = globalTable.get(label) ?:
+                    throw AssemblerError("label ${label} used but not defined")
+
+            val relocator = RelocatorDispatcher.dispatch(inst) ?:
+                    throw AssemblerError("don't know how to relocate instruction")
+
             relocator(inst, offset, toAddress)
         }
 
