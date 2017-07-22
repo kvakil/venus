@@ -39,7 +39,9 @@ object Linker {
                 linkedProgram.dbg.add(ProgramDebugInfo(prog.name, dbg))
             }
 
-            linkedProgram.prog.addAllToData(prog.dataSegment)
+            for (byte in prog.dataSegment) {
+                linkedProgram.prog.addToData(byte)
+            }
 
             textTotalOffset += prog.textSize
             dataTotalOffset += prog.dataSize
