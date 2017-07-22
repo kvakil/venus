@@ -5,9 +5,9 @@ import venus.assembler.writers.checkArgsLength
 import venus.assembler.LineTokens
 import venus.assembler.Assembler.AssemblerState
 
+/** Writes pseudoinstruction `ret` */
 object RET : PseudoWriter() {
-    internal override operator fun invoke(args: LineTokens,
-        state: AssemblerState): List<LineTokens> {
+    internal override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
         checkArgsLength(args, 0)
         return listOf(listOf("jalr", "x0", "x1", "0"))
     }

@@ -6,9 +6,13 @@ import venus.assembler.LineTokens
 import venus.assembler.Assembler.AssemblerState
 import venus.assembler.AssemblerError
 
+/**
+ * Writes pseudoinstruction `li rd, imm`.
+ *
+ * This either expands to an `addi` if `imm` is small or a `lui` / `addi` pair if `imm` is big.
+ */
 object LI : PseudoWriter() {
-    internal override operator fun invoke(args: LineTokens,
-        state: AssemblerState): List<LineTokens> {
+    internal override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
         checkArgsLength(args, 2)
         val imm = try {
             args[1].toLong().toInt()

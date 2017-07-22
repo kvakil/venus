@@ -5,9 +5,9 @@ import venus.assembler.writers.checkArgsLength
 import venus.assembler.LineTokens
 import venus.assembler.Assembler.AssemblerState
 
+/** Writes pseudoinstruction `jal label` */
 object JAL : PseudoWriter() {
-    internal override operator fun invoke(args: LineTokens,
-        state: AssemblerState): List<LineTokens> {
+    internal override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
         checkArgsLength(args, 1)
         return listOf(listOf("jal", "x1", args[0]))
     }
