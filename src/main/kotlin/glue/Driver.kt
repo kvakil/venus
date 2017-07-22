@@ -4,12 +4,14 @@ import venus.assembler.Assembler
 import venus.assembler.AssemblerError
 import venus.linker.Linker
 import venus.simulator.Simulator
+import kotlin.browser.window
 
 /**
  * The "driver" singleton which can be called from Javascript for all functionality.
  */
 @JsName("Driver") object Driver {
     lateinit var sim: Simulator
+    var timer: Int? = null
 
     /**
      * Run when the user clicks the "Simulator" tab.
@@ -56,10 +58,28 @@ import venus.simulator.Simulator
      * @todo Make this stall every once in a while to let the user stop infinite loops. (coroutines?)
      */
     @JsName("run") fun run() {
-        while (!sim.isDone()) {
-            val diffs = sim.step()
-            Renderer.updateFromDiffs(diffs)
+        if (timer != null) {
+            runEnd()
+        } else {
+            Renderer.setRunActive(true)
+            timer = runStart()
         }
+    }
+
+    internal fun runStart(): Int? {
+        if (!sim.isDone()) {
+            sim.step()
+            return window.setTimeout({ runStart() }, 20)
+        }
+        runEnd()
+        return null
+    }
+
+    internal fun runEnd() {
+        Renderer.setRunActive(false)
+        timer?.let { window.clearTimeout(it) }
+        timer = null
+        Renderer.updateAll(sim)
     }
 
     /**

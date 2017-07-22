@@ -84,7 +84,7 @@ internal object Renderer {
      *
      * @param sim the simulator to use
      */
-    private fun updateAll(sim: Simulator) {
+    fun updateAll(sim: Simulator) {
         updatePC(sim.getPC())
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
@@ -194,6 +194,15 @@ internal object Renderer {
     fun clearConsole() {
         val console = getElement("console-output") as HTMLTextAreaElement
         console.value = ""
+    }
+
+    fun setRunActive(active: Boolean) {
+        val runButton = getElement("simulator-run")
+        if (active) {
+            runButton.classList.add("is-active")
+        } else {
+            runButton.classList.remove("is-active")
+        }
     }
 
     /** a map from integers to the corresponding hex digits */
