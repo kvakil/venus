@@ -8,6 +8,7 @@ script:
   - ./gradlew ktlint
   - grunt test
 after_success:
+  - ./gradlew dokka
   - grunt dist
 deploy:
   provider: pages
