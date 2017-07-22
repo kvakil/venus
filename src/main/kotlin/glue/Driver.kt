@@ -5,52 +5,75 @@ import venus.assembler.AssemblerError
 import venus.linker.Linker
 import venus.simulator.Simulator
 
-@JsName("Driver")
-object Driver {
+/**
+ * The "driver" singleton which can be called from Javascript for all functionality.
+ */
+@JsName("Driver") object Driver {
     lateinit var sim: Simulator
 
-    @JsName("openSimulator")
-    fun openSimulator() {
+    /**
+     * Run when the user clicks the "Simulator" tab.
+     *
+     * Assembles the text in the editor, and then renders the simulator.
+     */
+    @JsName("openSimulator") fun openSimulator() {
         try {
             assemble(getText())
+            Renderer.renderSimulator(sim)
         } catch (e: AssemblerError) {
             Renderer.displayError(e)
-            return
         }
-        Renderer.renderSimulator(sim)
     }
 
-    @JsName("openEditor")
-    fun openEditor() {
+    /**
+     * Opens and renders the editor.
+     */
+    @JsName("openEditor") fun openEditor() {
         Renderer.renderEditor()
     }
 
+    /**
+     * Gets the text from the textarea editor.
+     */
     internal fun getText(): String {
         return js("document.getElementById('asm-editor').value")
     }
 
+    /**
+     * Assembles and links the program, sets the simulator
+     *
+     * @param text the assembly code.
+     */
     internal fun assemble(text: String) {
         val prog = Assembler.assemble(text)
         val linked = Linker.link(listOf(prog))
         sim = Simulator(linked)
     }
 
-    @JsName("run")
-    fun run() {
+    /**
+     * Runs the simulator until it is done, rendering updates along the way.
+     *
+     * @todo Make this stall every once in a while to let the user stop infinite loops. (coroutines?)
+     */
+    @JsName("run") fun run() {
         while (!sim.isDone()) {
             val diffs = sim.step()
             Renderer.updateFromDiffs(diffs)
         }
     }
 
-    @JsName("step")
-    fun step() {
+    /**
+     * Runs the simulator for one step and renders any updates.
+     */
+    @JsName("step") fun step() {
         val diffs = sim.step()
         Renderer.updateFromDiffs(diffs)
     }
 
-    @JsName("undo")
-    fun undo() {
+    /**
+     * Undo the last executed instruction and render any updates.
+     */
+    @JsName("undo") fun undo() {
         val diffs = sim.undo()
         Renderer.updateFromDiffs(diffs)
     }
