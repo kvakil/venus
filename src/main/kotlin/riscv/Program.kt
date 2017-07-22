@@ -10,15 +10,15 @@ import venus.linker.RelocationInfo
  * @see venus.assembler.Assembler
  * @see venus.linker.Linker
  */
-class Program(public val name: String = "anonymous") {
+class Program(val name: String = "anonymous") {
     /* TODO: abstract away these variables */
-    public val insts = ArrayList<Instruction>()
-    public val debugInfo = ArrayList<DebugInfo>()
-    public val labels = HashMap<String, Int>()
-    public val relocationTable = ArrayList<RelocationInfo>()
-    public val dataSegment = ArrayList<Byte>()
-    public var textSize = 0
-    public var dataSize = 0
+    val insts = ArrayList<Instruction>()
+    val debugInfo = ArrayList<DebugInfo>()
+    val labels = HashMap<String, Int>()
+    val relocationTable = ArrayList<RelocationInfo>()
+    val dataSegment = ArrayList<Byte>()
+    var textSize = 0
+    var dataSize = 0
 
     /**
      * Adds an instruction to the program, and increments the text size.

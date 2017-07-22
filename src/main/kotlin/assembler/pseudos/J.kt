@@ -7,7 +7,7 @@ import venus.assembler.Assembler.AssemblerState
 
 /** Writes pseudoinstruction `j label` */
 object J : PseudoWriter() {
-    internal override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
+    override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
         checkArgsLength(args, 1)
         return listOf(listOf("jal", "x0", args[0]))
     }

@@ -12,7 +12,7 @@ import venus.linker.RelocationInfo
  * Uses a `auipc` / `addi` pair and adds them to the relocation table
  */
 object LA : PseudoWriter() {
-    internal override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
+    override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
         checkArgsLength(args, 2)
 
         val auipc = listOf("auipc", args[0], "0")

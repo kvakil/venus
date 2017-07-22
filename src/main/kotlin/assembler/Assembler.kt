@@ -1,8 +1,8 @@
 package venus.assembler
 
+import venus.linker.RelocationInfo
 import venus.riscv.MemorySegments
 import venus.riscv.Program
-import venus.linker.RelocationInfo
 
 typealias LineTokens = List<String>
 
@@ -80,7 +80,7 @@ object Assembler {
                     symbolTable.put(label, offset)
                 }
 
-                if (args.isEmpty() || args[0] == "") continue; // empty line
+                if (args.isEmpty() || args[0] == "") continue // empty line
 
                 if (isAssemblerDirective(args[0])) {
                     parseAssemblerDirective(args[0], args.drop(1), line)
