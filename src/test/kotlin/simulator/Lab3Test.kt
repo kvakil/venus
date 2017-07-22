@@ -26,10 +26,10 @@ fib: 		beq     t3, x0, finish
 		mv      t1, t2
 		addi    t3, t3, -1
 		jal     x0, fib
-finish: 	addi    a0, x0, 1
+finish: addi    a0, x0, 1
 		addi    a1, t0, 0
-		ecall		
-		addi    a0, x0, 10		
+		# ecall
+		addi    a0, x0, 10
 		ecall
 """
         )
