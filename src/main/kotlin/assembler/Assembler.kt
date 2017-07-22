@@ -99,7 +99,7 @@ object Assembler {
             }
 
             for ((label, offset) in relocationTable) {
-                prog.addRelocation(label, offset)
+                prog.addRelocation(label, offset - MemorySegments.TEXT_BEGIN)
             }
         }
 
