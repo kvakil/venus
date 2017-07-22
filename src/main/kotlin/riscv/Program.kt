@@ -3,26 +3,15 @@ package venus.riscv
 import venus.assembler.DebugInfo
 import venus.linker.RelocationInfo
 
-class Program {
+class Program(public val name: String = "anonymous") {
     /* TODO: abstract away these variables */
-    public val name: String
-    public val insts: MutableList<Instruction>
-    public val debugInfo: MutableList<DebugInfo>
-    public val labels: HashMap<String, Int>
-    public val relocationTable: MutableList<RelocationInfo>
-    public val dataSegment: MutableList<Byte>
-    public var textSize: Int
-    public var dataSize: Int
-    constructor(programName: String = "anonymous") {
-        name = programName
-        insts = ArrayList<Instruction>()
-        debugInfo = ArrayList<DebugInfo>()
-        labels = HashMap<String, Int>()
-        relocationTable = ArrayList<RelocationInfo>()
-        dataSegment = ArrayList<Byte>()
-        textSize = 0
-        dataSize = 0
-    }
+    public val insts = ArrayList<Instruction>()
+    public val debugInfo = ArrayList<DebugInfo>()
+    public val labels = HashMap<String, Int>()
+    public val relocationTable = ArrayList<RelocationInfo>()
+    public val dataSegment = ArrayList<Byte>()
+    public var textSize = 0
+    public var dataSize = 0
 
     fun add(inst: Instruction) {
         insts.add(inst)
@@ -49,8 +38,7 @@ class Program {
 
     fun getLabelOffset(label: String): Int? {
         val loc = labels.get(label)
-        if (loc == null) return null
-        return loc - textSize
+        return loc?.minus(textSize)
     }
 
     /* TODO: relocation table and linker */
