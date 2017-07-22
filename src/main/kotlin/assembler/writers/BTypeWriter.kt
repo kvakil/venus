@@ -7,10 +7,12 @@ import venus.riscv.Instruction
 import venus.riscv.InstructionField
 
 /**
- * A singleton which can be called to write any BType instruction
+ * A singleton which can be invoked to write any BType instruction
  */
 object BTypeWriter : InstructionWriter() {
+    /** The maximum immediate for a branch instruction */
     const val MAX_B_VALUE = 2047
+    /** The minimum immediate for a branch instruction */
     const val MIN_B_VALUE = -2048
 
     /**
@@ -30,7 +32,9 @@ object BTypeWriter : InstructionWriter() {
 
         inst.setField(InstructionField.RS1, rs1)
         inst.setField(InstructionField.RS2, rs2)
+
         val label = args[2]
+
         val imm = prog.getLabelOffset(label) ?:
                 throw AssemblerError("could not find label $label")
         if (imm !in MIN_B_VALUE..MAX_B_VALUE)

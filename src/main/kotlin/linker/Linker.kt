@@ -7,6 +7,7 @@ import venus.assembler.AssemblerError
 data class RelocationInfo(val label: String, val offset: Int)
 
 object Linker {
+    /* TODO: refactor this into multiple functions */
     fun link(progs: List<Program>): LinkedProgram {
         val linkedProgram = LinkedProgram()
         val globalTable = HashMap<String, Int>()
@@ -27,22 +28,14 @@ object Linker {
                 }
             }
 
-            for ((label, offset) in prog.relocationTable) {
-                toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
+            prog.relocationTable.forEach {
+                (label, offset) -> toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
             }
-
-            for (inst in prog.insts) {
-                linkedProgram.prog.add(inst)
+            prog.insts.forEach { linkedProgram.prog.add(it) }
+            prog.debugInfo.forEach {
+                linkedProgram.dbg.add(ProgramDebugInfo(prog.name, it))
             }
-
-            for (dbg in prog.debugInfo) {
-                linkedProgram.dbg.add(ProgramDebugInfo(prog.name, dbg))
-            }
-
-            for (byte in prog.dataSegment) {
-                linkedProgram.prog.addToData(byte)
-            }
-
+            prog.dataSegment.forEach { linkedProgram.prog.addToData(it) }
             textTotalOffset += prog.textSize
             dataTotalOffset += prog.dataSize
         }
@@ -52,7 +45,7 @@ object Linker {
             val inst = linkedProgram.prog.insts[offset / 4]
 
             val toAddress = globalTable.get(label) ?:
-                    throw AssemblerError("label ${label} used but not defined")
+                    throw AssemblerError("label $label used but not defined")
 
             val relocator = RelocatorDispatcher.dispatch(inst) ?:
                     throw AssemblerError("don't know how to relocate instruction")
