@@ -22,10 +22,9 @@ object Assembler {
      * @see venus.simulator.Simulator
      * @throws AssemblerError for invalid code inputs.
      */
-    fun assemble(text: String): Program {
-        return AssemblerState(text).assemble()
-    }
+    fun assemble(text: String): Program = AssemblerState(text).assemble()
 
+    /** Stores the state of a single program assembly */
     internal class AssemblerState(val text: String) {
         /** The program we are currently assembling */
         internal val prog = Program()
@@ -47,7 +46,6 @@ object Assembler {
         /**
          * Runs both passes of the assembler.
          *
-         * @param text the code to assemble.
          * @return an unlinked program.
          * @see passOne
          * @see passTwo
