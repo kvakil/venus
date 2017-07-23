@@ -17,7 +17,7 @@ object Lexer {
      */
     private fun stripComment(line: String): String {
         val commentTextRemoved = line.replaceAfter('#', "")
-        return if (commentTextRemoved.last() == '#') commentTextRemoved.dropLast(1) else commentTextRemoved
+        return with (commentTextRemoved) { if (last() == '#') dropLast(1) else this }
     }
 
     /**
@@ -43,7 +43,7 @@ object Lexer {
      */
     private fun stripLabel(line: String): String {
         val labelRemoved = line.replaceAfter('#', "")
-        return if (labelRemoved.first() == ':') labelRemoved.drop(1) else labelRemoved
+        return with (labelRemoved) { if (first() == ':') drop(1) else this }
     }
 
     /**
