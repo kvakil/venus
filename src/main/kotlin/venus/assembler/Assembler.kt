@@ -33,7 +33,7 @@ object Assembler {
         /** Whether or not we are currently in the text segment */
         internal var inTextSegment = true
         /** TAL Instructions which will be added to the program */
-        internal val TALInstructions = ArrayList<DebugInstruction>()
+        internal val talInstructions = ArrayList<DebugInstruction>()
         /** Mapping from labels to offsets from [passOne] */
         internal val symbolTable = HashMap<String, Int>()
         /** List of all labels in this file from [passOne] */
@@ -63,7 +63,7 @@ object Assembler {
          * Pass #1 of our two pass assembler.
          *
          * It parses labels, expands pseudo-instructions and follows assembler directives.
-         * It populations [TALInstructions], which is then used by [passTwo] in order to actually assemble the code.
+         * It populations [talInstructions], which is then used by [passTwo] in order to actually assemble the code.
          */
         private fun passOne() {
             for (line in text.split('\n')) {
@@ -84,7 +84,7 @@ object Assembler {
                     val expandedInsts = replacePseudoInstructions(args)
                     for (inst in expandedInsts) {
                         val dbg = DebugInfo(currentLineNumber, line)
-                        TALInstructions.add(DebugInstruction(dbg, inst))
+                        talInstructions.add(DebugInstruction(dbg, inst))
                         currentTextOffset += 4
                     }
                 }
@@ -107,7 +107,7 @@ object Assembler {
          * @see venus.riscv.Program.addDebugInfo
          */
         private fun passTwo() {
-            for ((dbg, inst) in TALInstructions) {
+            for ((dbg, inst) in talInstructions) {
                 try {
                     addInstruction(inst)
                     prog.addDebugInfo(dbg)
