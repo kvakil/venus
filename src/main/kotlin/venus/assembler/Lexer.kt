@@ -74,6 +74,7 @@ object Lexer {
      *
      * @param line the line to lex
      * @return a pair containing the label and tokens
+     * @see LineTokens
      */
     fun lexLine(line: String) = Pair(getLabel(line), cleanLine(line).split(' '))
 
