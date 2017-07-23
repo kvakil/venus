@@ -1,9 +1,11 @@
 package venus.glue
 
+import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
 import venus.assembler.AssemblerError
 import venus.linker.Linker
 import venus.simulator.Simulator
+import kotlin.browser.document
 import kotlin.browser.window
 
 /**
@@ -38,7 +40,8 @@ import kotlin.browser.window
      * Gets the text from the textarea editor.
      */
     internal fun getText(): String {
-        return js("document.getElementById('asm-editor').value")
+        val editor = document.getElementById("asm-editor") as HTMLTextAreaElement
+        return editor.value
     }
 
     /**
