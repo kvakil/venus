@@ -4,8 +4,6 @@ import venus.linker.RelocationInfo
 import venus.riscv.MemorySegments
 import venus.riscv.Program
 
-typealias LineTokens = List<String>
-
 data class DebugInfo(val lineNo: Int, val line: String)
 data class DebugInstruction(val debug: DebugInfo, val LineTokens: List<String>)
 

@@ -1,5 +1,7 @@
 package venus.assembler
 
+typealias LineTokens = List<String>
+
 /**
  * A singleton which can be used to lex a given line.
  *
