@@ -74,11 +74,11 @@ object Assembler {
                 val offset = getOffset()
 
                 val (label, args) = Lexer.lexLine(line)
-                if (label != "") {
+                if (label.isEmpty()) {
                     symbolTable.put(label, offset)
                 }
 
-                if (args.isEmpty() || args[0] == "") continue // empty line
+                if (args.isEmpty() || args[0].isEmpty()) continue // empty line
 
                 if (isAssemblerDirective(args[0])) {
                     parseAssemblerDirective(args[0], args.drop(1), line)
@@ -126,7 +126,7 @@ object Assembler {
          * @param tokens a list of strings corresponding to the space delimited line
          */
         private fun addInstruction(tokens: LineTokens) {
-            if (tokens.isEmpty() || tokens[0] == "") return
+            if (tokens.isEmpty() || tokens[0].isEmpty()) return
             val cmd = getInstruction(tokens)
             val disp: WriterDispatcher = try {
                 WriterDispatcher.valueOf(cmd)
