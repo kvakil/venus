@@ -17,7 +17,7 @@ object Lexer {
      */
     private fun stripComment(line: String): String {
         val commentTextRemoved = line.replaceAfter('#', "")
-        return with (commentTextRemoved) { if (last() == '#') dropLast(1) else this }
+        return with (commentTextRemoved) { if (isNotEmpty() && last() == '#') dropLast(1) else this }
     }
 
     /**
@@ -42,8 +42,8 @@ object Lexer {
      * @return the original line, with any starting label removed
      */
     private fun stripLabel(line: String): String {
-        val labelRemoved = line.replaceAfter('#', "")
-        return with (labelRemoved) { if (first() == ':') drop(1) else this }
+        val labelRemoved = line.replaceBefore(':', "")
+        return with (labelRemoved) { if (isNotEmpty() && first() == ':') drop(1) else this }
     }
 
     /**
@@ -77,13 +77,10 @@ object Lexer {
      */
     fun lexLine(line: String) = Pair(getLabel(line), cleanLine(line).split(' '))
 
-    /** A regex pattern describing a string. */
-    private const val STRING = """((?:[^"\\]|\\.)*)"""
-
     /**
      * A pattern describing an .asciiz directive.
      */
-    private val asciizPattern = """\s*\.asciiz\s+$STRING\s*""".toRegex()
+    private val asciizPattern = """\s*\.asciiz\s+"((?:[^"\\]|\\.)*)"\s*""".toRegex()
 
     /**
      * Lex an asciiz directive.
