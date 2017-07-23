@@ -74,7 +74,7 @@ object Assembler {
                 val offset = getOffset()
 
                 val (label, args) = Lexer.lexLine(line)
-                if (label.isEmpty()) {
+                if (label.isNotEmpty()) {
                     symbolTable.put(label, offset)
                 }
 
