@@ -56,9 +56,7 @@ import kotlin.browser.window
     }
 
     /**
-     * Runs the simulator until it is done, rendering updates along the way.
-     *
-     * @todo Make this stall every once in a while to let the user stop infinite loops. (coroutines?)
+     * Runs the simulator until it is done, or until the run button is pressed again.
      */
     @JsName("run") fun run() {
         if (timer != null) {
@@ -72,7 +70,7 @@ import kotlin.browser.window
     internal fun runStart(): Int? {
         if (!sim.isDone()) {
             sim.step()
-            return window.setTimeout({ runStart() }, 20)
+            return window.setTimeout(Driver::runStart, 20)
         }
         runEnd()
         return null
@@ -80,7 +78,7 @@ import kotlin.browser.window
 
     internal fun runEnd() {
         Renderer.setRunActive(false)
-        timer?.let { window.clearTimeout(it) }
+        timer?.let(window::clearTimeout)
         timer = null
         Renderer.updateAll(sim)
     }
