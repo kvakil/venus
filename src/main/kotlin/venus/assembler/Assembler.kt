@@ -34,10 +34,6 @@ object Assembler {
         internal var inTextSegment = true
         /** TAL Instructions which will be added to the program */
         internal val talInstructions = ArrayList<DebugInstruction>()
-        /** Mapping from labels to offsets from [passOne] */
-        internal val symbolTable = HashMap<String, Int>()
-        /** List of all labels in this file from [passOne] */
-        internal val relocationTable = ArrayList<RelocationInfo>()
         /** The current line number (for user-friendly errors) */
         internal var currentLineNumber = 0
 
@@ -73,7 +69,7 @@ object Assembler {
 
                 val (label, args) = Lexer.lexLine(line)
                 if (label.isNotEmpty()) {
-                    symbolTable.put(label, offset)
+                    prog.addLabel(label, offset)
                 }
 
                 if (args.isEmpty() || args[0].isEmpty()) continue // empty line
@@ -88,14 +84,6 @@ object Assembler {
                         currentTextOffset += 4
                     }
                 }
-            }
-
-            for ((label, offset) in symbolTable) {
-                prog.addLabel(label, offset)
-            }
-
-            for ((label, offset) in relocationTable) {
-                prog.addRelocation(label, offset - MemorySegments.TEXT_BEGIN)
             }
         }
 
