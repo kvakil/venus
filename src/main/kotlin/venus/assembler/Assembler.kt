@@ -1,6 +1,5 @@
 package venus.assembler
 
-import venus.linker.RelocationInfo
 import venus.riscv.MemorySegments
 import venus.riscv.Program
 

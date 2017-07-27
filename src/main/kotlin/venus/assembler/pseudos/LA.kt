@@ -4,7 +4,6 @@ import venus.assembler.PseudoWriter
 import venus.assembler.writers.checkArgsLength
 import venus.assembler.LineTokens
 import venus.assembler.Assembler.AssemblerState
-import venus.linker.RelocationInfo
 
 /**
  * Writes pseudoinstruction `la reg, label`.
