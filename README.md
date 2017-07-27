@@ -1,6 +1,4 @@
 # [venus](https://kvakil.github.io/venus/)
-RISC-V assembler and instruction set simulator
-
 [![Build Status](https://travis-ci.com/kvakil/venus.svg?token=ke1yhth1Tq9yPQc4KzUY&branch=master)](https://travis-ci.com/kvakil/venus)
 
 __venus__ is a RISC-V instruction set simulator built for education.
