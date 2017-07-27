@@ -1,8 +1,8 @@
 package venus.linker
 
+import venus.assembler.AssemblerError
 import venus.riscv.MemorySegments
 import venus.riscv.Program
-import venus.assembler.AssemblerError
 
 /** Contains the byte offset which must be relocated and the label it should point to */
 data class RelocationInfo(val label: String, val offset: Int)
@@ -51,11 +51,11 @@ object Linker {
             prog.relocationTable.forEach {
                 (label, offset) -> toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
             }
-            prog.insts.forEach { linkedProgram.prog.add(it) }
+            prog.insts.forEach(linkedProgram.prog::add)
             prog.debugInfo.forEach {
                 linkedProgram.dbg.add(ProgramDebugInfo(prog.name, it))
             }
-            prog.dataSegment.forEach { linkedProgram.prog.addToData(it) }
+            prog.dataSegment.forEach(linkedProgram.prog::addToData)
             textTotalOffset += prog.textSize
             dataTotalOffset += prog.dataSize
         }
