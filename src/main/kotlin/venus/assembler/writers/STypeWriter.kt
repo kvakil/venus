@@ -28,9 +28,9 @@ object STypeWriter : InstructionWriter() {
     override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
         checkArgsLength(args, 3)
 
-        val rs1 = regNameToNumber(args[1])
-        val rs2 = regNameToNumber(args[2])
-        val imm = getImmediate(args[0], MIN_S_VALUE, MAX_S_VALUE)
+        val rs1 = regNameToNumber(args[2])
+        val rs2 = regNameToNumber(args[0])
+        val imm = getImmediate(args[1], MIN_S_VALUE, MAX_S_VALUE)
 
         inst.setField(InstructionField.RS1, rs1)
         inst.setField(InstructionField.RS2, rs2)

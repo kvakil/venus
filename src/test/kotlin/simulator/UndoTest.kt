@@ -29,7 +29,7 @@ class UndoTest {
         val prog = Assembler.assemble("""
         addi x8 x0 100
         addi x9 x0 42
-        sw 0(x8) x9
+        sw x9 0(x8)
         """)
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
@@ -64,7 +64,7 @@ class UndoTest {
     fun undoMemoryLoad() {
         val prog = Assembler.assemble("""
         addi x8 x0 5
-        sw 100(x0) x8
+        sw x8 100(x0)
         lw x9 100(x0)
         """)
         val linked = Linker.link(listOf(prog))

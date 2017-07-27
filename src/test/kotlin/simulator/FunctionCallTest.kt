@@ -33,7 +33,7 @@ class FunctionCallTest {
             jalr x0 ra 0
         bar:
             addi sp sp -4
-            sw 0(sp) ra
+            sw ra 0(sp)
             addi s0 s0 2
             jal ra foo
             lw ra 0(sp)
@@ -59,7 +59,7 @@ class FunctionCallTest {
             ret
         bar:
             addi sp sp -4
-            sw 0(sp) ra
+            sw ra 0(sp)
             addi s0 s0 2
             jal ra foo
             lw ra 0(sp)

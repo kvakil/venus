@@ -23,7 +23,7 @@ class AssemblerTest {
     fun storeLoadTest() {
         val prog = Assembler.assemble("""
         addi x1 x0 100
-        sw 60(x0) x1
+        sw x1 60(x0)
         lw x2 -40(x1)
         """)
         var sim = Simulator(Linker.link(listOf(prog)))

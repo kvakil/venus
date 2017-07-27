@@ -28,14 +28,14 @@ class ECALLTest {
         mv s0 a0
         # store 5 there
         addi s1 x0 5
-        sw 0(s0) s1
+        sw s1 0(s0)
         # malloc 4 more bytes
         addi a0 x0 9
         addi a1 x0 4
         ecall
         addi s2 x0 6
         # store 6 there
-        sw 0(a0) s2
+        sw s2 0(a0)
         # retrieve the old 5
         lw s1 0(s0)""")
         val linked = Linker.link(listOf(prog))
