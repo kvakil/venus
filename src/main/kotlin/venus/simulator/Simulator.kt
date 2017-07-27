@@ -1,10 +1,13 @@
 package venus.simulator
 
+import venus.linker.LinkedProgram
 import venus.riscv.Instruction
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
-import venus.linker.LinkedProgram
-import venus.simulator.diffs.* // ktlint-disable no-wildcard-imports
+import venus.simulator.diffs.HeapSpaceDiff
+import venus.simulator.diffs.MemoryDiff
+import venus.simulator.diffs.PCDiff
+import venus.simulator.diffs.RegisterDiff
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
@@ -47,7 +50,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
         preInstruction.clear()
         postInstruction.clear()
         /* TODO: abstract away instruction length */
-        val inst: Instruction = Instruction(state.mem.loadWord(state.pc))
+        val inst: Instruction = getNextInstruction()
         val impl = InstructionDispatcher.dispatch(inst) ?: return listOf()
         impl(inst, this)
         history.add(preInstruction)
@@ -113,5 +116,32 @@ class Simulator(val linkedProgram: LinkedProgram) {
         preInstruction.add(HeapSpaceDiff(state.heapEnd))
         state.heapEnd += bytes
         postInstruction.add(HeapSpaceDiff(state.heapEnd))
+    }
+
+    private fun getInstructionLength(short0: Int): Int {
+        if ((short0 and 0b11) != 0b11) {
+            return 2
+        } else if ((short0 and 0b11111) != 0b11111) {
+            return 4
+        } else if ((short0 and 0b111111) == 0b011111) {
+            return 6
+        } else if ((short0 and 0b1111111) == 0b111111) {
+            return 8
+        } else {
+            return -1
+            /* TODO: longer instructions */
+        }
+    }
+
+    private fun getNextInstruction(): Instruction {
+        val short0 = loadHalfWord(state.pc)
+        val length = getInstructionLength(short0)
+        if (length != 4) {
+            /* TODO: throw SimulatorError */
+        }
+
+        val short1 = loadHalfWord(state.pc + 2)
+
+        return Instruction((short1 shl 16) or short0)
     }
 }
