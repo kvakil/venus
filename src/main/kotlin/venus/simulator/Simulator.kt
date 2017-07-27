@@ -48,9 +48,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
         postInstruction.clear()
         /* TODO: abstract away instruction length */
         val inst: Instruction = Instruction(state.mem.loadWord(state.pc))
-        val impl = InstructionDispatcher.dispatch(inst)
-        /* TODO: error here? */
-        if (impl == null) return listOf()
+        val impl = InstructionDispatcher.dispatch(inst) ?: return listOf()
         impl(inst, this)
         history.add(preInstruction)
         return postInstruction.toList()
