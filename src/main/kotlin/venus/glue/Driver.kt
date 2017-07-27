@@ -67,13 +67,20 @@ import kotlin.browser.window
         }
     }
 
+    internal const val TIMEOUT_CYCLES = 10
     internal fun runStart(): Int? {
-        if (!sim.isDone()) {
+        var cycles = 0
+        while (!sim.isDone() && cycles < TIMEOUT_CYCLES) {
             sim.step()
-            return window.setTimeout(Driver::runStart, 20)
+            cycles++
         }
-        runEnd()
-        return null
+
+        if (sim.isDone()) {
+            runEnd()
+            return null
+        }
+
+        return window.setTimeout(Driver::runStart, 20)
     }
 
     internal fun runEnd() {
