@@ -124,7 +124,7 @@ object Assembler {
 
         /**
          * Replaces any pseudoinstructions which occur in our program.
-         *
+            *
          * @param tokens a list of strings corresponding to the space delimited line
          * @return the corresponding TAL instructions (possibly unchanged)
          */

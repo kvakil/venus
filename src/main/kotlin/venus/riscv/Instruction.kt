@@ -17,7 +17,8 @@ class Instruction(private var encoding: Int) {
      * @return the value of the given instruction field
      */
     fun getField(ifield: InstructionField): Int {
-        return (encoding and ifield.mask) ushr numberOfTrailingZeros(ifield.mask)
+        val mask = ((1L shl ifield.hi) - (1L shl ifield.lo)).toInt()
+        return (encoding and mask) ushr ifield.lo
     }
 
     /**
@@ -27,8 +28,9 @@ class Instruction(private var encoding: Int) {
      * @param value the value to set the field to
      */
     fun setField(ifield: InstructionField, value: Int) {
-        encoding = encoding and ifield.mask.inv()
-        encoding = encoding or ((value shl numberOfTrailingZeros(ifield.mask)) and ifield.mask)
+        val mask = ((1L shl ifield.hi) - (1L shl ifield.lo)).toInt()
+        encoding = encoding and mask.inv()
+        encoding = encoding or ((value shl ifield.lo) and mask)
     }
 
     /**

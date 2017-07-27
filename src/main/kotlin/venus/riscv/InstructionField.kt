@@ -1,28 +1,25 @@
 package venus.riscv
 
-/** Masks to get specific fields from RV32 instruction formats */
-enum class InstructionField(val mask: Int) {
-    /* requires .toInt() as per KT-4749 */
-    /* ktlint-disable no-multi-spaces */
-    ENTIRE              (0b11111111111111111111111111111111.toInt()),
-    OPCODE              (0b00000000000000000000000001111111.toInt()),
-    RD                  (0b00000000000000000000111110000000.toInt()),
-    FUNCT3              (0b00000000000000000111000000000000.toInt()),
-    RS1                 (0b00000000000011111000000000000000.toInt()),
-    RS2                 (0b00000001111100000000000000000000.toInt()),
-    FUNCT7              (0b11111110000000000000000000000000.toInt()),
-    IMM_11_0            (0b11111111111100000000000000000000.toInt()),
-    IMM_4_0             (0b00000000000000000000111110000000.toInt()),
-    IMM_11_5            (0b11111110000000000000000000000000.toInt()),
-    IMM_11_B            (0b00000000000000000000000010000000.toInt()),
-    IMM_4_1             (0b00000000000000000000111100000000.toInt()),
-    IMM_10_5            (0b01111110000000000000000000000000.toInt()),
-    IMM_12              (0b10000000000000000000000000000000.toInt()),
-    IMM_31_12           (0b11111111111111111111000000000000.toInt()),
-    IMM_19_12           (0b00000000000011111111000000000000.toInt()),
-    IMM_11_J            (0b00000000000100000000000000000000.toInt()),
-    IMM_10_1            (0b01111111111000000000000000000000.toInt()),
-    IMM_20              (0b10000000000000000000000000000000.toInt()),
-    SHAMT               (0b00000001111100000000000000000000.toInt()),
-    /* ktlint-enable no-multi-spaces */
+/** Describes how to get fields from RV32 instruction formats */
+enum class InstructionField(val lo: Int, val hi: Int) {
+    ENTIRE(0, 32),
+    OPCODE(0, 7),
+    RD(7, 12),
+    FUNCT3(12, 15),
+    RS1(15, 20),
+    RS2(20, 25),
+    FUNCT7(25, 32),
+    IMM_11_0(20, 32),
+    IMM_4_0(7, 12),
+    IMM_11_5(25, 32),
+    IMM_11_B(7, 8),
+    IMM_4_1(8, 12),
+    IMM_10_5(25, 31),
+    IMM_12(31, 32),
+    IMM_31_12(12, 32),
+    IMM_19_12(12, 20),
+    IMM_11_J(20, 21),
+    IMM_10_1(21, 31),
+    IMM_20(31, 32),
+    SHAMT(20, 25),
 }
