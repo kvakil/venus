@@ -37,7 +37,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
         state.setReg(3, MemorySegments.STATIC_BEGIN)
     }
 
-    fun isDone(): Boolean = state.pc >= maxpc
+    fun isDone(): Boolean = getPC() >= maxpc
 
     fun run() {
         while (!isDone()) {
@@ -128,19 +128,18 @@ class Simulator(val linkedProgram: LinkedProgram) {
         } else if ((short0 and 0b1111111) == 0b111111) {
             return 8
         } else {
-            return -1
-            /* TODO: longer instructions */
+            throw SimulatorError("instruction lengths > 8 not supported")
         }
     }
 
     private fun getNextInstruction(): Instruction {
-        val short0 = loadHalfWord(state.pc)
+        val short0 = loadHalfWord(getPC())
         val length = getInstructionLength(short0)
         if (length != 4) {
-            /* TODO: throw SimulatorError */
+            throw SimulatorError("instruction length != 4 not supported")
         }
 
-        val short1 = loadHalfWord(state.pc + 2)
+        val short1 = loadHalfWord(getPC() + 2)
 
         return Instruction((short1 shl 16) or short0)
     }
