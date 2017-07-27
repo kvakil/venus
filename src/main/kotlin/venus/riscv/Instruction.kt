@@ -32,19 +32,4 @@ class Instruction(private var encoding: Int) {
         encoding = encoding and mask.inv()
         encoding = encoding or ((value shl ifield.lo) and mask)
     }
-
-    /**
-     * Finds the number of trailing zeros of a given integer
-     *
-     * @param n
-     * @return number of trailing zeros in input
-     */
-    private fun numberOfTrailingZeros(n: Int): Int {
-        var mask = 1
-        for (i in 0 until 32) {
-            if (n and mask != 0) return i
-            mask = mask shl 1
-        }
-        return 32
-    }
 }
