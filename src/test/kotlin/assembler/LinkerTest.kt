@@ -101,4 +101,25 @@ class LinkerTest {
         sim.run()
         assertEquals(42, sim.getReg(9))
     }
+
+    @Test
+    fun globalLabelTwoFiles() {
+        val prog1 = Assembler.assemble("""
+        foo:
+            addi x8 x0 8
+        .globl foo
+        """)
+        val prog2 = Assembler.assemble("""
+        foo:
+            addi x8 x0 8
+        .globl foo
+        """)
+
+        try {
+            Linker.link(listOf(prog1, prog2))
+            fail("allowed global labels in two different files")
+        } catch (e: AssemblerError) {
+            assertTrue(true)
+        }
+    }
 }

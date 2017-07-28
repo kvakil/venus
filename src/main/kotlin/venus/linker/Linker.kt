@@ -44,11 +44,11 @@ object Linker {
                 }
 
                 if (prog.isGlobalLabel(label)) {
-                    globalTable.put(label, start + offset)
+                    val previousValue = globalTable.put(label, start + offset)
+                    if (previousValue != null) {
+                        throw AssemblerError("label $label defined global in two different files")
+                    }
                     if (label == "main") {
-                        if (linkedProgram.startPC != null) {
-                            throw AssemblerError("main label can only be used once")
-                        }
                         linkedProgram.startPC = start + offset
                     }
                 }
