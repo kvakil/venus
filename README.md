@@ -50,6 +50,7 @@ To run the included tests, open `qunit/test.html`.
 Building the frontend requires `node` and `npm` to be installed. Execute the following:
 
     npm install
+    npm install -g grunt
 
 Once that's done, you should be able to run the tests from the command line:
 
