@@ -27,16 +27,16 @@
             <article class="tile is-child is-primary" id="simulator-controls-container">
               <div class="field is-grouped is-grouped-centered">
                 <div class="control">
-                  <button class="button" onclick="driver.undo()">Prev</button>
-                </div>
-                <div class="control">
                   <button id="simulator-run" class="button is-primary" onclick="driver.run()">Run</button>
                 </div>
                 <div class="control">
-                  <button id="button" class="button is-primary" onclick="driver.reset_run()">Reset</button>
+                  <button class="button" onclick="driver.step()">Step</button>
                 </div>
                 <div class="control">
-                  <button class="button" onclick="driver.step()">Step</button>
+                  <button class="button" onclick="driver.undo()">Prev</button>
+                </div>
+                <div class="control">
+                  <button class="button" onclick="driver.reset()">Reset</button>
                 </div>
               </div>
             </article>
