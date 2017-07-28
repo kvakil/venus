@@ -45,6 +45,12 @@ object Linker {
 
                 if (prog.isGlobalLabel(label)) {
                     globalTable.put(label, start + offset)
+                    if (label == "main") {
+                        if (linkedProgram.startPC != null) {
+                            throw AssemblerError("main label can only be used once")
+                        }
+                        linkedProgram.startPC = start + offset
+                    }
                 }
             }
 

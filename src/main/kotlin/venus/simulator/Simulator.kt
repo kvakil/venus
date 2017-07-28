@@ -33,6 +33,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
             dataOffset++
         }
 
+        state.pc = linkedProgram.startPC ?: 0
         state.setReg(2, MemorySegments.STACK_BEGIN)
         state.setReg(3, MemorySegments.STATIC_BEGIN)
     }
