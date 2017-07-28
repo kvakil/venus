@@ -67,6 +67,18 @@ import kotlin.browser.window
         }
     }
 
+    /**
+     * Resets the simulator to the inital
+     */
+    @JsName("reset_run") fun reset_run() {
+        var diffs = sim.undo()
+        while (diffs.size > 0) {
+            diffs = sim.undo()
+        }
+        Renderer.clearConsole()
+        Renderer.updateAll(sim)
+    }
+
     internal const val TIMEOUT_CYCLES = 10
     internal fun runStart(): Int? {
         var cycles = 0
