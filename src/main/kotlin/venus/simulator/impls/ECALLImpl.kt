@@ -43,7 +43,7 @@ object ECALLImpl : structionImplementation {
                 Renderer.printConsole("Exited with error code $retVal\n")
             }
             else -> {
-                Renderer.printConsole("Invalid ecall ${which}")
+                Renderer.printConsole("Invalid ecall $which\n")
             }
         }
         sim.incrementPC(inst.length)
