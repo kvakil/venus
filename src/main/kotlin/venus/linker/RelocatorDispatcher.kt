@@ -9,7 +9,12 @@ import venus.linker.relocators.* // ktlint-disable no-wildcard-imports
 enum class RelocatorDispatcher(val relocator: Relocator, val iform: InstructionFormat) {
     ADDI(ADDIRelocator, ADDIForm),
     AUIPC(AUIPCRelocator, AUIPCForm),
-    JAL(JALRelocator, JALForm)
+    JAL(JALRelocator, JALForm),
+    LB(LoadRelocator, LBForm),
+    LBU(LoadRelocator, LBUForm),
+    LH(LoadRelocator, LHForm),
+    LHU(LoadRelocator, LHUForm),
+    LW(LoadRelocator, LWForm),
     ;
     companion object {
         /** Find the first Relocator which passes all the tests */
