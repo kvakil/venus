@@ -5,7 +5,7 @@ import venus.simulator.Simulator
 import venus.simulator.InstructionImplementation
 import venus.glue.Renderer
 
-object ECALLImpl : InstructionImplementation {
+object ECALLImpl : structionImplementation {
     override operator fun invoke(inst: Instruction, sim: Simulator) {
         val which = sim.getReg(10)
         when (which) {
@@ -36,6 +36,11 @@ object ECALLImpl : InstructionImplementation {
             11 -> { // print char
                 var arg = sim.getReg(11)
                 Renderer.printConsole(arg.toChar())
+            }
+            17 -> { // terminate with error code
+                sim.setPC(Int.MAX_VALUE)
+                val retVal = sim.getReg(11)
+                Renderer.printConsole("Exited with error code $retVal\n")
             }
             else -> {
                 Renderer.printConsole("Invalid ecall ${which}")
