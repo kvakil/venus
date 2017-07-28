@@ -5,7 +5,7 @@ import venus.simulator.Simulator
 import venus.simulator.InstructionImplementation
 import venus.glue.Renderer
 
-object ECALLImpl : structionImplementation {
+object ECALLImpl : InstructionImplementation {
     override operator fun invoke(inst: Instruction, sim: Simulator) {
         val which = sim.getReg(10)
         when (which) {
@@ -34,7 +34,7 @@ object ECALLImpl : structionImplementation {
                 return
             }
             11 -> { // print char
-                var arg = sim.getReg(11)
+                val arg = sim.getReg(11)
                 Renderer.printConsole(arg.toChar())
             }
             17 -> { // terminate with error code
