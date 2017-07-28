@@ -62,3 +62,7 @@ body {
 #console-output {
     height: 100%;
 }
+
+.tabs {
+    margin-top: 1em;
+}
