@@ -68,7 +68,10 @@ object Assembler {
 
                 val (label, args) = Lexer.lexLine(line)
                 if (label.isNotEmpty()) {
-                    prog.addLabel(label, offset)
+                    val oldOffset = prog.addLabel(label, offset)
+                    if (oldOffset != null) {
+                        throw AssemblerError("label $label defined twice")
+                    }
                 }
 
                 if (args.isEmpty() || args[0].isEmpty()) continue // empty line

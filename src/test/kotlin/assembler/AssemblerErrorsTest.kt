@@ -84,4 +84,14 @@ class AssemblerErrorsTest {
             assertTrue(true)
         }
     }
+
+    @Test
+    fun labelTwice() {
+        try {
+            Assembler.assemble("foo: nop\nfoo: nop")
+            fail("exception not thrown for same label twice")
+        } catch (e: AssemblerError) {
+            assertTrue(true)
+        }
+    }
 }
