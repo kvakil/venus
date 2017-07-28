@@ -19,6 +19,7 @@ class Program(val name: String = "anonymous") {
     val dataSegment = ArrayList<Byte>()
     var textSize = 0
     var dataSize = 0
+    val globalLabels = HashSet<String>()
 
     /**
      * Adds an instruction to the program, and increments the text size.
@@ -82,7 +83,24 @@ class Program(val name: String = "anonymous") {
      * @param offset the byte offset the label is at (from the start of the program)
      */
     fun addRelocation(label: String, offset: Int = textSize) =
-        relocationTable.add(RelocationInfo(label, offset))
+            relocationTable.add(RelocationInfo(label, offset))
+
+    /**
+     * Makes a label global.
+     *
+     * @param label the label to make global
+     */
+    fun makeLabelGlobal(label: String) {
+        globalLabels.add(label)
+    }
+
+    /**
+     * Checks if a label is global.
+     *
+     * @param label the label to check
+     * @return true if the label is global
+     */
+    fun isGlobalLabel(label: String) = globalLabels.contains(label)
 
     /* TODO: add dump formats */
     /**

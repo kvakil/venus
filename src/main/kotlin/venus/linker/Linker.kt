@@ -43,43 +43,49 @@ object Linker {
                     textTotalOffset
                 }
 
-                if (isGlobalLabel(label)) {
+                if (prog.isGlobalLabel(label)) {
                     globalTable.put(label, start + offset)
                 }
             }
 
-            prog.relocationTable.forEach {
-                (label, offset) -> toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
-            }
             prog.insts.forEach(linkedProgram.prog::add)
             prog.debugInfo.forEach {
                 linkedProgram.dbg.add(ProgramDebugInfo(prog.name, it))
             }
             prog.dataSegment.forEach(linkedProgram.prog::addToData)
+
+            for ((label, offset) in prog.relocationTable) {
+                /* try to determine each relocation locally */
+                val toAddress = prog.labels.get(label)
+                if (toAddress != null) {
+                    relocateInstruction(linkedProgram, toAddress, textTotalOffset + offset)
+                } else {
+                    toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
+                }
+            }
+
             textTotalOffset += prog.textSize
             dataTotalOffset += prog.dataSize
         }
 
         for ((label, offset) in toRelocate) {
-            /* FIXME: variable instruction sizes WILL break this */
-            val inst = linkedProgram.prog.insts[offset / 4]
-
             val toAddress = globalTable.get(label) ?:
-                    throw AssemblerError("label $label used but not defined globally")
+                    throw AssemblerError("label $label used but not defined")
 
-            val relocator = RelocatorDispatcher.dispatch(inst) ?:
-                    throw AssemblerError("don't know how to relocate instruction")
-
-            relocator(inst, offset, toAddress)
+            relocateInstruction(linkedProgram, toAddress, offset)
+            /* FIXME: variable instruction sizes WILL break this */
         }
 
         return linkedProgram
     }
 
-    /**
-     * @param label the name of a label
-     * @return true if the given label is global
-     * @todo add a real .globl assembler directive
-     */
-    private fun isGlobalLabel(label: String) = !label.startsWith("_")
+    fun relocateInstruction(linkedProgram: LinkedProgram, toAddress: Int, offset: Int) {
+        val inst = linkedProgram.prog.insts[offset / 4]
+
+        val relocator = RelocatorDispatcher.dispatch(inst) ?:
+                throw AssemblerError("don't know how to relocate instruction")
+
+        relocator(inst, offset, toAddress)
+    }
+
 }

@@ -31,8 +31,10 @@ class LinkerTest {
         foo:
             jal x0 bar
             addi x8 x0 8
+        .globl foo
         """)
         val prog2 = Assembler.assemble("""
+        .globl bar
         bar:
             addi x8 x8 1
         """)
@@ -48,6 +50,7 @@ class LinkerTest {
         foo:
             jal x0 _bar
             addi x8 x0 8
+        .globl foo
         """)
         val prog2 = Assembler.assemble("""
         _bar:
@@ -98,5 +101,4 @@ class LinkerTest {
         sim.run()
         assertEquals(42, sim.getReg(9))
     }
-
 }

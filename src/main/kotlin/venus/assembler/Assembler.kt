@@ -186,7 +186,11 @@ object Assembler {
                     }
                 }
 
-                ".float", ".globl", ".double", ".align" -> {
+                ".globl" -> {
+                    args.forEach(prog::makeLabelGlobal)
+                }
+
+                ".float", ".double", ".align" -> {
                     println("Warning: $directive not currently supported!")
                 }
 
