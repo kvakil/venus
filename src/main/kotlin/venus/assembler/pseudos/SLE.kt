@@ -6,14 +6,14 @@ import venus.assembler.PseudoWriter
 import venus.assembler.writers.checkArgsLength
 
 /**
- * Writes pseudoinstruction `sge` (set greater than or equal to)
+ * Writes pseudoinstruction `sle` (set less than or equal to)
  * @todo add a settings option for "extended pseudoinstructions"
  */
-object SGE : PseudoWriter() {
+object SLE : PseudoWriter() {
     override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
         checkArgsLength(args, 4)
         val unsigned = if (args[0].endsWith("u")) "u" else ""
-        val set = listOf("slt$unsigned", args[1], args[2], args[3])
+        val set = listOf("slt$unsigned", args[1], args[3], args[2])
         val invert = listOf("xori", args[1], args[1], "1")
         return listOf(set, invert)
     }
