@@ -186,6 +186,10 @@ object Assembler {
                     }
                 }
 
+                ".float", ".globl", ".double", ".align" -> {
+                    println("Warning: $directive not currently supported!")
+                }
+
                 else -> throw AssemblerError("unknown assembler directive $directive")
             }
         }
