@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="css/venus.css">
 </head>
 <body>
+  <br/>
   <div class="tabs is-toggle is-centered">
     <ul>
       <li id="editor-tab" class="is-active"><a onclick="driver.openEditor()">Editor</a></li>
@@ -15,7 +16,17 @@
     </ul>
   </div>
   <section class="section" id="editor-tab-view">
-    <textarea class="textarea is-primary is-medium" placeholder="type RISC-V assembly here" id="asm-editor"></textarea>
+    <div>
+      <textarea class="textarea is-primary is-medium" placeholder="type RISC-V assembly here" id="asm-editor"></textarea>
+    </div>
+    <br/>
+    <div>
+      <h2>Resources:</h2>
+      <ul style="list-style-type:square;width:95%;margin: 0 auto">
+        <li><a href="https://www.cl.cam.ac.uk/teaching/1617/ECAD+Arch/files/docs/RISCVGreenCardv8-20151013.pdf">Green sheet</a></li>
+      </ul>
+    </div>
+    <br/>
   </section>
   <section class="section" id="simulator-tab-view">
     <div class="tile is-ancestor">
