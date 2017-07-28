@@ -37,6 +37,11 @@ object ECALLImpl : InstructionImplementation {
                 var arg = sim.getReg(11)
                 Renderer.printConsole(arg.toChar())
             }
+            17 -> { // terminate with error code
+                sim.setPC(Int.MAX_VALUE)
+                val retVal = sim.getReg(11)
+                Renderer.printConsole("Exited with error code $retVal\n")
+            }
             else -> {
                 Renderer.printConsole("Invalid ecall ${which}")
             }
