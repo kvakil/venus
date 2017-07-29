@@ -13,14 +13,13 @@ import venus.simulator.diffs.RegisterDiff
     Eventually, it will support debugging. */
 class Simulator(val linkedProgram: LinkedProgram) {
     private val state = SimulatorState()
-    var maxpc = MemorySegments.TEXT_BEGIN
-    var cycles = 0
-    val history = History()
-    val preInstruction = ArrayList<Diff>()
-    val postInstruction = ArrayList<Diff>()
+    private var maxpc = MemorySegments.TEXT_BEGIN
+    private var cycles = 0
+    private val history = History()
+    private val preInstruction = ArrayList<Diff>()
+    private val postInstruction = ArrayList<Diff>()
 
     init {
-        state.pc = MemorySegments.TEXT_BEGIN
         for (inst in linkedProgram.prog.insts) {
             /* TODO: abstract away instruction length */
             state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
@@ -33,7 +32,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
             dataOffset++
         }
 
-        state.pc = linkedProgram.startPC ?: 0
+        state.pc = linkedProgram.startPC ?: MemorySegments.TEXT_BEGIN
         state.setReg(2, MemorySegments.STACK_BEGIN)
         state.setReg(3, MemorySegments.STATIC_BEGIN)
     }

@@ -12,7 +12,7 @@ class Memory {
      *
      * @todo Transition to a `HashMap<Int, Int>`, which will have a smaller overhead (although more code complexity)
      */
-    val memory = HashMap<Int, Byte>()
+    private val memory = HashMap<Int, Byte>()
 
     /**
      * Loads an unsigned byte from memory
