@@ -83,7 +83,7 @@ object Lexer {
     /**
      * A pattern describing an .asciiz directive.
      */
-    private val asciizPattern = """\s*\.asciiz\s+"((?:[^"\\]|\\.)*)"\s*""".toRegex()
+    private val asciizPattern = """\s*\.asciiz\s+("(?:[^"\\]|\\.)*")\s*""".toRegex()
 
     /**
      * Lex an asciiz directive.
@@ -91,5 +91,8 @@ object Lexer {
      * @param line the line (which should probably contain .asciiz)
      * @return the string inside quotes
      */
-    fun lexAsciizDirective(line: String): String? = asciizPattern.matchEntire(stripLabel(line))?.groups?.get(1)?.value
+    fun lexAsciizDirective(line: String): String? {
+        val rawString = asciizPattern.matchEntire(stripLabel(line))?.groups?.get(1)?.value
+        return if (rawString != null) JSON.parse(rawString) else null
+    }
 }
