@@ -1,5 +1,6 @@
 package venus.glue
 
+import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
 import venus.assembler.AssemblerError
@@ -131,5 +132,21 @@ import kotlin.browser.window
      */
     @JsName("openRegisterTab") fun openRegisterTab() {
         Renderer.renderRegisterTab()
+    }
+
+    /**
+     * Make a register editable
+     */
+    @JsName("editRegister") @Suppress("UNUSED_PARAMETER") fun editRegister(reg: HTMLElement, id: Int) {
+        reg.contentEditable = "true"
+    }
+
+    /**
+     * Save a register's value
+     */
+    @JsName("saveRegister") fun saveRegister(reg: HTMLElement, id: Int) {
+        reg.contentEditable = "false"
+        sim.setRegNoUndo(id, reg.innerText.toInt())
+        Renderer.updateRegister(id, sim.getReg(id))
     }
 }

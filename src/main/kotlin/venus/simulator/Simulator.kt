@@ -76,6 +76,10 @@ class Simulator(val linkedProgram: LinkedProgram) {
         postInstruction.add(RegisterDiff(id, state.getReg(id)))
     }
 
+    fun setRegNoUndo(id: Int, v: Int) {
+        state.setReg(id, v)
+    }
+
     fun getPC() = state.pc
 
     fun setPC(newPC: Int) {
