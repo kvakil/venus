@@ -61,7 +61,7 @@ import kotlin.browser.window
      * Runs the simulator until it is done, or until the run button is pressed again.
      */
     @JsName("run") fun run() {
-        if (timer != null) {
+        if (currentlyRunning()) {
             runEnd()
         } else {
             Renderer.setRunButtonSpinning(true)
