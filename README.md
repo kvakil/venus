@@ -16,6 +16,7 @@ venus is [available online](https://kvakil.github.io/venus/).
 * View machine code and original instructions side-by-side
 * Several `ecall`s: including `print` and `sbrk`
 * `la` and `l`oad pseudoinstructions
+* Memory visualization
 
 ### Currently in progress
 
@@ -23,9 +24,8 @@ venus is [available online](https://kvakil.github.io/venus/).
 * Improved integrated editor (syntax highlighting, autocomplete, better error highlighting)
 * RV32F support
 * Breakpoint debugging
-* Memory visualization
 
-### Goals
+### Long-term Goals
 
 * Variable-length instructions (and RV32C extension)
 * Instruction DSL
@@ -33,31 +33,6 @@ venus is [available online](https://kvakil.github.io/venus/).
 * Hardware and cache visualizations
 * RV64I support
 
-## Building venus
-
-If you want to make changes to venus's source code, see below.
-
-### Backend
-
-The backend for venus is written in Kotlin and compiled into Javascript. To build, execute the following in your terminal:
-
-    ./gradlew build
-
-To run the included tests, open `qunit/test.html`.
-
-### Frontend
-
-Building the frontend requires `node` and `npm` to be installed. Execute the following:
-
-    npm install
-    npm install -g grunt
-
-Once that's done, you should be able to run the tests from the command line:
-
-    grunt test
-
-To create a standalone distribution, run `grunt dist`. All of the needed files are in the `out/` directory.
-
 ## Contributing
 
-Coming soon.
+See `CONTRIBUTING.md` in the root directory.
