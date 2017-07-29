@@ -90,3 +90,7 @@ body {
 .tabs {
     margin-top: 1em;
 }
+
+#simulator-run.is-loading {
+    pointer-events: auto;
+}
