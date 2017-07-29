@@ -24,6 +24,8 @@ internal object Renderer {
     private var activeRegister: HTMLElement? = null
     /** The instruction currently being highlighted */
     private var activeInstruction: HTMLElement? = null
+    /** The memory location currently centered */
+    private var activeMemoryAddress: Int = 0
     /** The simulator being rendered */
     private lateinit var sim: Simulator
 
@@ -243,16 +245,33 @@ internal object Renderer {
     /**
      * Update the [MEMORY_CONTEXT] words above and below the given address.
      *
+     * Does not shift the memory display if it can be avoided
+     *
      * @param addr the address to update around
      */
     private fun updateMemory(addr: Int) {
-        val wordAddr = addr - (addr % 4)
+        val wordAddress = (addr shr 2) shl 2
+        activeMemoryAddress = if (mustMoveMemoryDisplay(wordAddress)) {
+            wordAddress
+        } else {
+            activeMemoryAddress
+        }
+
         for (rowIdx in -MEMORY_CONTEXT..MEMORY_CONTEXT) {
             val row = getElement("mem-row-$rowIdx")
-            val rowAddr = wordAddr + 4 * rowIdx
+            val rowAddr = activeMemoryAddress + 4 * rowIdx
             renderMemoryRow(row, rowAddr)
         }
     }
+
+    /**
+     * Determines if we need to move the memory display to show the address
+     *
+     * @param wordAddress the address we want to show
+     * @return true if we need to move the display
+     */
+    private fun mustMoveMemoryDisplay(wordAddress: Int) =
+            (activeMemoryAddress - wordAddress) ushr 2 > MEMORY_CONTEXT
 
     /**
      * Renders a row of the memory.
