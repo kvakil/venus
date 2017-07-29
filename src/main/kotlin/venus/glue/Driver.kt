@@ -62,7 +62,7 @@ import kotlin.browser.window
         if (timer != null) {
             runEnd()
         } else {
-            Renderer.setRunActive(true)
+            Renderer.setRunButtonSpinning(true)
             timer = runStart()
         }
     }
@@ -95,7 +95,7 @@ import kotlin.browser.window
     }
 
     internal fun runEnd() {
-        Renderer.setRunActive(false)
+        Renderer.setRunButtonSpinning(false)
         timer?.let(window::clearTimeout)
         timer = null
         Renderer.updateAll()

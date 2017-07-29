@@ -38,6 +38,7 @@ internal object Renderer {
         tabSetVisibility("simulator", "block")
         tabSetVisibility("editor", "none")
         sim = displaySim
+        setRunButtonSpinning(false)
         renderProgramListing()
         clearConsole()
         updateAll()
@@ -207,16 +208,18 @@ internal object Renderer {
     }
 
     /**
-     * Sets whether the run button is depressed.
+     * Sets whether the run button is spinning.
      *
-     * @param active whether the button should be depressed
+     * @param spinning whether the button should be spin
      */
-    fun setRunActive(active: Boolean) {
+    fun setRunButtonSpinning(spinning: Boolean) {
         val runButton = getElement("simulator-run")
-        if (active) {
-            runButton.classList.add("is-active")
+        if (spinning) {
+            runButton.classList.add("is-loading")
+            disableControlButtons()
         } else {
-            runButton.classList.remove("is-active")
+            runButton.classList.remove("is-loading")
+            updateControlButtons()
         }
     }
 
@@ -238,6 +241,18 @@ internal object Renderer {
         setButtonDisabled("simulator-reset", !sim.canUndo())
         setButtonDisabled("simulator-undo", !sim.canUndo())
         setButtonDisabled("simulator-step", sim.isDone())
+        setButtonDisabled("simulator-run", sim.isDone())
+    }
+
+    /**
+     * Disables the step, undo and reset buttons.
+     *
+     * Used while running, see [Driver.runStart].
+     */
+    fun disableControlButtons() {
+        setButtonDisabled("simulator-reset", true)
+        setButtonDisabled("simulator-undo", true)
+        setButtonDisabled("simulator-step", true)
     }
 
     /**
