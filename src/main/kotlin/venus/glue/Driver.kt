@@ -13,7 +13,7 @@ import kotlin.browser.window
  */
 @JsName("Driver") object Driver {
     lateinit var sim: Simulator
-    var timer: Int? = null
+    private var timer: Int? = null
 
     /**
      * Run when the user clicks the "Simulator" tab.
