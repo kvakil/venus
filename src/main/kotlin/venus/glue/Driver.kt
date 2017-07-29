@@ -5,6 +5,7 @@ import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
 import venus.assembler.AssemblerError
 import venus.linker.Linker
+import venus.riscv.userStringToInt
 import venus.simulator.Simulator
 import kotlin.browser.document
 import kotlin.browser.window
@@ -136,7 +137,10 @@ import kotlin.browser.window
      * Make a register editable
      */
     @JsName("editRegister") fun editRegister(reg: HTMLElement) {
-        if (!currentlyRunning()) reg.contentEditable = "true"
+        if (!currentlyRunning()) {
+            reg.contentEditable = "true"
+            reg.focus()
+        }
     }
 
     /**
@@ -145,7 +149,12 @@ import kotlin.browser.window
     @JsName("saveRegister") fun saveRegister(reg: HTMLElement, id: Int) {
         reg.contentEditable = "false"
         if (!currentlyRunning()) {
-            sim.setRegNoUndo(id, reg.innerText.toInt())
+            try {
+                val input = reg.innerText
+                sim.setRegNoUndo(id, userStringToInt(input))
+            } catch (e: NumberFormatException) {
+                /* do nothing */
+            }
         }
         Renderer.updateRegister(id, sim.getReg(id))
     }
