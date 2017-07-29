@@ -24,24 +24,6 @@ class StaticDataTest {
     }
 
     @Test
-    fun asciizManualLoad() {
-        val expected = """This ' is a \"string\"!"""
-        val prog = Assembler.assemble("""
-        .data
-        .asciiz   "${expected}"
-        .text
-        nop
-        """)
-        val linked = Linker.link(listOf(prog))
-        var sim = Simulator(linked)
-        var offset = MemorySegments.STATIC_BEGIN
-        for (c in expected) {
-            assertEquals(c.toInt(), sim.loadByte(offset))
-            offset++
-        }
-    }
-
-    @Test
     fun asciizNulTerminated() {
         val prog = Assembler.assemble("""
         .data
