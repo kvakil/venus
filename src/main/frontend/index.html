@@ -8,77 +8,87 @@
   <link rel="stylesheet" type="text/css" href="css/venus.css">
 </head>
 <body>
-  <div class="tabs is-toggle is-centered">
-    <ul>
-      <li id="editor-tab" class="is-active"><a onclick="driver.openEditor()">Editor</a></li>
-      <li id="simulator-tab"><a onclick="driver.openSimulator()">Simulator</a></li>
-    </ul>
-  </div>
-  <div class="container is-fluid">
-    <section class="section" id="editor-tab-view">
-      <textarea class="textarea is-primary is-medium" placeholder="type RISC-V assembly here" id="asm-editor"></textarea>
-    </section>
-  </div>
-  <section class="section" id="simulator-tab-view">
-    <div class="tile is-ancestor">
-      <div class="tile is-vertical is-8">
-        <div class="tile">
-          <div class="tile is-parent">
-            <article class="tile is-child is-primary" id="simulator-controls-container">
-              <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                  <button id="simulator-run" class="button is-primary" onclick="driver.run()">Run</button>
-                </div>
-                <div class="control">
-                  <button id="simulator-step" class="button" onclick="driver.step()">Step</button>
-                </div>
-                <div class="control">
-                  <button id="simulator-undo" class="button" onclick="driver.undo()">Prev</button>
-                </div>
-                <div class="control">
-                  <button id="simulator-reset" class="button" onclick="driver.reset()">Reset</button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-        <div class="tile">
-          <div class="tile is-parent">
-            <article class="tile is-child is-primary" id="program-listing-container">
-              <table id="program-listing" class="table">
-                <colgroup>
-                  <col id="mc-column">
-                  <col id="oc-column">
-                </colgroup>
-                <thead>
-                  <th>Machine Code</th>
-                  <th>Original Code</th>
-                </thead>
-                <tbody id="program-listing-body">
-                </tbody>
-              </table>
-            </article>
-          </div>
-        </div>
+<div class="tabs is-toggle is-centered">
+  <ul>
+    <li id="editor-tab" class="is-active"><a onclick="driver.openEditor()">Editor</a></li>
+    <li id="simulator-tab"><a onclick="driver.openSimulator()">Simulator</a></li>
+  </ul>
+</div>
+<div class="container is-fluid">
+  <section class="section" id="editor-tab-view">
+    <textarea class="textarea is-primary is-medium" placeholder="type RISC-V assembly here" id="asm-editor"></textarea>
+  </section>
+</div>
+<section class="section" id="simulator-tab-view">
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+      <div class="tile">
         <div class="tile is-parent">
-          <article class="tile is-child">
-            <textarea id="console-output" class="textarea" placeholder="console output" readonly></textarea>
+          <article class="tile is-child is-primary" id="simulator-controls-container">
+            <div class="field is-grouped is-grouped-centered">
+              <div class="control">
+                <button id="simulator-run" class="button is-primary" onclick="driver.run()">Run</button>
+              </div>
+              <div class="control">
+                <button id="simulator-step" class="button" onclick="driver.step()">Step</button>
+              </div>
+              <div class="control">
+                <button id="simulator-undo" class="button" onclick="driver.undo()">Prev</button>
+              </div>
+              <div class="control">
+                <button id="simulator-reset" class="button" onclick="driver.reset()">Reset</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="tile is-parent">
+          <article class="tile is-child is-primary" id="program-listing-container">
+            <table id="program-listing" class="table">
+              <colgroup>
+                <col id="mc-column">
+                <col id="oc-column">
+              </colgroup>
+              <thead>
+              <tr>
+                <th>Machine Code</th>
+                <th>Original Code</th>
+              </tr>
+              </thead>
+              <tbody id="program-listing-body">
+              </tbody>
+            </table>
           </article>
         </div>
       </div>
       <div class="tile is-parent">
-        <article class="tile is-child" id="register-listing-container">
-          <table id="register-listing" class="table is-narrow is-striped">
-            <colgroup>
-              <col id="id-column">
-              <col id="val-column">
-            </colgroup>
-            <thead>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Value</th>
-            </thead>
-            <tbody id="register-listing-body">
+        <article class="tile is-child">
+          <textarea id="console-output" class="textarea" placeholder="console output" readonly></textarea>
+        </article>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child" id="sidebar-listings-container">
+        <nav class="panel">
+          <p class="panel-tabs">
+            <a id="register-tab" class="is-active" onclick="driver.openRegisterTab()">Registers</a>
+            <a id="memory-tab" onclick="driver.openMemoryTab()">Memory</a>
+          </p>
+          <div id="listing-panel" class="panel-block">
+            <table id="register-tab-view" class="table is-narrow is-striped">
+              <colgroup>
+                <col id="id-column">
+                <col id="val-column">
+              </colgroup>
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Value</th>
+              </tr>
+              </thead>
+              <tbody id="register-listing-body">
               <tr id="reg-0">
                 <td id="reg-0-id">x0</td>
                 <td id="reg-0-name">zero</td>
@@ -270,13 +280,124 @@
                 <td id="reg-31-name">t6</td>
                 <td id="reg-31-val">0</td>
               </tr>
-            </tbody>
-          </table>
-        </article>
-      </div>
+              </tbody>
+            </table>
+            <table id="memory-tab-view" class="table is-striped">
+              <colgroup>
+                <col id="addr-column">
+                <col id="byte0-column">
+                <col id="byte1-column">
+                <col id="byte2-column">
+                <col id="byte3-column">
+              </colgroup>
+              <thead>
+              <tr>
+                <th>Address</th>
+                <th>+0</th>
+                <th>+1</th>
+                <th>+2</th>
+                <th>+3</th>
+              </tr>
+              </thead>
+              <tr id="mem-row-6">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row-5">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row-4">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row-3">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row-2">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row-1">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row-0">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row--1">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row--2">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row--3">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row--4">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row--5">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr id="mem-row--6">
+                <td>0x00000000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </nav>
+      </article>
     </div>
-  </section>
-  <script type="text/javascript" src="venus.js"></script>
-  <script type="text/javascript">var driver = venus_main.venus.glue.Driver;</script>
+  </div>
+</section>
+<script type="text/javascript" src="venus.js"></script>
+<script type="text/javascript">var driver = venus_main.venus.glue.Driver;</script>
 </body>
 </html>

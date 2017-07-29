@@ -23,7 +23,7 @@ body {
 }
 
 .section {
-    padding: 0rem 1.5rem;
+    padding: 0 1.5rem;
 }
 
 #mc-column {
@@ -49,15 +49,39 @@ body {
     overflow-y: auto;
 }
 
-#register-listing-container {
+#sidebar-listings-container {
     min-height: 80vh;
     max-height: 80vh;
     overflow-y: auto;
 }
 
-#register-listing {
+#sidebar-listings-container > .panel {
+    height: 100%;
+}
+
+#listing-panel {
+    min-height: 95%;
+}
+
+#register-tab-view {
     font-family: Courier New, Courier, monospace;
-} 
+}
+
+#memory-tab-view {
+    font-family: Courier New, Courier, monospace;
+    margin: auto;
+    display: none;
+}
+
+#memory-tab-view th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#memory-tab-view td {
+    text-align: center;
+    vertical-align: middle;
+}
 
 #console-output {
     height: 100%;
