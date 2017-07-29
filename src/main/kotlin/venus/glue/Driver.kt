@@ -71,9 +71,9 @@ import kotlin.browser.window
      * Resets the simulator to its initial state
      */
     @JsName("reset") fun reset() {
-        do {
-            val diffs = sim.undo()
-        } while (diffs.isNotEmpty())
+        while (sim.canUndo()) {
+            sim.undo()
+        }
         Renderer.clearConsole()
         Renderer.updateAll(sim)
     }
