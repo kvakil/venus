@@ -134,23 +134,13 @@ import kotlin.browser.window
     internal fun currentlyRunning(): Boolean = timer != null
 
     /**
-     * Make a register editable
-     */
-    @JsName("editRegister") fun editRegister(reg: HTMLElement) {
-        if (!currentlyRunning()) {
-            reg.contentEditable = "true"
-            reg.focus()
-        }
-    }
-
-    /**
      * Save a register's value
      */
     @JsName("saveRegister") fun saveRegister(reg: HTMLElement, id: Int) {
         reg.contentEditable = "false"
         if (!currentlyRunning()) {
             try {
-                val input = reg.innerText
+                val input = reg.innerHTML
                 sim.setRegNoUndo(id, userStringToInt(input))
             } catch (e: NumberFormatException) {
                 /* do nothing */

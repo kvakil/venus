@@ -95,6 +95,6 @@ body {
     pointer-events: auto;
 }
 
-#register-listing-body td[contenteditable="true"] {
-    text-decoration-line: underline;
+#register-listing-body input {
+    font-family: Courier New, Courier, monospace;
 }
