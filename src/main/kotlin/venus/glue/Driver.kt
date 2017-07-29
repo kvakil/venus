@@ -135,7 +135,7 @@ import kotlin.browser.window
     /**
      * Make a register editable
      */
-    @JsName("editRegister") @Suppress("UNUSED_PARAMETER") fun editRegister(reg: HTMLElement, id: Int) {
+    @JsName("editRegister") fun editRegister(reg: HTMLElement) {
         if (!currentlyRunning()) reg.contentEditable = "true"
     }
 
