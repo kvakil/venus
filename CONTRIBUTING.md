@@ -1,0 +1,119 @@
+# Contributing to venus
+
+I'm glad you are interested in contributing to venus!
+
+__Table of Contents__
+
+* How can I contribute?
+    * Reporting a Bug
+    * Requesting an Enhancement
+    * Submitting a Pull Request
+* Development
+    * Getting Started
+    * Documentation
+    * Sourcemap
+    * What should I work on?
+    * Code Guidelines
+
+## How can I contribute?
+
+There are many ways to contribute to venus, not all of which require writing code!
+
+### Reporting a Bug
+
+Some things which would be helpful to include:
+
+* What browser you were using
+* A code sample, if applicable
+* The expected result vs what actually happened
+
+### Requesting an Enhancement
+
+Enhancement requests are welcomed. Feel free to open a Github Issue with any suggestions.
+
+### Submitting a Pull Request
+
+Pull requests are welcome. Pull requests should include:
+
+* A description of what your pull request does
+* What existing issues (if any) it fixes
+
+I will try to review all pull requests in a timely manner.
+
+## Development
+
+### Getting Started
+
+Start by forking venus on Github. Then pull the repository and enter the directory:
+
+    $ git pull <your fork>
+    $ cd venus
+
+Install node packages and `grunt`. You might need to install Node.js and npm.
+
+    $ npm install
+    $ npm install -g grunt
+
+Build the backend:
+
+    $ ./gradlew build
+
+Build the frontend+backend bundle:
+
+    $ grunt dist
+
+Run the unit tests:
+
+    $ grunt test
+
+If everything works, you can start developing now! Start by creating a new git branch:
+    
+    $ git checkout -b <feature branch>
+    
+Make any changes you need (see below for a quick sourcemap). I use IntelliJ's IDEA for editing.
+
+To recompile:
+
+    $ ./gradlew build && grunt dist
+
+You can see your local version of venus by opening `out/index.html` in any browser.
+
+### Documentation
+
+[Javadoc is available online here.](https://kvakil.github.io/venus/javadoc/venus/index.html) I am working on getting the documentation to 100% coverage.
+
+### Sourcemap
+
+All source code is included in the `src` directory.
+
+* `main` - the main application itself
+    * `frontend` - the visual part of venus
+        * `css` - all CSS files should be included here
+        * `images` - all images should be included here
+        * `index.html` - the simulator frontend itself
+    * `kotlin/venus` - the backend part of venus
+        * `assembler` - the assembler backend
+            * `pseudos` - all pseudoinstructions
+            * `writers` - converts instructions to machine code
+        * `glue` - code which links the backend and frontend
+        * `linker` - linker which resolves branches and jumps
+            * `relocators` - 
+        * `riscv` - includes things common to all parts of venus
+            * `formats` - describes the machine code formats of supported instructions
+        * `simulator` - the instruction set simulator
+            * `diff` - describe how to undo operations
+            * `impls` - implementation of instructions
+* `test` - tests which are run with `grunt test`
+
+### What should I work on?
+
+Check out the Issues tab. Larger projects will be included in the Projects tab.
+
+### Code Guidelines
+
+I _highly_ recommend using IntelliJ IDEA. It has great built-in Kotlin support and will format your code appropriately. `ktlint` will run automatically and fail your build if it doesn't pass some basic lint tests, however it is not comprehensive.
+
+* Indentation is four spaces for all files -- except HTML which is two spaces.
+* Avoid semicolons.
+* Braces should be on the same line.
+* Use lowerCamelCase for everything, except classes which should use PascalCase.
