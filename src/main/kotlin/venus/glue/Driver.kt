@@ -72,11 +72,7 @@ import kotlin.browser.window
      * Resets the simulator to its initial state
      */
     @JsName("reset") fun reset() {
-        while (sim.canUndo()) {
-            sim.undo()
-        }
-        Renderer.clearConsole()
-        Renderer.updateAll()
+        openSimulator()
     }
 
     internal const val TIMEOUT_CYCLES = 10
