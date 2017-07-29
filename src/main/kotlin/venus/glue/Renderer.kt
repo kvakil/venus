@@ -168,6 +168,7 @@ internal object Renderer {
     /**
      * Updates the PC to the given value. It also highlights the to-be-executed instruction.
      *
+     * @param pc the new PC
      * @todo abstract away instruction length
      */
     fun updatePC(pc: Int) {
@@ -197,6 +198,11 @@ internal object Renderer {
         console.value = ""
     }
 
+    /**
+     * Sets whether the run button is depressed.
+     *
+     * @param active whether the button should be depressed
+     */
     fun setRunActive(active: Boolean) {
         val runButton = getElement("simulator-run")
         if (active) {
