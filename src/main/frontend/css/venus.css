@@ -55,13 +55,32 @@ body {
     overflow-y: auto;
 }
 
+#sidebar-listings-container > .panel {
+    height: 100%;
+}
+
+#listing-panel {
+    height: 95%;
+}
+
 #register-listing {
     font-family: Courier New, Courier, monospace;
+    display: none;
 }
 
 #memory-listing {
     font-family: Courier New, Courier, monospace;
-    display: none;
+    margin: auto;
+}
+
+#memory-listing th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#memory-listing td {
+    text-align: center;
+    vertical-align: middle;
 }
 
 #console-output {
