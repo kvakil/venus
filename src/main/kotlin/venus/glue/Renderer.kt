@@ -86,6 +86,7 @@ internal object Renderer {
      */
     fun updateAll(sim: Simulator) {
         updatePC(sim.getPC())
+        updateControlButtons(sim)
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
         }
@@ -203,6 +204,28 @@ internal object Renderer {
         } else {
             runButton.classList.remove("is-active")
         }
+    }
+
+    /**
+     * Sets whether a button is disabled.
+     *
+     * @param id the id of the button to change
+     * @param disabled whether or not to disable the button
+     */
+    private fun setButtonDisabled(id: String, disabled: Boolean) {
+        val button = getElement(id) as HTMLButtonElement
+        button.disabled = disabled
+    }
+
+    /**
+     * Renders the control buttons to be enabled / disabled appropriately.
+     *
+     * @param sim the simulator currently being used
+     */
+    fun updateControlButtons(sim: Simulator) {
+        setButtonDisabled("simulator-reset", !sim.canUndo())
+        setButtonDisabled("simulator-undo", !sim.canUndo())
+        setButtonDisabled("simulator-step", sim.isDone())
     }
 
     /** a map from integers to the corresponding hex digits */

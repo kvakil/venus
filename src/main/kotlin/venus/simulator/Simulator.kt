@@ -59,13 +59,15 @@ class Simulator(val linkedProgram: LinkedProgram) {
     }
 
     fun undo(): List<Diff> {
-        if (history.isEmpty()) return listOf() /* TODO: error here? */
+        if (!canUndo()) return emptyList() /* TODO: error here? */
         val diffs = history.pop()
         for (diff in diffs) {
             diff(state)
         }
         return diffs
     }
+
+    fun canUndo() = !history.isEmpty()
 
     fun getReg(id: Int) = state.getReg(id)
 
