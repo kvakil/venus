@@ -275,6 +275,9 @@ internal object Renderer {
 
     /**
      * Renders a row of the memory.
+     *
+     * @param row the HTML element of the row to render
+     * @param rowAddr the new address of that row
      */
     private fun renderMemoryRow(row: HTMLElement, rowAddr: Int) {
         val tdAddress = row.childNodes[0] as HTMLTableCellElement
