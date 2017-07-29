@@ -134,11 +134,13 @@ import kotlin.browser.window
         Renderer.renderRegisterTab()
     }
 
+    internal fun currentlyRunning(): Boolean = timer != null
+
     /**
      * Make a register editable
      */
     @JsName("editRegister") @Suppress("UNUSED_PARAMETER") fun editRegister(reg: HTMLElement, id: Int) {
-        reg.contentEditable = "true"
+        if (!currentlyRunning()) reg.contentEditable = "true"
     }
 
     /**
@@ -146,7 +148,9 @@ import kotlin.browser.window
      */
     @JsName("saveRegister") fun saveRegister(reg: HTMLElement, id: Int) {
         reg.contentEditable = "false"
-        sim.setRegNoUndo(id, reg.innerText.toInt())
-        Renderer.updateRegister(id, sim.getReg(id))
+        if (!currentlyRunning()) {
+            sim.setRegNoUndo(id, reg.innerText.toInt())
+            Renderer.updateRegister(id, sim.getReg(id))
+        }
     }
 }
