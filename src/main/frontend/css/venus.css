@@ -23,7 +23,7 @@ body {
 }
 
 .section {
-    padding: 0rem 1.5rem;
+    padding: 0 1.5rem;
 }
 
 #mc-column {
@@ -49,7 +49,7 @@ body {
     overflow-y: auto;
 }
 
-#register-listing-container {
+#sidebar-listings-container {
     min-height: 80vh;
     max-height: 80vh;
     overflow-y: auto;
@@ -57,7 +57,12 @@ body {
 
 #register-listing {
     font-family: Courier New, Courier, monospace;
-} 
+}
+
+#memory-listing {
+    font-family: Courier New, Courier, monospace;
+    display: none;
+}
 
 #console-output {
     height: 100%;
