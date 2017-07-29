@@ -1,6 +1,6 @@
 package venus.glue
 
-import org.w3c.dom.HTMLElement
+import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
 import venus.assembler.AssemblerError
@@ -136,11 +136,10 @@ import kotlin.browser.window
     /**
      * Save a register's value
      */
-    @JsName("saveRegister") fun saveRegister(reg: HTMLElement, id: Int) {
-        reg.contentEditable = "false"
+    @JsName("saveRegister") fun saveRegister(reg: HTMLInputElement, id: Int) {
         if (!currentlyRunning()) {
             try {
-                val input = reg.innerHTML
+                val input = reg.value
                 sim.setRegNoUndo(id, userStringToInt(input))
             } catch (e: NumberFormatException) {
                 /* do nothing */
