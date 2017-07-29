@@ -63,22 +63,22 @@ body {
     height: 95%;
 }
 
-#register-listing {
+#register-tab-view {
     font-family: Courier New, Courier, monospace;
     display: none;
 }
 
-#memory-listing {
+#memory-tab-view {
     font-family: Courier New, Courier, monospace;
     margin: auto;
 }
 
-#memory-listing th {
+#memory-tab-view th {
     text-align: center;
     vertical-align: middle;
 }
 
-#memory-listing td {
+#memory-tab-view td {
     text-align: center;
     vertical-align: middle;
 }
