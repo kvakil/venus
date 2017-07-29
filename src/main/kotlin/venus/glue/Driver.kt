@@ -146,7 +146,7 @@ import kotlin.browser.window
         reg.contentEditable = "false"
         if (!currentlyRunning()) {
             sim.setRegNoUndo(id, reg.innerText.toInt())
-            Renderer.updateRegister(id, sim.getReg(id))
         }
+        Renderer.updateRegister(id, sim.getReg(id))
     }
 }
