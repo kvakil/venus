@@ -94,3 +94,7 @@ body {
 #simulator-run.is-loading {
     pointer-events: auto;
 }
+
+#register-listing-body td[contenteditable="true"] {
+    text-decoration-line: underline;
+}
