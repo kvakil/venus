@@ -75,7 +75,7 @@ import kotlin.browser.window
             sim.undo()
         }
         Renderer.clearConsole()
-        Renderer.updateAll(sim)
+        Renderer.updateAll()
     }
 
     internal const val TIMEOUT_CYCLES = 10
@@ -98,7 +98,7 @@ import kotlin.browser.window
         Renderer.setRunActive(false)
         timer?.let(window::clearTimeout)
         timer = null
-        Renderer.updateAll(sim)
+        Renderer.updateAll()
     }
 
     /**
@@ -107,7 +107,7 @@ import kotlin.browser.window
     @JsName("step") fun step() {
         val diffs = sim.step()
         Renderer.updateFromDiffs(diffs)
-        Renderer.updateControlButtons(sim)
+        Renderer.updateControlButtons()
     }
 
     /**
@@ -116,6 +116,6 @@ import kotlin.browser.window
     @JsName("undo") fun undo() {
         val diffs = sim.undo()
         Renderer.updateFromDiffs(diffs)
-        Renderer.updateControlButtons(sim)
+        Renderer.updateControlButtons()
     }
 }

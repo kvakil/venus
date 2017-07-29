@@ -1,14 +1,16 @@
 package venus.glue
 /* ktlint-disable no-wildcard-imports */
-import kotlin.browser.*
-import org.w3c.dom.*
-import org.w3c.dom.css.*
 
-import venus.riscv.InstructionField
+import org.w3c.dom.*
 import venus.assembler.AssemblerError
-import venus.simulator.Simulator
+import venus.riscv.InstructionField
 import venus.simulator.Diff
-import venus.simulator.diffs.*
+import venus.simulator.Simulator
+import venus.simulator.diffs.MemoryDiff
+import venus.simulator.diffs.PCDiff
+import venus.simulator.diffs.RegisterDiff
+import kotlin.browser.document
+
 /* ktlint-enable no-wildcard-imports */
 
 /**
@@ -22,18 +24,21 @@ internal object Renderer {
     private var activeRegister: HTMLElement? = null
     /** The instruction currently being highlighted */
     private var activeInstruction: HTMLElement? = null
+    /** The simulator being rendered */
+    private lateinit var sim: Simulator
 
     /**
      * Shows the simulator tab and hides other tabs
      *
-     * @param sim the simulator to show
+     * @param displaySim the simulator to show
      */
-    fun renderSimulator(sim: Simulator) {
+    fun renderSimulator(displaySim: Simulator) {
         tabSetVisibility("editor", false)
         tabSetVisibility("simulator", true)
-        renderProgramListing(sim)
+        sim = displaySim
+        renderProgramListing()
         clearConsole()
-        updateAll(sim)
+        updateAll()
     }
 
     /** Shows the editor tab and hides other tabs */
@@ -64,10 +69,8 @@ internal object Renderer {
 
     /**
      * Renders the program listing under the debugger
-     *
-     * @param sim the simulator which contains the program
      */
-    private fun renderProgramListing(sim: Simulator) {
+    private fun renderProgramListing() {
         clearProgramListing()
         for (i in 0 until sim.linkedProgram.prog.insts.size) {
             val programDebug = sim.linkedProgram.dbg[i]
@@ -81,12 +84,11 @@ internal object Renderer {
 
     /**
      * Refresh all of the simulator tab's content
-     *
-     * @param sim the simulator to use
      */
-    fun updateAll(sim: Simulator) {
+    fun updateAll() {
         updatePC(sim.getPC())
-        updateControlButtons(sim)
+        updateMemory(0)
+        updateControlButtons()
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
         }
@@ -102,6 +104,7 @@ internal object Renderer {
             when (diff) {
                 is RegisterDiff -> updateRegister(diff.id, diff.v, true)
                 is PCDiff -> updatePC(diff.pc)
+                is MemoryDiff -> updateMemory(diff.addr)
                 else -> {
                     println("diff not yet implemented")
                 }
@@ -225,18 +228,69 @@ internal object Renderer {
 
     /**
      * Renders the control buttons to be enabled / disabled appropriately.
-     *
-     * @param sim the simulator currently being used
      */
-    fun updateControlButtons(sim: Simulator) {
+    fun updateControlButtons() {
         setButtonDisabled("simulator-reset", !sim.canUndo())
         setButtonDisabled("simulator-undo", !sim.canUndo())
         setButtonDisabled("simulator-step", sim.isDone())
     }
 
+    /**
+     * Number of rows to show around the current address
+     */
+    const val MEMORY_CONTEXT = 6
+
+    /**
+     * Update the [MEMORY_CONTEXT] words above and below the given address.
+     *
+     * @param addr the address to update around
+     */
+    private fun updateMemory(addr: Int) {
+        val wordAddr = addr - (addr % 4)
+        for (rowIdx in -MEMORY_CONTEXT..MEMORY_CONTEXT) {
+            val row = getElement("mem-row-$rowIdx")
+            val rowAddr = wordAddr + 4 * rowIdx
+            renderMemoryRow(row, rowAddr)
+        }
+    }
+
+    /**
+     * Renders a row of the memory.
+     */
+    private fun renderMemoryRow(row: HTMLElement, rowAddr: Int) {
+        val tdAddress = row.childNodes[0] as HTMLTableCellElement
+        if (rowAddr >= 0) {
+            tdAddress.innerText = toHex(rowAddr)
+            for (i in 1..4) {
+                val tdByte = row.childNodes[i] as HTMLTableCellElement
+                tdByte.innerText = byteToHex(sim.loadByte(rowAddr + i - 1))
+            }
+        } else {
+            tdAddress.innerText = "----------"
+            for (i in 1..4) {
+                val tdByte = row.childNodes[i] as HTMLTableCellElement
+                tdByte.innerText = "--"
+            }
+        }
+    }
+
     /** a map from integers to the corresponding hex digits */
     private val hexMap = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         'a', 'b', 'c', 'd', 'e', 'f')
+
+    /**
+     * Convert a certain byte to hex
+     *
+     * @param b the byte to convert
+     * @return a hex string for the byte
+     *
+     * @throws IndexOutOfBoundsException if b is not in -127..255
+     */
+    private fun byteToHex(b: Int): String {
+        val leftNibble = hexMap[b ushr 4]
+        val rightNibble = hexMap[b and 15]
+        return "$leftNibble$rightNibble"
+    }
 
     /**
      * Converts a value to a two's complement hex number.
