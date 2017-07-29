@@ -35,8 +35,8 @@ internal object Renderer {
      * @param displaySim the simulator to show
      */
     fun renderSimulator(displaySim: Simulator) {
-        tabSetVisibility("editor", false)
-        tabSetVisibility("simulator", true)
+        tabSetVisibility("simulator", "block")
+        tabSetVisibility("editor", "none")
         sim = displaySim
         renderProgramListing()
         clearConsole()
@@ -45,8 +45,8 @@ internal object Renderer {
 
     /** Shows the editor tab and hides other tabs */
     fun renderEditor() {
-        tabSetVisibility("simulator", false)
-        tabSetVisibility("editor", true)
+        tabSetVisibility("simulator", "none")
+        tabSetVisibility("editor", "block")
     }
 
     /**
@@ -55,13 +55,16 @@ internal object Renderer {
      * Also updates the highlighted tab at the top.
      *
      * @param tab the name of the tab (currently "editor" or "simulator")
-     * @param visible whether to show or hide it
      */
-    private fun tabSetVisibility(tab: String, visible: Boolean) {
+    private fun tabSetVisibility(tab: String, display: String) {
         val tabView = document.getElementById("$tab-tab-view") as HTMLElement
         val tabDisplay = document.getElementById("$tab-tab") as HTMLElement
-        tabView.style.display = if (visible) "block" else "none"
-        tabDisplay.className = if (visible) "is-active" else ""
+        tabView.style.display = display
+        if (display == "none") {
+            tabDisplay.classList.remove("is-active")
+        } else {
+            tabDisplay.classList.add("is-active")
+        }
     }
 
     /** Display a given [AssemblerError] */
@@ -242,6 +245,18 @@ internal object Renderer {
      */
     const val MEMORY_CONTEXT = 6
 
+    /** Show the memory sidebar tab */
+    fun renderMemoryTab() {
+        tabSetVisibility("memory", "table")
+        tabSetVisibility("register", "none")
+    }
+
+    /** Show the register sidebar tab */
+    fun renderRegisterTab() {
+        tabSetVisibility("register", "table")
+        tabSetVisibility("memory", "none")
+    }
+
     /**
      * Update the [MEMORY_CONTEXT] words above and below the given address.
      *
@@ -251,10 +266,8 @@ internal object Renderer {
      */
     private fun updateMemory(addr: Int) {
         val wordAddress = (addr shr 2) shl 2
-        activeMemoryAddress = if (mustMoveMemoryDisplay(wordAddress)) {
-            wordAddress
-        } else {
-            activeMemoryAddress
+        if (mustMoveMemoryDisplay(wordAddress)) {
+            activeMemoryAddress = wordAddress
         }
 
         for (rowIdx in -MEMORY_CONTEXT..MEMORY_CONTEXT) {
@@ -271,7 +284,7 @@ internal object Renderer {
      * @return true if we need to move the display
      */
     private fun mustMoveMemoryDisplay(wordAddress: Int) =
-            (activeMemoryAddress - wordAddress) ushr 2 > MEMORY_CONTEXT
+            (activeMemoryAddress - wordAddress) shr 2 !in -MEMORY_CONTEXT..MEMORY_CONTEXT
 
     /**
      * Renders a row of the memory.

@@ -118,4 +118,18 @@ import kotlin.browser.window
         Renderer.updateFromDiffs(diffs)
         Renderer.updateControlButtons()
     }
+
+    /**
+     * Change to memory tab.
+     */
+    @JsName("openMemoryTab") fun openMemoryTab() {
+        Renderer.renderMemoryTab()
+    }
+
+    /**
+     * Change to register tab.
+     */
+    @JsName("openRegisterTab") fun openRegisterTab() {
+        Renderer.renderRegisterTab()
+    }
 }

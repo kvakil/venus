@@ -60,17 +60,17 @@ body {
 }
 
 #listing-panel {
-    height: 95%;
+    min-height: 95%;
 }
 
 #register-tab-view {
     font-family: Courier New, Courier, monospace;
-    display: none;
 }
 
 #memory-tab-view {
     font-family: Courier New, Courier, monospace;
     margin: auto;
+    display: none;
 }
 
 #memory-tab-view th {
