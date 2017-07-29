@@ -19,7 +19,7 @@ class Program(val name: String = "anonymous") {
     val dataSegment = ArrayList<Byte>()
     var textSize = 0
     var dataSize = 0
-    val globalLabels = HashSet<String>()
+    private val globalLabels = HashSet<String>()
 
     /**
      * Adds an instruction to the program, and increments the text size.
