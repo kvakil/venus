@@ -65,7 +65,7 @@ import kotlin.browser.window
             runEnd()
         } else {
             Renderer.setRunButtonSpinning(true)
-            timer = runStart()
+            timer = window.setTimeout(Driver::runStart, TIMEOUT_TIME)
         }
     }
 
@@ -76,20 +76,21 @@ import kotlin.browser.window
         openSimulator()
     }
 
-    internal const val TIMEOUT_CYCLES = 10
-    internal fun runStart(): Int? {
+    internal const val TIMEOUT_CYCLES = 100
+    internal const val TIMEOUT_TIME = 10
+    internal fun runStart() {
         var cycles = 0
         while (cycles < TIMEOUT_CYCLES) {
             if (sim.isDone()) {
                 runEnd()
-                return null
+                return
             }
 
             sim.step()
             cycles++
         }
 
-        return window.setTimeout(Driver::runStart, 20)
+        window.setTimeout(Driver::runStart, TIMEOUT_TIME)
     }
 
     internal fun runEnd() {
