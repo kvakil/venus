@@ -13,17 +13,16 @@ venus is [available online](https://kvakil.github.io/venus/).
 
 * RV32IM (except cycle counters and fence instructions)
 * Single-step debugging with undo feature
+* Breakpoint debugging
 * View machine code and original instructions side-by-side
 * Several `ecall`s: including `print` and `sbrk`
-* `la` and `l`oad pseudoinstructions
 * Memory visualization
 
 ### Currently in progress
 
-* All standard RV32I pseudoinstructions
 * Improved integrated editor (syntax highlighting, autocomplete, better error highlighting)
+* All standard RV32I pseudoinstructions
 * RV32F support
-* Breakpoint debugging
 
 ### Long-term Goals
 
