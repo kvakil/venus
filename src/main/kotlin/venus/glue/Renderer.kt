@@ -267,7 +267,7 @@ internal object Renderer {
 
     /** Show the register sidebar tab */
     fun renderRegisterTab() {
-        tabSetVisibility("register", "table")
+        tabSetVisibility("register", "block")
         tabSetVisibility("memory", "none")
     }
 
