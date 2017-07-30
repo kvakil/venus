@@ -164,13 +164,12 @@ internal object Renderer {
      * @param setActive whether the register should be set to the active register (i.e., highlighted for the user)
      */
     fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
-        val registerValue = getElement("reg-$id-val") as HTMLInputElement
-        registerValue.value = toHex(value)
+        val register = getElement("reg-$id-val") as HTMLInputElement
+        register.value = toHex(value)
         if (setActive) {
-            activeRegister?.className = ""
-            val newActiveRegister = getElement("reg-$id")
-            newActiveRegister.className = "is-selected"
-            activeRegister = newActiveRegister
+            activeRegister?.classList?.remove("is-modified")
+            register.classList.add("is-modified")
+            activeRegister = register
         }
     }
 

@@ -95,6 +95,15 @@ body {
     pointer-events: auto;
 }
 
-#register-listing-body input {
+#register-tab-view .input {
     font-family: Courier New, Courier, monospace;
+    border-width: 2px;
+}
+
+#register-tab-view .field.is-horizontal {
+    width: 100%;
+}
+
+.input.is-modified {
+    border-color: #3273dc;
 }
