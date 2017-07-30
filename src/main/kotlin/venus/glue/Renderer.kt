@@ -138,6 +138,7 @@ internal object Renderer {
         val programTable = getElement("program-listing-body") as HTMLTableSectionElement
         val newRow = programTable.insertRow() as HTMLTableRowElement
         newRow.id = "instruction-$idx"
+        newRow.onclick = { Driver.addBreakpoint(idx) }
         val machineCode = newRow.insertCell(0)
         val machineCodeText = document.createTextNode(code)
         machineCode.appendChild(machineCodeText)
@@ -181,9 +182,9 @@ internal object Renderer {
      */
     fun updatePC(pc: Int) {
         val idx = pc / 4
-        activeInstruction?.className = ""
+        activeInstruction?.classList?.remove("is-selected")
         val newActiveInstruction = document.getElementById("instruction-$idx") as HTMLElement?
-        newActiveInstruction?.className = "is-selected"
+        newActiveInstruction?.classList?.add("is-selected")
         newActiveInstruction?.scrollIntoView(false)
         activeInstruction = newActiveInstruction
     }
@@ -252,6 +253,21 @@ internal object Renderer {
         setButtonDisabled("simulator-reset", true)
         setButtonDisabled("simulator-undo", true)
         setButtonDisabled("simulator-step", true)
+    }
+
+    /**
+     * Renders a change in breakpoint status
+     *
+     * @param idx the index to render
+     * @param state whether or not there is a breakpoint
+     */
+    fun renderBreakpointAt(idx: Int, state: Boolean) {
+        val row = getElement("instruction-$idx")
+        if (state) {
+            row.classList.add("is-breakpoint")
+        } else {
+            row.classList.remove("is-breakpoint")
+        }
     }
 
     /**

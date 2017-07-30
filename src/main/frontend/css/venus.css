@@ -43,6 +43,16 @@ body {
     height: 100%;
 }
 
+#program-listing-body tr.is-breakpoint {
+    background-color: #ff3860;
+    color: white;
+}
+
+#program-listing-body tr.is-selected {
+    background-color: #00d1b2;
+    color: white;
+}
+
 #program-listing-container {
     min-height: 60vh;
     max-height: 60vh;

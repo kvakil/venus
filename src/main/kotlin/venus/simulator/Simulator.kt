@@ -18,6 +18,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
     private val history = History()
     private val preInstruction = ArrayList<Diff>()
     private val postInstruction = ArrayList<Diff>()
+    private val breakpoints: Array<Boolean>
 
     init {
         for (inst in linkedProgram.prog.insts) {
@@ -35,6 +36,8 @@ class Simulator(val linkedProgram: LinkedProgram) {
         state.pc = linkedProgram.startPC ?: MemorySegments.TEXT_BEGIN
         state.setReg(2, MemorySegments.STACK_BEGIN)
         state.setReg(3, MemorySegments.STATIC_BEGIN)
+
+        breakpoints = Array<Boolean>(linkedProgram.prog.insts.size, { false })
     }
 
     fun isDone(): Boolean = getPC() >= maxpc
@@ -79,6 +82,13 @@ class Simulator(val linkedProgram: LinkedProgram) {
     fun setRegNoUndo(id: Int, v: Int) {
         state.setReg(id, v)
     }
+
+    fun toggleBreakpointAt(idx: Int): Boolean {
+        breakpoints[idx] = !breakpoints[idx]
+        return breakpoints[idx]
+    }
+
+    fun atBreakpoint() = breakpoints[state.pc / 4]
 
     fun getPC() = state.pc
 

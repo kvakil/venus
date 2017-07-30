@@ -66,6 +66,7 @@ import kotlin.browser.window
         } else {
             Renderer.setRunButtonSpinning(true)
             timer = window.setTimeout(Driver::runStart, TIMEOUT_TIME)
+            sim.step() // walk past breakpoint
         }
     }
 
@@ -76,12 +77,17 @@ import kotlin.browser.window
         openSimulator()
     }
 
+    @JsName("toggleBreakpoint") fun addBreakpoint(idx: Int) {
+        val isBreakpoint = sim.toggleBreakpointAt(idx)
+        Renderer.renderBreakpointAt(idx, isBreakpoint)
+    }
+
     internal const val TIMEOUT_CYCLES = 100
     internal const val TIMEOUT_TIME = 10
     internal fun runStart() {
         var cycles = 0
         while (cycles < TIMEOUT_CYCLES) {
-            if (sim.isDone()) {
+            if (sim.isDone() || sim.atBreakpoint()) {
                 runEnd()
                 return
             }
