@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Lexer - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.assembler</a>&nbsp;/&nbsp;<a href=".">Lexer</a><br/>
+<br/>
+<h1>Lexer</h1>
+<code><span class="keyword">object </span><span class="identifier">Lexer</span></code>
+<p>A singleton which can be used to lex a given line.</p>
+<p><strong>Todo</strong><br/>
+replace with a better lexer (ANTLR?)</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="lex-asciiz-directive.html">lexAsciizDirective</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">lexAsciizDirective</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.Lexer$lexAsciizDirective(kotlin.String)/line">line</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Lex an asciiz directive.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="lex-line.html">lexLine</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">lexLine</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.Lexer$lexLine(kotlin.String)/line">line</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Lex a line into a label (if there) and a list of arguments.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

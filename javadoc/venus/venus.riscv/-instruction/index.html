@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Instruction - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.riscv</a>&nbsp;/&nbsp;<a href=".">Instruction</a><br/>
+<br/>
+<h1>Instruction</h1>
+<code><span class="keyword">class </span><span class="identifier">Instruction</span></code>
+<p>Represents the machine code of an instruction.</p>
+<p>For now this only supports RV32.</p>
+<h3>Parameters</h3>
+<a name="encoding"></a>
+<code>encoding</code> - the underlying machine code of the instruction
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Instruction</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Instruction$<init>(kotlin.Int)/encoding">encoding</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code>
+<p>Represents the machine code of an instruction.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="length.html">length</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">length</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-field.html">getField</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getField</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Instruction$getField(venus.riscv.InstructionField)/ifield">ifield</span><span class="symbol">:</span>&nbsp;<a href="../-instruction-field/index.html"><span class="identifier">InstructionField</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Returns the value of the given instruction field for this instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-field.html">setField</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setField</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Instruction$setField(venus.riscv.InstructionField, kotlin.Int)/ifield">ifield</span><span class="symbol">:</span>&nbsp;<a href="../-instruction-field/index.html"><span class="identifier">InstructionField</span></a><span class="symbol">, </span><span class="identifier" id="venus.riscv.Instruction$setField(venus.riscv.InstructionField, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets an instruction field to the given value.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

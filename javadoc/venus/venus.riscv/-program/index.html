@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Program - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.riscv</a>&nbsp;/&nbsp;<a href=".">Program</a><br/>
+<br/>
+<h1>Program</h1>
+<code><span class="keyword">class </span><span class="identifier">Program</span></code>
+<p>An (unlinked) program.</p>
+<h3>Parameters</h3>
+<a name="name"></a>
+<code>name</code> - the name of the program, used for debug info
+<p><strong>See Also</strong><br/>
+<p><a href="../../venus.assembler/-assembler/index.html">venus.assembler.Assembler</a></p>
+<p><a href="../../venus.linker/-linker/index.html">venus.linker.Linker</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Program</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$<init>(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"anonymous"<span class="symbol">)</span></code>
+<p>An (unlinked) program.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="data-segment.html">dataSegment</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">dataSegment</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="data-size.html">dataSize</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">dataSize</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="debug-info.html">debugInfo</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">debugInfo</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="insts.html">insts</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">insts</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="labels.html">labels</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">labels</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="relocation-table.html">relocationTable</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">relocationTable</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="text-size.html">textSize</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">textSize</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add.html">add</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$add(venus.riscv.Instruction)/inst">inst</span><span class="symbol">:</span>&nbsp;<a href="../-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adds an instruction to the program, and increments the text size.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="add-debug-info.html">addDebugInfo</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addDebugInfo</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$addDebugInfo(venus.assembler.DebugInfo)/dbg">dbg</span><span class="symbol">:</span>&nbsp;<a href="../../venus.assembler/-debug-info/index.html"><span class="identifier">DebugInfo</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adds debug info to the instruction currently being assembled.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="add-label.html">addLabel</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addLabel</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$addLabel(kotlin.String, kotlin.Int)/label">label</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="venus.riscv.Program$addLabel(kotlin.String, kotlin.Int)/offset">offset</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Adds a label with a given offset to the program.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="add-relocation.html">addRelocation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addRelocation</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$addRelocation(kotlin.String, kotlin.Int)/label">label</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="venus.riscv.Program$addRelocation(kotlin.String, kotlin.Int)/offset">offset</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;textSize<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Adds a line to the relocation table.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="add-to-data.html">addToData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addToData</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$addToData(kotlin.Byte)/byte">byte</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html"><span class="identifier">Byte</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adds a byte of data to the program, and increments the data size.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="dump.html">dump</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">dump</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">&gt;</span></code>
+<p>Dumps the instructions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-label-offset.html">getLabelOffset</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getLabelOffset</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$getLabelOffset(kotlin.String)/label">label</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span></code>
+<p>Gets the <em>relative</em> label offset, or null if it does not exist.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-global-label.html">isGlobalLabel</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isGlobalLabel</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$isGlobalLabel(kotlin.String)/label">label</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Checks if a label is global.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="make-label-global.html">makeLabelGlobal</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">makeLabelGlobal</span><span class="symbol">(</span><span class="identifier" id="venus.riscv.Program$makeLabelGlobal(kotlin.String)/label">label</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Makes a label global.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,152 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>venus.assembler.pseudos - venus</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">venus</a>&nbsp;/&nbsp;<a href=".">venus.assembler.pseudos</a><br/>
+<br/>
+<h2>Package venus.assembler.pseudos</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-j.html">J</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">J</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>j label</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-j-a-l.html">JAL</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">JAL</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>jal label</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-j-a-l-r.html">JALR</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">JALR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>jalr reg</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-j-r.html">JR</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">JR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>jr register</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-a.html">LA</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">LA</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>la reg, label</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-i.html">LI</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">LI</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>li rd, imm</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-load.html">Load</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Load</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes a load pseudoinstruction. (Those applied to a label)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-m-v.html">MV</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MV</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>mv rd, rs1</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-o-p.html">NOP</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">NOP</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>nop</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-t.html">RET</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">RET</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>ret</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-e-q.html">SEQ</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SEQ</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>seq</code> (set equal to)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-g-e.html">SGE</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SGE</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>sge</code> (set greater than or equal to)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-g-t.html">SGT</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SGT</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>sgt</code> (set greater than)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-l-e.html">SLE</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SLE</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>sle</code> (set less than or equal to)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-n-e.html">SNE</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SNE</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-pseudo-writer/index.html"><span class="identifier">PseudoWriter</span></a></code>
+<p>Writes pseudoinstruction <code>sne</code> (set not equal to)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

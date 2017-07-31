@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ITypeWriter - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.assembler.writers</a>&nbsp;/&nbsp;<a href=".">ITypeWriter</a><br/>
+<br/>
+<h1>ITypeWriter</h1>
+<code><span class="keyword">object </span><span class="identifier">ITypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any I-type instruction.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-m-a-x_-i_-v-a-l-u-e.html">MAX_I_VALUE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">MAX_I_VALUE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Maximum value for an I-type immediate</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-m-i-n_-i_-v-a-l-u-e.html">MIN_I_VALUE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">MIN_I_VALUE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Minimum value for an I-type immediate</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.writers.ITypeWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/prog">prog</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-program/index.html"><span class="identifier">Program</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.writers.ITypeWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/inst">inst</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.writers.ITypeWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets instruction fields.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../venus.assembler/-instruction-writer/invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.InstructionFormat, kotlin.collections.List((kotlin.String)))/prog">prog</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-program/index.html"><span class="identifier">Program</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.InstructionFormat, kotlin.collections.List((kotlin.String)))/iform">iform</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction-format/index.html"><span class="identifier">InstructionFormat</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.InstructionFormat, kotlin.collections.List((kotlin.String)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Writes the instruction to the given program.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

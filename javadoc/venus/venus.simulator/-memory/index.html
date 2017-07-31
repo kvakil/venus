@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Memory - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.simulator</a>&nbsp;/&nbsp;<a href=".">Memory</a><br/>
+<br/>
+<h1>Memory</h1>
+<code><span class="keyword">class </span><span class="identifier">Memory</span></code>
+<p>A class representing a computer's memory.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Memory</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A class representing a computer's memory.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="load-byte.html">loadByte</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loadByte</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.Memory$loadByte(kotlin.Int)/addr">addr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Loads an unsigned byte from memory</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="load-half-word.html">loadHalfWord</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loadHalfWord</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.Memory$loadHalfWord(kotlin.Int)/addr">addr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Loads an unsigned halfword from memory</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="load-word.html">loadWord</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loadWord</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.Memory$loadWord(kotlin.Int)/addr">addr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Loads a word from memory</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="store-byte.html">storeByte</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">storeByte</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.Memory$storeByte(kotlin.Int, kotlin.Int)/addr">addr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="venus.simulator.Memory$storeByte(kotlin.Int, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Stores a byte in memory, truncating the given Int if necessary</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="store-half-word.html">storeHalfWord</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">storeHalfWord</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.Memory$storeHalfWord(kotlin.Int, kotlin.Int)/addr">addr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="venus.simulator.Memory$storeHalfWord(kotlin.Int, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Stores a halfword in memory, truncating the given Int if necessary</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="store-word.html">storeWord</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">storeWord</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.Memory$storeWord(kotlin.Int, kotlin.Int)/addr">addr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="venus.simulator.Memory$storeWord(kotlin.Int, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Stores a word in memory</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

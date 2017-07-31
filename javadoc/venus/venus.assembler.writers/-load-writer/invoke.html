@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>LoadWriter.invoke - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.assembler.writers</a>&nbsp;/&nbsp;<a href="index.html">LoadWriter</a>&nbsp;/&nbsp;<a href=".">invoke</a><br/>
+<br/>
+<h1>invoke</h1>
+<a name="venus.assembler.writers.LoadWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))"></a>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.writers.LoadWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/prog">prog</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-program/index.html"><span class="identifier">Program</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.writers.LoadWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/inst">inst</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.writers.LoadWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Overrides <a href="../../venus.assembler/-instruction-writer/invoke.html">InstructionWriter.invoke</a></p>
+<p>Sets instruction fields.</p>
+<h3>Parameters</h3>
+<a name="prog"></a>
+<code>prog</code> - the program to add the instruction to<a name="inst"></a>
+<code>inst</code> - the instruction to fill in and add<a name="args"></a>
+<code>args</code> - the arguments given in the code
+<h3>Exceptions</h3>
+<a name="venus.assembler.AssemblerError"></a>
+<code>venus.assembler.AssemblerError</code> - if an invalid register is given<a name="venus.assembler.AssemblerError"></a>
+<code>venus.assembler.AssemblerError</code> - if the wrong number of arguments is given<a name="venus.assembler.AssemblerError"></a>
+<code>venus.assembler.AssemblerError</code> - if the immediate is out of range
+</BODY>
+</HTML>

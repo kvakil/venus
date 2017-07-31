@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RelocatorDispatcher - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.linker</a>&nbsp;/&nbsp;<a href=".">RelocatorDispatcher</a><br/>
+<br/>
+<h1>RelocatorDispatcher</h1>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">RelocatorDispatcher</span></code>
+<p>Describes each instruction which may be relocated</p>
+<h3>Enum Values</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-a-d-d-i.html">ADDI</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-a-u-i-p-c.html">AUIPC</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-j-a-l.html">JAL</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-b.html">LB</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-b-u.html">LBU</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-h.html">LH</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-h-u.html">LHU</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-w.html">LW</a></p>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="iform.html">iform</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">iform</span><span class="symbol">: </span><a href="../../venus.riscv/-instruction-format/index.html"><span class="identifier">InstructionFormat</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="relocator.html">relocator</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">relocator</span><span class="symbol">: </span><a href="../-relocator/index.html"><span class="identifier">Relocator</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dispatch.html">dispatch</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">dispatch</span><span class="symbol">(</span><span class="identifier" id="venus.linker.RelocatorDispatcher.Companion$dispatch(venus.riscv.Instruction)/inst">inst</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-relocator/index.html"><span class="identifier">Relocator</span></a><span class="symbol">?</span></code>
+<p>Find the first Relocator which passes all the tests</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

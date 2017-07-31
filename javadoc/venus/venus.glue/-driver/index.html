@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Driver - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.glue</a>&nbsp;/&nbsp;<a href=".">Driver</a><br/>
+<br/>
+<h1>Driver</h1>
+<code><span class="keyword">object </span><span class="identifier">Driver</span></code>
+<p>The "driver" singleton which can be called from Javascript for all functionality.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="sim.html">sim</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">sim</span><span class="symbol">: </span><a href="../../venus.simulator/-simulator/index.html"><span class="identifier">Simulator</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-breakpoint.html">addBreakpoint</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addBreakpoint</span><span class="symbol">(</span><span class="identifier" id="venus.glue.Driver$addBreakpoint(kotlin.Int)/idx">idx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="open-editor.html">openEditor</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">openEditor</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Opens and renders the editor.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="open-memory-tab.html">openMemoryTab</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">openMemoryTab</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Change to memory tab.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="open-register-tab.html">openRegisterTab</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">openRegisterTab</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Change to register tab.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="open-simulator.html">openSimulator</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">openSimulator</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Run when the user clicks the "Simulator" tab.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="reset.html">reset</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">reset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Resets the simulator to its initial state</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="run.html">run</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">run</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Runs the simulator until it is done, or until the run button is pressed again.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="save-register.html">saveRegister</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveRegister</span><span class="symbol">(</span><span class="identifier" id="venus.glue.Driver$saveRegister(, kotlin.Int)/reg">reg</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">, </span><span class="identifier" id="venus.glue.Driver$saveRegister(, kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Save a register's value</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="step.html">step</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">step</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Runs the simulator for one step and renders any updates.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="undo.html">undo</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">undo</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Undo the last executed instruction and render any updates.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

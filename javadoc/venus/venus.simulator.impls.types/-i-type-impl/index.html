@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ITypeImpl - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.simulator.impls.types</a>&nbsp;/&nbsp;<a href=".">ITypeImpl</a><br/>
+<br/>
+<h1>ITypeImpl</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ITypeImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../venus.simulator/-instruction-implementation/index.html"><span class="identifier">InstructionImplementation</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ITypeImpl</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="evaluate.html">evaluate</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">evaluate</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.impls.types.ITypeImpl$evaluate(kotlin.Int, kotlin.Int)/vrs1">vrs1</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="venus.simulator.impls.types.ITypeImpl$evaluate(kotlin.Int, kotlin.Int)/imm">imm</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.impls.types.ITypeImpl$invoke(venus.riscv.Instruction, venus.simulator.Simulator)/inst">inst</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">, </span><span class="identifier" id="venus.simulator.impls.types.ITypeImpl$invoke(venus.riscv.Instruction, venus.simulator.Simulator)/sim">sim</span><span class="symbol">:</span>&nbsp;<a href="../../venus.simulator/-simulator/index.html"><span class="identifier">Simulator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-a-d-d-i-impl/index.html">ADDIImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ADDIImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ITypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-a-n-d-i-impl/index.html">ANDIImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ANDIImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ITypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-o-r-i-impl/index.html">ORIImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ORIImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ITypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-s-l-t-i-impl/index.html">SLTIImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SLTIImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ITypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-s-l-t-i-u-impl/index.html">SLTIUImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SLTIUImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ITypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-x-o-r-i-impl/index.html">XORIImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">XORIImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ITypeImpl</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

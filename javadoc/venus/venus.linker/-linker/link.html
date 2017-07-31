@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Linker.link - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.linker</a>&nbsp;/&nbsp;<a href="index.html">Linker</a>&nbsp;/&nbsp;<a href=".">link</a><br/>
+<br/>
+<h1>link</h1>
+<a name="venus.linker.Linker$link(kotlin.collections.List((venus.riscv.Program)))"></a>
+<code><span class="keyword">fun </span><span class="identifier">link</span><span class="symbol">(</span><span class="identifier" id="venus.linker.Linker$link(kotlin.collections.List((venus.riscv.Program)))/progs">progs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../venus.riscv/-program/index.html"><span class="identifier">Program</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-linked-program/index.html"><span class="identifier">LinkedProgram</span></a></code>
+<p>Links together the given list of programs.</p>
+<p>This consists of several steps:
+    - Collect all the labels in each program.
+    - Keep track of all the instructions which need to be relocated.
+    - Append all the instructions together.
+    - Append all of the debugging info together.
+    - Append all of the data segments together
+Once the above is done, all the appropriate relocation is performed.</p>
+<h3>Parameters</h3>
+<a name="progs"></a>
+<code>progs</code> - a list of programs which will be linked
+<p><strong>Return</strong><br/>
+a <a href="../-linked-program/index.html">LinkedProgram</a> which can be used in the <a href="../../venus.simulator/-simulator/index.html">venus.simulator.Simulator</a></p>
+<p><strong>Todo</strong><br/>
+refactor this into multiple functions</p>
+</BODY>
+</HTML>

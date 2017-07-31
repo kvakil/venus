@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>venus.linker - venus</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">venus</a>&nbsp;/&nbsp;<a href=".">venus.linker</a><br/>
+<br/>
+<h2>Package venus.linker</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-linked-program/index.html">LinkedProgram</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LinkedProgram</span></code>
+<p>A program which also has attached debugging information.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-linker/index.html">Linker</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Linker</span></code>
+<p>A singleton which links a list of programs into one program.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-program-debug-info/index.html">ProgramDebugInfo</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ProgramDebugInfo</span></code>
+<p>Debug info with the program's name</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-relocation-info/index.html">RelocationInfo</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RelocationInfo</span></code>
+<p>Contains the byte offset which must be relocated and the label it should point to</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-relocator/index.html">Relocator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Relocator</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-relocator-dispatcher/index.html">RelocatorDispatcher</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">RelocatorDispatcher</span></code>
+<p>Describes each instruction which may be relocated</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

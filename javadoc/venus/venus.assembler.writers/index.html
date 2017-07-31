@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>venus.assembler.writers - venus</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">venus</a>&nbsp;/&nbsp;<a href=".">venus.assembler.writers</a><br/>
+<br/>
+<h2>Package venus.assembler.writers</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-b-type-writer/index.html">BTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">BTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any BType instruction</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-do-nothing-writer/index.html">DoNothingWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DoNothingWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to do nothing (aside from what <a href="../venus.assembler/-instruction-writer/index.html">InstructionWriter</a> does).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-type-writer/index.html">ITypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ITypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any I-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-j-type-writer/index.html">JTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">JTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any J-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-load-writer/index.html">LoadWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">LoadWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any load instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-type-writer/index.html">RTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">RTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any R-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-type-writer/index.html">STypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">STypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any S-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-u-type-writer/index.html">UTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">UTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../venus.assembler/-instruction-writer/index.html"><span class="identifier">InstructionWriter</span></a></code>
+<p>A singleton which can be invoked to write any U-type instruction.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="check-args-length.html">checkArgsLength</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">checkArgsLength</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.writers$checkArgsLength(kotlin.collections.List((kotlin.String)), kotlin.Int)/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="venus.assembler.writers$checkArgsLength(kotlin.collections.List((kotlin.String)), kotlin.Int)/required">required</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Checks to make sure the right number of arguments are given to an instruction</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-immediate.html">getImmediate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getImmediate</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.writers$getImmediate(kotlin.String, kotlin.Int, kotlin.Int)/str">str</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.writers$getImmediate(kotlin.String, kotlin.Int, kotlin.Int)/min">min</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.writers$getImmediate(kotlin.String, kotlin.Int, kotlin.Int)/max">max</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Gets the immediate from a string, checking if it is in range.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="reg-name-to-number.html">regNameToNumber</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">regNameToNumber</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.writers$regNameToNumber(kotlin.String)/reg">reg</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Converts a register name to its ID.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

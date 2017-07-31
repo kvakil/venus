@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>venus.assembler - venus</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">venus</a>&nbsp;/&nbsp;<a href=".">venus.assembler</a><br/>
+<br/>
+<h2>Package venus.assembler</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assembler/index.html">Assembler</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Assembler</span></code>
+<p>This singleton implements a simple two-pass assembler to transform files into programs.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-debug-info/index.html">DebugInfo</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">DebugInfo</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-debug-instruction/index.html">DebugInstruction</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">DebugInstruction</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-instruction-writer/index.html">InstructionWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">InstructionWriter</span></code>
+<p>A class which describes how to write an instruction to a program.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-lexer/index.html">Lexer</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Lexer</span></code>
+<p>A singleton which can be used to lex a given line.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-pseudo-dispatcher/index.html">PseudoDispatcher</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">PseudoDispatcher</span></code>
+<p>Describes each instruction for writing</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-pseudo-writer/index.html">PseudoWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">PseudoWriter</span></code>
+<p>Converts a pseudoinstruction into TAL instructions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-writer-dispatcher/index.html">WriterDispatcher</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">WriterDispatcher</span></code>
+<p>Describes each instruction for writing</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assembler-error/index.html">AssemblerError</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AssemblerError</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a></code>
+<p>Thrown when errors occur during assembly.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Type Aliases</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-line-tokens.html">LineTokens</a></p>
+</td>
+<td>
+<code><span class="keyword">typealias </span><span class="identifier">LineTokens</span>&nbsp;<span class="symbol">=</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

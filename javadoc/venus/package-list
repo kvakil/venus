@@ -1,0 +1,15 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+venus.assembler
+venus.assembler.pseudos
+venus.assembler.writers
+venus.glue
+venus.linker
+venus.linker.relocators
+venus.riscv
+venus.riscv.formats
+venus.simulator
+venus.simulator.diffs
+venus.simulator.impls
+venus.simulator.impls.types

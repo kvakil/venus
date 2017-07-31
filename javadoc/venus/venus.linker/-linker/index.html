@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Linker - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.linker</a>&nbsp;/&nbsp;<a href=".">Linker</a><br/>
+<br/>
+<h1>Linker</h1>
+<code><span class="keyword">object </span><span class="identifier">Linker</span></code>
+<p>A singleton which links a list of programs into one program.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../-linked-program/index.html">LinkedProgram</a></p>
+</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="link.html">link</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">link</span><span class="symbol">(</span><span class="identifier" id="venus.linker.Linker$link(kotlin.collections.List((venus.riscv.Program)))/progs">progs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../venus.riscv/-program/index.html"><span class="identifier">Program</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-linked-program/index.html"><span class="identifier">LinkedProgram</span></a></code>
+<p>Links together the given list of programs.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="relocate-instruction.html">relocateInstruction</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">relocateInstruction</span><span class="symbol">(</span><span class="identifier" id="venus.linker.Linker$relocateInstruction(venus.linker.LinkedProgram, kotlin.Int, kotlin.Int)/linkedProgram">linkedProgram</span><span class="symbol">:</span>&nbsp;<a href="../-linked-program/index.html"><span class="identifier">LinkedProgram</span></a><span class="symbol">, </span><span class="identifier" id="venus.linker.Linker$relocateInstruction(venus.linker.LinkedProgram, kotlin.Int, kotlin.Int)/toAddress">toAddress</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="venus.linker.Linker$relocateInstruction(venus.linker.LinkedProgram, kotlin.Int, kotlin.Int)/offset">offset</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RTypeImpl - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.simulator.impls.types</a>&nbsp;/&nbsp;<a href=".">RTypeImpl</a><br/>
+<br/>
+<h1>RTypeImpl</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">RTypeImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../venus.simulator/-instruction-implementation/index.html"><span class="identifier">InstructionImplementation</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">RTypeImpl</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="evaluate.html">evaluate</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">evaluate</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.impls.types.RTypeImpl$evaluate(kotlin.Int, kotlin.Int)/vrs1">vrs1</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="venus.simulator.impls.types.RTypeImpl$evaluate(kotlin.Int, kotlin.Int)/vrs2">vrs2</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="venus.simulator.impls.types.RTypeImpl$invoke(venus.riscv.Instruction, venus.simulator.Simulator)/inst">inst</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">, </span><span class="identifier" id="venus.simulator.impls.types.RTypeImpl$invoke(venus.riscv.Instruction, venus.simulator.Simulator)/sim">sim</span><span class="symbol">:</span>&nbsp;<a href="../../venus.simulator/-simulator/index.html"><span class="identifier">Simulator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-a-d-d-impl/index.html">ADDImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ADDImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-a-n-d-impl/index.html">ANDImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ANDImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-d-i-v-impl/index.html">DIVImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DIVImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-d-i-v-u-impl/index.html">DIVUImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DIVUImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-m-u-l-h-impl/index.html">MULHImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MULHImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-m-u-l-h-s-u-impl/index.html">MULHSUImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MULHSUImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-m-u-l-h-u-impl/index.html">MULHUImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MULHUImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-m-u-l-impl/index.html">MULImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MULImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-o-r-impl/index.html">ORImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ORImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-r-e-m-impl/index.html">REMImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">REMImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-r-e-m-u-impl/index.html">REMUImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">REMUImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-s-l-t-impl/index.html">SLTImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SLTImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-s-l-t-u-impl/index.html">SLTUImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SLTUImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-s-u-b-impl/index.html">SUBImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SUBImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.simulator.impls/-x-o-r-impl/index.html">XORImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">XORImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RTypeImpl</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

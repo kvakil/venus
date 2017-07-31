@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>InstructionWriter - venus</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">venus</a>&nbsp;/&nbsp;<a href="../index.html">venus.assembler</a>&nbsp;/&nbsp;<a href=".">InstructionWriter</a><br/>
+<br/>
+<h1>InstructionWriter</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">InstructionWriter</span></code>
+<p>A class which describes how to write an instruction to a program.</p>
+<p>By default, this sets all the required fields according to the <a href="../../venus.riscv/-instruction-format/index.html">InstructionFormat</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">InstructionWriter</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A class which describes how to write an instruction to a program.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.InstructionFormat, kotlin.collections.List((kotlin.String)))/prog">prog</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-program/index.html"><span class="identifier">Program</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.InstructionFormat, kotlin.collections.List((kotlin.String)))/iform">iform</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction-format/index.html"><span class="identifier">InstructionFormat</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.InstructionFormat, kotlin.collections.List((kotlin.String)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Writes the instruction to the given program.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/prog">prog</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-program/index.html"><span class="identifier">Program</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/inst">inst</span><span class="symbol">:</span>&nbsp;<a href="../../venus.riscv/-instruction/index.html"><span class="identifier">Instruction</span></a><span class="symbol">, </span><span class="identifier" id="venus.assembler.InstructionWriter$invoke(venus.riscv.Program, venus.riscv.Instruction, kotlin.collections.List((kotlin.String)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Describes how to write our instruction.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-b-type-writer/index.html">BTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">BTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to write any BType instruction</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-do-nothing-writer/index.html">DoNothingWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DoNothingWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to do nothing (aside from what InstructionWriter does).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-i-type-writer/index.html">ITypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ITypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to write any I-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-j-type-writer/index.html">JTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">JTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to write any J-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-load-writer/index.html">LoadWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">LoadWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to write any load instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-r-type-writer/index.html">RTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">RTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to write any R-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-s-type-writer/index.html">STypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">STypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to write any S-type instruction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../venus.assembler.writers/-u-type-writer/index.html">UTypeWriter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">UTypeWriter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InstructionWriter</span></code>
+<p>A singleton which can be invoked to write any U-type instruction.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
