@@ -7,30 +7,17 @@ __venus__ is a RISC-V instruction set simulator built for education.
 
 venus is [available online](https://kvakil.github.io/venus/).
 
-## Roadmap
-
-### Supported
-
-* RV32IM (except cycle counters and fence instructions)
+## Features
+* RV32IM
 * Single-step debugging with undo feature
 * Breakpoint debugging
 * View machine code and original instructions side-by-side
 * Several `ecall`s: including `print` and `sbrk`
 * Memory visualization
 
-### Currently in progress
+## Roadmap
 
-* Improved integrated editor (syntax highlighting, autocomplete, better error highlighting)
-* All standard RV32I pseudoinstructions
-* RV32F support
-
-### Long-term Goals
-
-* Variable-length instructions (and RV32C extension)
-* Instruction DSL
-* RV32G support
-* Hardware and cache visualizations
-* RV64I support
+See the [roadmap here](https://github.com/kvakil/venus/projects/2).
 
 ## Contributing
 
