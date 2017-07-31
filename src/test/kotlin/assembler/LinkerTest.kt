@@ -1,6 +1,6 @@
 package venus.linker
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.fail
@@ -9,8 +9,7 @@ import venus.assembler.Assembler
 import venus.assembler.AssemblerError
 
 class LinkerTest {
-    @Test
-    fun linkOneFile() {
+    @Test fun linkOneFile() {
         val prog = Assembler.assemble("""
         start:
         addi x8 x8 1
@@ -20,13 +19,12 @@ class LinkerTest {
         skip:
         """)
         val linked = Linker.link(listOf(prog))
-        var sim = Simulator(linked)
+        val sim = Simulator(linked)
         sim.run()
         assertEquals(2, sim.getReg(8))
     }
 
-    @Test
-    fun linkTwoFiles() {
+    @Test fun linkTwoFiles() {
         val prog1 = Assembler.assemble("""
         foo:
             jal x0 bar
@@ -39,13 +37,12 @@ class LinkerTest {
             addi x8 x8 1
         """)
         val linked = Linker.link(listOf(prog1, prog2))
-        var sim = Simulator(linked)
+        val sim = Simulator(linked)
         sim.run()
         assertEquals(1, sim.getReg(8))
     }
 
-    @Test
-    fun privateLabel() {
+    @Test fun privateLabel() {
         val prog1 = Assembler.assemble("""
         foo:
             jal x0 _bar
@@ -65,8 +62,7 @@ class LinkerTest {
         }
     }
 
-    @Test
-    fun loadAddress() {
+    @Test fun loadAddress() {
         val prog = Assembler.assemble("""
         .data
         magic: .byte 42
@@ -80,8 +76,7 @@ class LinkerTest {
         assertEquals(42, sim.getReg(9))
     }
 
-    @Test
-    fun loadAddressBefore() {
+    @Test fun loadAddressBefore() {
         val prog = Assembler.assemble("""
         .data
         padder:
@@ -102,8 +97,7 @@ class LinkerTest {
         assertEquals(42, sim.getReg(9))
     }
 
-    @Test
-    fun globalLabelTwoFiles() {
+    @Test fun globalLabelTwoFiles() {
         val prog1 = Assembler.assemble("""
         foo:
             addi x8 x0 8

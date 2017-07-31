@@ -1,13 +1,12 @@
 package venus.simulator
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import venus.assembler.Assembler
 import venus.linker.Linker
 
 class UndoTest {
-    @Test
-    fun undoRegisterSet() {
+    @Test fun undoRegisterSet() {
         val prog = Assembler.assemble("""
         addi x8 x0 7
         addi x8 x0 9
@@ -24,8 +23,7 @@ class UndoTest {
         assertEquals(9, sim.getReg(8))
     }
 
-    @Test
-    fun undoMemorySet() {
+    @Test fun undoMemorySet() {
         val prog = Assembler.assemble("""
         addi x8 x0 100
         addi x9 x0 42
@@ -43,8 +41,7 @@ class UndoTest {
         assertEquals(42, sim.loadByte(100))
     }
 
-    @Test
-    fun undoJump() {
+    @Test fun undoJump() {
         val prog = Assembler.assemble("""
         up: addi x8 x8 1
         j up
@@ -60,8 +57,7 @@ class UndoTest {
         assertEquals(0, sim.getReg(8))
     }
 
-    @Test
-    fun undoMemoryLoad() {
+    @Test fun undoMemoryLoad() {
         val prog = Assembler.assemble("""
         addi x8 x0 5
         sw x8 100(x0)

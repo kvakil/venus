@@ -1,13 +1,12 @@
 package venus.simulator
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import venus.assembler.Assembler
 import venus.linker.Linker
 
 class FunctionCallTest {
-    @Test
-    fun doubleJALR() {
+    @Test fun doubleJALR() {
         val prog = Assembler.assemble("""
             jal x0 main
         double:
@@ -19,13 +18,12 @@ class FunctionCallTest {
             add x1 a0 x0
         """)
         val linked = Linker.link(listOf(prog))
-        var sim = Simulator(linked)
+        val sim = Simulator(linked)
         sim.run()
         assertEquals(10, sim.getReg(1))
     }
 
-    @Test
-    fun nestedJALR() {
+    @Test fun nestedJALR() {
         val prog = Assembler.assemble("""
             jal x0 main
         foo:
@@ -50,8 +48,7 @@ class FunctionCallTest {
         assertEquals(7, sim.getReg(8))
     }
 
-    @Test
-    fun nestedPseudoJumps() {
+    @Test fun nestedPseudoJumps() {
         val prog = Assembler.assemble("""
             j main
         foo:

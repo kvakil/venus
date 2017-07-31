@@ -1,13 +1,12 @@
 package venus.assembler
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import venus.linker.Linker
 import venus.simulator.Simulator
 
 class AssemblerTest {
-    @Test
-    fun assembleLexerTest() {
+    @Test fun assembleLexerTest() {
         val prog = Assembler.assemble("""
         addi x1 x0 5
         addi x2 x1 5
@@ -19,8 +18,7 @@ class AssemblerTest {
         assertEquals(8, sim.getReg(3))
     }
 
-    @Test
-    fun storeLoadTest() {
+    @Test fun storeLoadTest() {
         val prog = Assembler.assemble("""
         addi x1 x0 100
         sw x1 60(x0)
@@ -36,8 +34,7 @@ class AssemblerTest {
         assertEquals(100, sim.getReg(2))
     }
 
-    @Test
-    fun branchTest() {
+    @Test fun branchTest() {
         val prog = Assembler.assemble("""
         add x8 x8 x9
         addi x7 x0 5
@@ -50,8 +47,7 @@ class AssemblerTest {
         assertEquals(10, sim.getReg(8))
     }
 
-    @Test
-    fun otherImmediateTest() {
+    @Test fun otherImmediateTest() {
         val prog = Assembler.assemble("""
         addi x8 x8 0xf7
         addi x9 x9 0b10001

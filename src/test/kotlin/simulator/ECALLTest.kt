@@ -1,13 +1,12 @@
 package venus.simulator
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import venus.assembler.Assembler
 import venus.linker.Linker
 
 class ECALLTest {
-    @Test
-    fun terminateEarly() {
+    @Test fun terminateEarly() {
         val prog = Assembler.assemble("""
         addi a0 x0 10
         ecall
@@ -18,8 +17,7 @@ class ECALLTest {
         assertEquals(10, sim.getReg(10))
     }
 
-    @Test
-    fun malloc() {
+    @Test fun malloc() {
         val prog = Assembler.assemble("""
         # malloc 4 bytes of memory
         addi a0 x0 9

@@ -1,18 +1,16 @@
 package venus.simulator
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MemoryTest {
-    @Test
-    fun byteStoreLoadTest() {
+    @Test fun byteStoreLoadTest() {
         val memory = Memory()
         memory.storeByte(100, 42)
         assertEquals(42, memory.loadByte(100))
     }
 
-    @Test
-    fun halfwordStoreLoadTest() {
+    @Test fun halfwordStoreLoadTest() {
         val memory = Memory()
         memory.storeHalfWord(100, 0xdead)
         assertEquals(0xdead, memory.loadHalfWord(100))
@@ -20,8 +18,7 @@ class MemoryTest {
         assertEquals(0xde, memory.loadByte(101))
     }
 
-    @Test
-    fun wordStoreLoadTest() {
+    @Test fun wordStoreLoadTest() {
         val memory = Memory()
         memory.storeWord(100, 0xdeadbeef.toInt())
         assertEquals(0xdeadbeef.toInt(), memory.loadWord(100))
