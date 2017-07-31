@@ -14,7 +14,7 @@ class AssemblerTest {
         add x3 x1 x2
         andi x3 x3 8
         """)
-        var sim = Simulator(Linker.link(listOf(prog)))
+        val sim = Simulator(Linker.link(listOf(prog)))
         sim.run()
         assertEquals(8, sim.getReg(3))
     }
@@ -26,7 +26,7 @@ class AssemblerTest {
         sw x1 60(x0)
         lw x2 -40(x1)
         """)
-        var sim = Simulator(Linker.link(listOf(prog)))
+        val sim = Simulator(Linker.link(listOf(prog)))
         sim.step()
         assertEquals(100, sim.getReg(1))
         sim.step()
@@ -45,7 +45,7 @@ class AssemblerTest {
         addi x9 x9 1
         bne x9 x6 start
         """)
-        var sim = Simulator(Linker.link(listOf(prog)))
+        val sim = Simulator(Linker.link(listOf(prog)))
         for (i in 1..17) sim.step()
         assertEquals(10, sim.getReg(8))
     }
