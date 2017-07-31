@@ -46,7 +46,7 @@ task ktlintFormat(type: JavaExec) {
 
 dokka {
     outputFormat = 'html'
-    outputDirectory = "out/javadoc"
+    outputDirectory = "doc"
 }
 
 dependencies {
