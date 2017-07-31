@@ -11,7 +11,7 @@
 <div class="tabs is-boxed is-centered">
   <ul>
     <li id="editor-tab" class="is-active"><a onclick="driver.openEditor()">Editor</a></li>
-    <li id="simulator-tab"><a onclick="driver.openSimulator()">Simulator</a></li>
+    <li id="simulator-tab"><a onclick="codeMirror.save(); driver.openSimulator()">Simulator</a></li>
   </ul>
 </div>
 <div class="container is-fluid">
@@ -20,7 +20,6 @@
       <div class="control">
         <textarea class="textarea is-primary is-medium" placeholder="type RISC-V assembly here" id="asm-editor"></textarea>
       </div>
-      <p class="help is-info">RISC-V spec</p>
     </div>
   </section>
 </div>
@@ -547,7 +546,13 @@
     </div>
   </div>
 </section>
+<script type="text/javascript" src="js/codemirror.js"></script>
 <script type="text/javascript" src="venus.js"></script>
-<script type="text/javascript">var driver = venus_main.venus.glue.Driver;</script>
+<script type="text/javascript">
+    var driver = venus_main.venus.glue.Driver;
+    var editor = document.getElementById("asm-editor");
+    var codeMirror = CodeMirror.fromTextArea(editor);
+    codeMirror.setSize("100%", "88vh");
+</script>
 </body>
 </html>
