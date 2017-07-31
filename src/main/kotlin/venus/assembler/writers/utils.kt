@@ -1,5 +1,6 @@
 package venus.assembler.writers
 
+import venus.riscv.userStringToInt
 import venus.assembler.AssemblerError
 
 /**
@@ -80,7 +81,7 @@ fun checkArgsLength(args: List<String>, required: Int) {
  */
 fun getImmediate(str: String, min: Int, max: Int): Int {
     val imm = try {
-        str.toInt()
+        userStringToInt(str)
     } catch (e: NumberFormatException) {
         throw AssemblerError("invalid number, got ${str} (might be too large?)")
     }
