@@ -28,6 +28,8 @@ internal object Renderer {
     private var activeMemoryAddress: Int = 0
     /** The simulator being rendered */
     private lateinit var sim: Simulator
+    /* The way the information in the registers is displayed*/
+    private var display_type = "hex"
 
     /**
      * Shows the simulator tab and hides other tabs
@@ -166,7 +168,17 @@ internal object Renderer {
      */
     fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
         val register = getElement("reg-$id-val") as HTMLInputElement
-        register.value = toHex(value)
+        var shown_val: String
+        if (display_type.equals("hex")) {
+            shown_val = toHex(value)
+        } else if (display_type.equals("dec")) {
+            shown_val = value.toString()
+        } else if (display_type.equals("unsign")) {
+            shown_val = toUnsigned(value)
+        } else {
+            shown_val = toHex(value)
+        }
+        register.value = shown_val
         if (setActive) {
             activeRegister?.classList?.remove("is-modified")
             register.classList.add("is-modified")
@@ -388,5 +400,52 @@ internal object Renderer {
         }
 
         return "0x" + suffix
+    }
+
+    private fun toUnsigned(value: Int): String {
+        var remainder = value.toLong()
+        var suffix = ""
+
+        // output as two's complement
+        if (remainder < 0) {
+            remainder += 0x1_0000_0000L
+        }
+
+        // convert to hex
+        while (remainder > 0) {
+            val hexDigit = hexMap[(remainder % 10).toInt()]
+            suffix = hexDigit + suffix
+            remainder /= 10
+        }
+
+        if (suffix.length < 1) {
+            suffix = "0"
+        }
+        return suffix
+    }
+
+    /**
+     * Sets the display type for all of the registers and memory
+     * Rerenders after
+     */
+    fun setDisplay(dis_type: String) {
+        display_type = dis_type
+        optSetVisibily(dis_type)
+        updateAll()
+    }
+
+    private val opts = listOf("hex", "dec", "unsign")
+
+    private fun optSetVisibily(opt: String) {
+        var tabDisplay: HTMLElement?
+        for (option in opts) {
+            if (opt.equals(option)) {
+                tabDisplay = document.getElementById("$option-opt") as HTMLElement
+                tabDisplay.className = "is-active"
+            } else {
+                tabDisplay = document.getElementById("$option-opt") as HTMLElement
+                tabDisplay.className = ""
+            }
+        }
     }
 }
