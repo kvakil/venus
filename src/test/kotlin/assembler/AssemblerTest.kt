@@ -49,4 +49,17 @@ class AssemblerTest {
         for (i in 1..17) sim.step()
         assertEquals(10, sim.getReg(8))
     }
+
+    @Test
+    fun otherImmediateTest() {
+        val prog = Assembler.assemble("""
+        addi x8 x8 0xf7
+        addi x9 x9 0b10001
+        """)
+        val sim = Simulator(Linker.link(listOf(prog)))
+        sim.step()
+        assertEquals(0xf7, sim.getReg(8))
+        sim.step()
+        assertEquals(0b10001, sim.getReg(9))
+    }
 }
