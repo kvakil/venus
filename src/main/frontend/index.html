@@ -551,7 +551,14 @@
 <script type="text/javascript">
     var driver = venus_main.venus.glue.Driver;
     var editor = document.getElementById("asm-editor");
-    var codeMirror = CodeMirror.fromTextArea(editor);
+    var codeMirror = CodeMirror.fromTextArea(editor,
+        {
+            lineNumbers: true,
+            mode: "riscv",
+            indentUnit: 4,
+            autofocus: true
+        }
+    );
     codeMirror.setSize("100%", "88vh");
 </script>
 </body>
