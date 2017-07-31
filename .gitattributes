@@ -1,2 +1,4 @@
 qunit/* linguist-vendored
 src/main/frontend/css/bulma.css linguist-vendored
+src/main/frontend/css/codemirror.css linguist-vendored
+src/main/frontend/js/codemirror.js linguist-vendored
