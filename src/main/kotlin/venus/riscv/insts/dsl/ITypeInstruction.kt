@@ -15,7 +15,7 @@ class ITypeInstruction(
         funct3: Int,
         private val eval32: (Int, Int) -> Int,
         private val eval64: (Long, Long) -> Long = { _, _ -> TODO("no rv64 for $this") }
-) : Instruction(name, length, Regex("$SPACES?$REGISTER$DELIMITERS$REGISTER$DELIMITERS$IMMEDIATE$SPACES?")) {
+) : Instruction(name, length) {
     init {
         ifields.add(FieldEqual(InstructionField.OPCODE, opcode))
         ifields.add(FieldEqual(InstructionField.FUNCT3, funct3))
