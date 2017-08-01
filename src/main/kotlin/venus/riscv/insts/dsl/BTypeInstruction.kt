@@ -36,7 +36,6 @@ class BTypeInstruction(
 
     override fun impl64(mcode: MachineCode, sim: Simulator) { TODO("impl64") }
 
-
     override fun write(prog: Program, mcode: MachineCode, args: List<String>) {
         mcode[InstructionField.RS1] = regNameToNumber(args[0])
         mcode[InstructionField.RS2] = regNameToNumber(args[1])
@@ -47,7 +46,7 @@ class BTypeInstruction(
                 throw AssemblerError("could not find label $label")
         if (imm !in MIN_B_VALUE..MAX_B_VALUE)
             throw AssemblerError("branch to $label too far")
-        
+
         mcode[InstructionField.IMM_11_B] = imm shr 11
         mcode[InstructionField.IMM_4_1] = imm shr 1
         mcode[InstructionField.IMM_12] = imm shr 12
