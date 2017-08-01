@@ -3,6 +3,7 @@ package venus.linker
 import venus.assembler.AssemblerError
 import venus.riscv.MemorySegments
 import venus.riscv.Program
+import venus.riscv.insts.dsl.Instruction
 
 /** Contains the byte offset which must be relocated and the label it should point to */
 data class RelocationInfo(val label: String, val offset: Int)
@@ -86,12 +87,8 @@ object Linker {
     }
 
     fun relocateInstruction(linkedProgram: LinkedProgram, toAddress: Int, offset: Int) {
-        val inst = linkedProgram.prog.insts[offset / 4]
-
-        val relocator = RelocatorDispatcher.dispatch(inst) ?:
-                throw AssemblerError("don't know how to relocate instruction")
-
-        relocator(inst, offset, toAddress)
+        val mcode = linkedProgram.prog.insts[offset / 4]
+        Instruction[mcode].relocate(mcode, offset, toAddress)
     }
 
 }

@@ -24,11 +24,11 @@ class Program(val name: String = "anonymous") {
     /**
      * Adds an instruction to the program, and increments the text size.
      *
-     * @param inst the instruction to add
+     * @param mcode the instruction to add
      */
-    fun add(inst: MachineCode) {
-        insts.add(inst)
-        textSize += inst.length
+    fun add(mcode: MachineCode) {
+        insts.add(mcode)
+        textSize += mcode.length
     }
 
     /**

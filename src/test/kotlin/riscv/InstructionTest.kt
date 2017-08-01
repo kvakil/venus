@@ -5,13 +5,13 @@ import kotlin.test.assertEquals
 
 class InstructionTest {
     @Test fun correctOpcode() {
-        val inst: MachineCode = MachineCode(0x1ead12aa)
-        assertEquals(0x2a, inst.getField(InstructionField.OPCODE))
+        val mcode: MachineCode = MachineCode(0x1ead12aa)
+        assertEquals(0x2a, mcode[InstructionField.OPCODE])
     }
 
     @Test fun setGetFields() {
-        val inst: MachineCode = MachineCode(0x1ead12aa)
-        inst.setField(InstructionField.OPCODE, 0x1b)
-        assertEquals(0x1b, inst.getField(InstructionField.OPCODE))
+        val mcode: MachineCode = MachineCode(0x1ead12aa)
+        mcode[InstructionField.OPCODE] = 0x1b
+        assertEquals(0x1b, mcode[InstructionField.OPCODE])
     }
 }

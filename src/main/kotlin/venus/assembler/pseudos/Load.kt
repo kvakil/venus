@@ -3,7 +3,6 @@ package venus.assembler.pseudos
 import venus.assembler.Assembler.AssemblerState
 import venus.assembler.LineTokens
 import venus.assembler.PseudoWriter
-import venus.assembler.writers.checkArgsLength
 
 /**
  * Writes a load pseudoinstruction. (Those applied to a label)

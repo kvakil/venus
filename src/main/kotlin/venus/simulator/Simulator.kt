@@ -4,6 +4,7 @@ import venus.linker.LinkedProgram
 import venus.riscv.InstructionField
 import venus.riscv.MachineCode
 import venus.riscv.MemorySegments
+import venus.riscv.insts.dsl.Instruction
 import venus.simulator.diffs.HeapSpaceDiff
 import venus.simulator.diffs.MemoryDiff
 import venus.simulator.diffs.PCDiff
@@ -23,7 +24,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
     init {
         for (inst in linkedProgram.prog.insts) {
             /* TODO: abstract away instruction length */
-            state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
+            state.mem.storeWord(maxpc, inst[InstructionField.ENTIRE])
             maxpc += inst.length
         }
 
@@ -53,9 +54,8 @@ class Simulator(val linkedProgram: LinkedProgram) {
         preInstruction.clear()
         postInstruction.clear()
         /* TODO: abstract away instruction length */
-        val inst: MachineCode = getNextInstruction()
-        val impl = InstructionDispatcher.dispatch(inst) ?: return listOf()
-        impl(inst, this)
+        val mcode: MachineCode = getNextInstruction()
+        Instruction[mcode].impl(mcode, this)
         history.add(preInstruction)
         return postInstruction.toList()
     }
