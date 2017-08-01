@@ -7,7 +7,7 @@ import venus.riscv.insts.dsl.parsers.InstructionParser
 import venus.riscv.insts.dsl.relocators.InstructionRelocator32
 import venus.riscv.insts.dsl.relocators.InstructionRelocator64
 
-abstract class Instruction(
+open class Instruction(
         private val name: String,
         val format: InstructionFormat,
         val parser: InstructionParser,
