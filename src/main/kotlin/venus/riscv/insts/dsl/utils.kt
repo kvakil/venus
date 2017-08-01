@@ -78,7 +78,6 @@ internal fun getImmediate(str: String, min: Int, max: Int): Int {
     return imm
 }
 
-
 internal fun compareUnsigned(v1: Int, v2: Int): Int = when {
     v1 == v2 -> 0
     0 <= v1 && v1 < v2 -> -1
