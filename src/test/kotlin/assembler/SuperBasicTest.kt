@@ -5,7 +5,7 @@ import venus.simulator.Simulator
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SuperBasic {
+class SuperBasicTest {
     @Test fun superBasic() {
         val prog = Assembler.assemble("""
         addi x8 x8 13
