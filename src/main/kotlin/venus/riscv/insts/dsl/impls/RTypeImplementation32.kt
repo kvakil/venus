@@ -4,7 +4,7 @@ import venus.riscv.InstructionField
 import venus.riscv.MachineCode
 import venus.simulator.Simulator
 
-class RTypeImplementation32(private inline val eval: (Int, Int) -> Int) : InstructionImplementation {
+class RTypeImplementation32(private val eval: (Int, Int) -> Int) : InstructionImplementation {
     override operator fun invoke(mcode: MachineCode, sim: Simulator) {
         val rs1 = mcode[InstructionField.RS1]
         val rs2 = mcode[InstructionField.RS2]
