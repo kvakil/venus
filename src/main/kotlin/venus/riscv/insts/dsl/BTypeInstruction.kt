@@ -55,11 +55,6 @@ class BTypeInstruction(
     }
 }
 
-private fun setBitslice(x: Int, y: Int, start: Int, end: Int): Int {
-    val mask: Int = ((1L shl end) - (1L shl start)).inv().toInt()
-    return (mask and x) or (y shl start)
-}
-
 private fun constructBranchImmediate(mcode: MachineCode): Int {
     val imm_11 = mcode[InstructionField.IMM_11_B]
     val imm_4_1 = mcode[InstructionField.IMM_4_1]
