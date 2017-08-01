@@ -14,14 +14,12 @@ class BTypeInstruction(
         length: Int,
         opcode: Int,
         funct3: Int,
-        funct7: Int,
         private val eval32: (Int, Int) -> Boolean,
         private val eval64: (Long, Long) -> Boolean = { _, _ -> TODO("no rv64 for $this") }
 ) : Instruction(name, length) {
     init {
         ifields.add(FieldEqual(InstructionField.OPCODE, opcode))
         ifields.add(FieldEqual(InstructionField.FUNCT3, funct3))
-        ifields.add(FieldEqual(InstructionField.FUNCT7, funct7))
     }
 
     override fun impl32(mcode: MachineCode, sim: Simulator) {
