@@ -12,7 +12,7 @@ import venus.riscv.userStringToInt
  *
  * @throws IllegalArgumentException if given an invalid register
  */
-fun regNameToNumber(reg: String): Int {
+internal fun regNameToNumber(reg: String): Int {
     if (reg.startsWith("x")) {
         val ret = reg.drop(1).toInt()
         if (ret in 0..31) return ret
@@ -65,7 +65,7 @@ fun regNameToNumber(reg: String): Int {
  *
  * @throws IllegalArgumentException if the wrong number of arguments is given
  */
-fun getImmediate(str: String, min: Int, max: Int): Int {
+internal fun getImmediate(str: String, min: Int, max: Int): Int {
     val imm = try {
         userStringToInt(str)
     } catch (e: NumberFormatException) {
@@ -84,4 +84,9 @@ fun getImmediate(str: String, min: Int, max: Int): Int {
  * @param v the number to sign extend
  * @param sz the number of bits that v takes
  */
-fun signExtend(v: Int, sz: Int): Int = v shl (32 - sz) shr (32 - sz)
+internal fun signExtend(v: Int, sz: Int): Int = v shl (32 - sz) shr (32 - sz)
+
+internal fun setBitslice(x: Int, y: Int, start: Int, end: Int): Int {
+    val mask: Int = ((1L shl end) - (1L shl start)).inv().toInt()
+    return (mask and x) or (y shl start)
+}

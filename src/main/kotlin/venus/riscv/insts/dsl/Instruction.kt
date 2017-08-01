@@ -50,8 +50,3 @@ abstract class Instruction(
 
     override fun toString() = name
 }
-
-internal fun setBitslice(x: Int, y: Int, start: Int, end: Int): Int {
-    val mask: Int = ((1L shl end) - (1L shl start)).inv().toInt()
-    return (mask and x) or (y shl start)
-}
