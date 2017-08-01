@@ -1,12 +1,12 @@
 package venus.simulator.impls.types
 
-import venus.riscv.Instruction
 import venus.riscv.InstructionField
-import venus.simulator.Simulator
+import venus.riscv.MachineCode
 import venus.simulator.InstructionImplementation
+import venus.simulator.Simulator
 
 abstract class ShiftTypeImpl : InstructionImplementation {
-    override operator fun invoke(inst: Instruction, sim: Simulator) {
+    override operator fun invoke(inst: MachineCode, sim: Simulator) {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val shamt: Int = inst.getField(InstructionField.SHAMT)
         val rd: Int = inst.getField(InstructionField.RD)

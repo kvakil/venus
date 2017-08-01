@@ -1,7 +1,7 @@
 package venus.linker
 
-import venus.riscv.Instruction
+import venus.riscv.MachineCode
 
 abstract class Relocator {
-    abstract operator fun invoke(inst: Instruction, pc: Int, target: Int)
+    abstract operator fun invoke(inst: MachineCode, pc: Int, target: Int)
 }

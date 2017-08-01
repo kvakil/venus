@@ -1,7 +1,7 @@
 package venus.assembler
 
-import venus.riscv.Instruction
 import venus.riscv.InstructionFormat
+import venus.riscv.MachineCode
 import venus.riscv.Program
 
 /**
@@ -22,7 +22,7 @@ abstract class InstructionWriter {
      * @param args the arguments for this instruction
      */
     operator fun invoke(prog: Program, iform: InstructionFormat, args: List<String>) {
-        val inst = Instruction(0)
+        val inst = MachineCode(0)
         for ((ifield, required) in iform.ifields) {
             inst.setField(ifield, required)
         }
@@ -37,5 +37,5 @@ abstract class InstructionWriter {
      * @param inst the instruction which we are writing, which will be modified
      * @param args the arguments for this instruction
      */
-    abstract operator fun invoke(prog: Program, inst: Instruction, args: List<String>)
+    abstract operator fun invoke(prog: Program, inst: MachineCode, args: List<String>)
 }

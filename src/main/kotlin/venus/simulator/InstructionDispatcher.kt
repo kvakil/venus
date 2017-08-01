@@ -1,9 +1,9 @@
 package venus.simulator
 
-import venus.riscv.Instruction
 import venus.riscv.InstructionFormat
-import venus.simulator.impls.* // ktlint-disable no-wildcard-imports
-import venus.riscv.formats.* // ktlint-disable no-wildcard-imports
+import venus.riscv.MachineCode
+import venus.riscv.formats.*
+import venus.simulator.impls.*
 
 /** Describes each instruction for dispatching */
 enum class InstructionDispatcher(val implementation: InstructionImplementation,
@@ -55,7 +55,7 @@ enum class InstructionDispatcher(val implementation: InstructionImplementation,
     ;
     companion object {
         /** Find the first Implementation which passes all the tests */
-        fun dispatch(inst: Instruction): InstructionImplementation? =
+        fun dispatch(inst: MachineCode): InstructionImplementation? =
         InstructionDispatcher.values().firstOrNull {
             dispatch -> dispatch.iform.ifields.all {
                 (ifield, required) -> inst.getField(ifield) == required

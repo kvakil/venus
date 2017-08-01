@@ -12,7 +12,7 @@ import venus.linker.RelocationInfo
  */
 class Program(val name: String = "anonymous") {
     /* TODO: abstract away these variables */
-    val insts = ArrayList<Instruction>()
+    val insts = ArrayList<MachineCode>()
     val debugInfo = ArrayList<DebugInfo>()
     val labels = HashMap<String, Int>()
     val relocationTable = ArrayList<RelocationInfo>()
@@ -26,7 +26,7 @@ class Program(val name: String = "anonymous") {
      *
      * @param inst the instruction to add
      */
-    fun add(inst: Instruction) {
+    fun add(inst: MachineCode) {
         insts.add(inst)
         textSize += inst.length
     }
@@ -108,5 +108,5 @@ class Program(val name: String = "anonymous") {
      *
      * @return a list of instructions in this program
      */
-    fun dump(): List<Instruction> = insts
+    fun dump(): List<MachineCode> = insts
 }

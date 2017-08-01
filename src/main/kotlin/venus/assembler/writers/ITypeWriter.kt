@@ -1,9 +1,9 @@
 package venus.assembler.writers
 
 import venus.assembler.InstructionWriter
-import venus.riscv.Program
-import venus.riscv.Instruction
 import venus.riscv.InstructionField
+import venus.riscv.MachineCode
+import venus.riscv.Program
 
 /**
  * A singleton which can be invoked to write any I-type instruction.
@@ -25,7 +25,7 @@ object ITypeWriter : InstructionWriter() {
      * @throws venus.assembler.AssemblerError if the wrong number of arguments is given
      * @throws venus.assembler.AssemblerError if the immediate is out of range
      */
-    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
+    override operator fun invoke(prog: Program, inst: MachineCode, args: List<String>) {
         checkArgsLength(args, 3)
 
         val rd = regNameToNumber(args[0])

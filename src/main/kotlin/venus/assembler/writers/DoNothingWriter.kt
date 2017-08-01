@@ -1,8 +1,8 @@
 package venus.assembler.writers
 
 import venus.assembler.InstructionWriter
+import venus.riscv.MachineCode
 import venus.riscv.Program
-import venus.riscv.Instruction
 
 /**
  * A singleton which can be invoked to do nothing (aside from what [InstructionWriter] does).
@@ -19,7 +19,7 @@ object DoNothingWriter : InstructionWriter() {
      *
      * @throws venus.assembler.AssemblerError if any arguments are given
      */
-    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
+    override operator fun invoke(prog: Program, inst: MachineCode, args: List<String>) {
         checkArgsLength(args, 0)
     }
 }

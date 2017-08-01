@@ -1,12 +1,12 @@
 package venus.simulator.impls
 
-import venus.riscv.Instruction
-import venus.simulator.Simulator
-import venus.simulator.InstructionImplementation
 import venus.glue.Renderer
+import venus.riscv.MachineCode
+import venus.simulator.InstructionImplementation
+import venus.simulator.Simulator
 
 object ECALLImpl : InstructionImplementation {
-    override operator fun invoke(inst: Instruction, sim: Simulator) {
+    override operator fun invoke(inst: MachineCode, sim: Simulator) {
         val which = sim.getReg(10)
         when (which) {
             1 -> { // print integer
@@ -24,7 +24,7 @@ object ECALLImpl : InstructionImplementation {
                 }
             }
             9 -> { // malloc
-                var bytes = sim.getReg(11)
+                val bytes = sim.getReg(11)
                 if (bytes < 0) return
                 sim.setReg(10, sim.getHeapEnd())
                 sim.addHeapSpace(bytes)

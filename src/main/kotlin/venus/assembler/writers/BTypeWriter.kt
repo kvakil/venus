@@ -1,10 +1,10 @@
 package venus.assembler.writers
 
-import venus.assembler.InstructionWriter
-import venus.riscv.Program
 import venus.assembler.AssemblerError
-import venus.riscv.Instruction
+import venus.assembler.InstructionWriter
 import venus.riscv.InstructionField
+import venus.riscv.MachineCode
+import venus.riscv.Program
 
 /**
  * A singleton which can be invoked to write any BType instruction
@@ -26,7 +26,7 @@ object BTypeWriter : InstructionWriter() {
      * @throws AssemblerError if the wrong number of arguments is given
      * @throws AssemblerError if the label doesn't exist, or is too far away
      */
-    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
+    override operator fun invoke(prog: Program, inst: MachineCode, args: List<String>) {
         checkArgsLength(args, 3)
 
         val rs1 = regNameToNumber(args[0])

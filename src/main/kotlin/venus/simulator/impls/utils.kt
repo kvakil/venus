@@ -1,7 +1,7 @@
 package venus.simulator.impls
 
-import venus.riscv.Instruction
 import venus.riscv.InstructionField
+import venus.riscv.MachineCode
 
 /** Sign extends v of sz bits to a 32 bit integer */
 fun signExtend(v: Int, sz: Int): Int = v shl (32 - sz) shr (32 - sz)
@@ -22,7 +22,7 @@ fun setBitslice(x: Int, y: Int, start: Int, end: Int): Int {
     return (mask and x) or (y shl start)
 }
 
-fun constructBranchImmediate(inst: Instruction): Int {
+fun constructBranchImmediate(inst: MachineCode): Int {
     val imm_11 = inst.getField(InstructionField.IMM_11_B)
     val imm_4_1 = inst.getField(InstructionField.IMM_4_1)
     val imm_10_5 = inst.getField(InstructionField.IMM_10_5)
@@ -35,7 +35,7 @@ fun constructBranchImmediate(inst: Instruction): Int {
     return signExtend(imm, 13)
 }
 
-fun constructJALImmediate(inst: Instruction): Int {
+fun constructJALImmediate(inst: MachineCode): Int {
     val imm_20 = inst.getField(InstructionField.IMM_20)
     val imm_10_1 = inst.getField(InstructionField.IMM_10_1)
     val imm_11 = inst.getField(InstructionField.IMM_11_J)
@@ -48,7 +48,7 @@ fun constructJALImmediate(inst: Instruction): Int {
     return signExtend(imm, 21)
 }
 
-fun constructStoreImmediate(inst: Instruction): Int {
+fun constructStoreImmediate(inst: MachineCode): Int {
     val imm_11_5 = inst.getField(InstructionField.IMM_11_5)
     val imm_4_0 = inst.getField(InstructionField.IMM_4_0)
     var imm = 0

@@ -1,13 +1,13 @@
 package venus.simulator.impls.types
 
-import venus.riscv.Instruction
 import venus.riscv.InstructionField
-import venus.simulator.Simulator
+import venus.riscv.MachineCode
 import venus.simulator.InstructionImplementation
+import venus.simulator.Simulator
 import venus.simulator.impls.signExtend
 
 abstract class LoadTypeImpl : InstructionImplementation {
-    override operator fun invoke(inst: Instruction, sim: Simulator) {
+    override operator fun invoke(inst: MachineCode, sim: Simulator) {
         val rs1: Int = inst.getField(InstructionField.RS1)
         val imm: Int = signExtend(inst.getField(InstructionField.IMM_11_0), 12)
         val rd: Int = inst.getField(InstructionField.RD)

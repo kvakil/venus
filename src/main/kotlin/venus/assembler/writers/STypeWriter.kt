@@ -1,17 +1,17 @@
 package venus.assembler.writers
 
 import venus.assembler.InstructionWriter
-import venus.riscv.Program
-import venus.riscv.Instruction
 import venus.riscv.InstructionField
+import venus.riscv.MachineCode
+import venus.riscv.Program
 
 /**
  * A singleton which can be invoked to write any S-type instruction.
  */
 object STypeWriter : InstructionWriter() {
-    /** Maximum immediate for an S-Type Instruction */
+    /** Maximum immediate for an S-Type MachineCode */
     const val MAX_S_VALUE = 2047
-    /** Minimum immediate for an S-Type Instruction */
+    /** Minimum immediate for an S-Type MachineCode */
     const val MIN_S_VALUE = -2048
 
     /**
@@ -25,7 +25,7 @@ object STypeWriter : InstructionWriter() {
      * @throws venus.assembler.AssemblerError if the immediate is out of range
      * @throws venus.assembler.AssemblerError if the wrong number of arguments is given
      */
-    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
+    override operator fun invoke(prog: Program, inst: MachineCode, args: List<String>) {
         checkArgsLength(args, 3)
 
         val rs1 = regNameToNumber(args[2])

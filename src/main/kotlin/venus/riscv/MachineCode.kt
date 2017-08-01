@@ -7,7 +7,7 @@ package venus.riscv
  *
  * @param encoding the underlying machine code of the instruction
  */
-class Instruction(private var encoding: Int) {
+class MachineCode(private var encoding: Int) {
     val length = 4
 
     /**

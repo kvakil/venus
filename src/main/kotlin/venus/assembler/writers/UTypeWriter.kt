@@ -1,17 +1,17 @@
 package venus.assembler.writers
 
 import venus.assembler.InstructionWriter
-import venus.riscv.Program
-import venus.riscv.Instruction
 import venus.riscv.InstructionField
+import venus.riscv.MachineCode
+import venus.riscv.Program
 
 /**
  * A singleton which can be invoked to write any U-type instruction.
  */
 object UTypeWriter : InstructionWriter() {
-    /** Maximum immediate for a U-Type Instruction */
+    /** Maximum immediate for a U-Type MachineCode */
     const val MAX_U_VALUE = 1048575
-    /** Minimum immediate for a U-Type Instruction */
+    /** Minimum immediate for a U-Type MachineCode */
     const val MIN_U_VALUE = 0
 
     /**
@@ -25,7 +25,7 @@ object UTypeWriter : InstructionWriter() {
      * @throws venus.assembler.AssemblerError if the immediate is out of range
      * @throws venus.assembler.AssemblerError if the wrong number of arguments is given
      */
-    override operator fun invoke(prog: Program, inst: Instruction, args: List<String>) {
+    override operator fun invoke(prog: Program, inst: MachineCode, args: List<String>) {
         checkArgsLength(args, 2)
 
         val rd = regNameToNumber(args[0])

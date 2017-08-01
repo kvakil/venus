@@ -1,11 +1,11 @@
 package venus.linker.relocators
 
-import venus.riscv.Instruction
-import venus.riscv.InstructionField
 import venus.linker.Relocator
+import venus.riscv.InstructionField
+import venus.riscv.MachineCode
 
 object JALRelocator : Relocator() {
-    override operator fun invoke(inst: Instruction, pc: Int, target: Int) {
+    override operator fun invoke(inst: MachineCode, pc: Int, target: Int) {
         val imm = (target - pc) shr 1
         val imm_20 = imm shr 20
         val imm_10_1 = imm shr 1

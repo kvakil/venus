@@ -1,7 +1,7 @@
 package venus.simulator
 
-import venus.riscv.Instruction
+import venus.riscv.MachineCode
 
 interface InstructionImplementation {
-    operator fun invoke(inst: Instruction, sim: Simulator)
+    operator fun invoke(inst: MachineCode, sim: Simulator)
 }
