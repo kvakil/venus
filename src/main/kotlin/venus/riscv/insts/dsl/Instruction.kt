@@ -20,7 +20,8 @@ open class Instruction(
         private val allInstructions = arrayListOf<Instruction>()
 
         operator fun get(mcode: MachineCode): Instruction =
-                allInstructions.firstOrNull { it.format.matches(mcode) }
+                allInstructions.filter { it.format.length == mcode.length }
+                        .firstOrNull { it.format.matches(mcode) }
                         ?: throw IllegalArgumentException("instruction not found for $mcode")
 
         operator fun get(name: String) =
