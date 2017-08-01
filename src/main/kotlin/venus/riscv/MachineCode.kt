@@ -32,4 +32,6 @@ class MachineCode(private var encoding: Int) {
         encoding = encoding and mask.inv()
         encoding = encoding or ((value shl ifield.lo) and mask)
     }
+
+    override fun toString() = encoding.toString()
 }
