@@ -8,7 +8,7 @@ package venus.riscv
  * @param encoding the underlying machine code of the instruction
  */
 class MachineCode(private var encoding: Int) {
-    val length = 2
+    val length = 4
 
     /**
      * Returns the value of the given instruction field for this instruction.
