@@ -91,11 +91,9 @@ internal fun setBitslice(x: Int, y: Int, start: Int, end: Int): Int {
     return (mask and x) or (y shl start)
 }
 
-internal fun compareUnsigned(v1: Int, v2: Int): Int {
-    return when {
-        v1 == v2 -> 0
-        0 <= v1 && v1 < v2 -> -1
-        v2 < 0 && v2 < v1 -> -1
-        else -> 1
-    }
+internal fun compareUnsigned(v1: Int, v2: Int): Int = when {
+    v1 == v2 -> 0
+    0 <= v1 && v1 < v2 -> -1
+    v2 < 0 && v2 < v1 -> -1
+    else -> 1
 }
