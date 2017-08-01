@@ -1,23 +1,22 @@
 package venus.riscv.insts.dsl
 
-import venus.riscv.InstructionField
 import venus.riscv.MachineCode
-import venus.riscv.Program
-import venus.simulator.Simulator
-
-data class FieldEqual(val ifield: InstructionField, val required: Int)
+import venus.riscv.insts.dsl.formats.InstructionFormat
 
 abstract class Instruction(
         private val name: String,
         private val length: Int,
-        val relocate: (MachineCode, Int, Int) -> Unit = { _, _, _ -> TODO("no relocate for $this") }
+        val format: InstructionFormat,
+        val parse: InstructionParser,
+        val impl32: InstructionImplementation,
+        val impl64: InstructionImplementation,
+        val relocate: InstructionRelocator
 ) {
-    protected val ifields = arrayListOf<FieldEqual>()
     companion object {
         private val allInstructions = arrayListOf<Instruction>()
 
         operator fun get(mcode: MachineCode): Instruction =
-                allInstructions.firstOrNull { it.matches(mcode) }
+                allInstructions.firstOrNull { it.format.matches(mcode) }
                         ?: throw IllegalArgumentException("instruction not found for $mcode")
 
         operator fun get(name: String) =
@@ -28,25 +27,4 @@ abstract class Instruction(
     init {
         allInstructions.add(this)
     }
-
-    fun impl(mcode: MachineCode, sim: Simulator) = impl32(mcode, sim)
-    abstract fun impl32(mcode: MachineCode, sim: Simulator)
-    abstract fun impl64(mcode: MachineCode, sim: Simulator)
-
-    fun write(prog: Program, args: List<String>) {
-        val mcode = MachineCode(0)
-        for ((ifield, required) in ifields) {
-            mcode[ifield] = required
-        }
-        fill(prog, mcode, args)
-        prog.add(mcode)
-    }
-
-    abstract fun fill(prog: Program, mcode: MachineCode, args: List<String>)
-
-    private fun matches(mcode: MachineCode): Boolean = ifields.all {
-        (ifield, required) -> mcode[ifield] == required
-    }
-
-    override fun toString() = name
 }
