@@ -88,7 +88,7 @@ object Linker {
 
     fun relocateInstruction(linkedProgram: LinkedProgram, toAddress: Int, offset: Int) {
         val mcode = linkedProgram.prog.insts[offset / 4]
-        Instruction[mcode].relocate(mcode, offset, toAddress)
+        Instruction[mcode].relocator(mcode, offset, toAddress)
     }
 
 }

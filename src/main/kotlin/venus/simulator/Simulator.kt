@@ -55,7 +55,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
         postInstruction.clear()
         /* TODO: abstract away instruction length */
         val mcode: MachineCode = getNextInstruction()
-        Instruction[mcode].impl(mcode, this)
+        Instruction[mcode].impl32(mcode, this)
         history.add(preInstruction)
         return postInstruction.toList()
     }

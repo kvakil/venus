@@ -117,7 +117,10 @@ object Assembler {
         private fun addInstruction(tokens: LineTokens) {
             if (tokens.isEmpty() || tokens[0].isEmpty()) return
             val cmd = getInstruction(tokens)
-            Instruction[cmd].write(prog, tokens.drop(1))
+            val inst = Instruction[cmd]
+            val mcode = inst.format.fill()
+            inst.parser(prog, mcode, tokens.drop(1))
+            prog.add(mcode)
         }
 
         /**
