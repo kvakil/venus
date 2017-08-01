@@ -33,7 +33,6 @@ class ITypeInstruction(
     override fun impl64(mcode: MachineCode, sim: Simulator) { TODO("impl64") }
 
     override fun write(prog: Program, mcode: MachineCode, args: List<String>) {
-        args.forEach { println(it) }
         mcode[InstructionField.RD] = regNameToNumber(args[0])
         mcode[InstructionField.RS1] = regNameToNumber(args[1])
         mcode[InstructionField.IMM_11_0] = getImmediate(args[2], MIN_I_VALUE, MAX_I_VALUE)
