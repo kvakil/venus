@@ -2,6 +2,7 @@ package venus.riscv.insts.dsl
 
 import venus.riscv.MachineCode
 import venus.riscv.insts.dsl.formats.InstructionFormat
+import venus.riscv.insts.dsl.impls.InstructionImplementation
 
 abstract class Instruction(
         private val name: String,
