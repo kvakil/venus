@@ -16,7 +16,7 @@ class MachineCode(private var encoding: Int) {
      * @param ifield the instruction field to get
      * @return the value of the given instruction field
      */
-    fun getField(ifield: InstructionField): Int {
+    operator fun get(ifield: InstructionField): Int {
         val mask = ((1L shl ifield.hi) - (1L shl ifield.lo)).toInt()
         return (encoding and mask) ushr ifield.lo
     }
@@ -27,7 +27,7 @@ class MachineCode(private var encoding: Int) {
      * @param ifield the instruction field to set
      * @param value the value to set the field to
      */
-    fun setField(ifield: InstructionField, value: Int) {
+    operator fun set(ifield: InstructionField, value: Int) {
         val mask = ((1L shl ifield.hi) - (1L shl ifield.lo)).toInt()
         encoding = encoding and mask.inv()
         encoding = encoding or ((value shl ifield.lo) and mask)
