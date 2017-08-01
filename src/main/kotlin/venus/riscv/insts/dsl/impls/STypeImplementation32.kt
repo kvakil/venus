@@ -11,7 +11,6 @@ class STypeImplementation32(private val store: (Simulator, Int, Int) -> Unit) : 
         val imm = constructStoreImmediate(mcode)
         val vrs1 = sim.getReg(rs1)
         val vrs2 = sim.getReg(rs2)
-        println("hey! ${vrs1} + ${imm} gets ${vrs2}")
         store(sim, vrs1 + imm, vrs2)
         sim.incrementPC(mcode.length)
     }
