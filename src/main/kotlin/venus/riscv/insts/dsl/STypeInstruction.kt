@@ -10,8 +10,8 @@ class STypeInstruction(
         length: Int,
         opcode: Int,
         funct3: Int,
-        private val store32: (Int, Int) -> Unit,
-        private val store64: (Long, Long) -> Unit
+        private val store32: (Simulator, Int, Int) -> Unit,
+        private val store64: (Simulator, Long, Long) -> Unit
 ) : Instruction(name, length) {
     init {
         ifields.add(FieldEqual(InstructionField.OPCODE, opcode))
@@ -24,7 +24,7 @@ class STypeInstruction(
         val imm = constructStoreImmediate(mcode)
         val addr = sim.getReg(rs1) + imm
         val vrs2 = sim.getReg(rs2)
-        store32(addr, vrs2)
+        store32(sim, addr, vrs2)
         sim.incrementPC(mcode.length)
     }
 
