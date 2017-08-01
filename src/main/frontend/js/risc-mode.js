@@ -70,7 +70,10 @@ CodeMirror.defineMode("riscv", function(config, parserConfig) {
         "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
     ], "");
 
-    var keywords = regexFromWords([ ".data", ".text", ".globl", ".float", ".double", ".asciiz" ], "i");
+    var keywords = regexFromWords([
+        ".data", ".text", ".globl", ".float", ".double",
+        ".asciiz", ".word", ".byte"
+    ], "i");
 
     function normal(stream, state) {
         var ch = stream.next();
