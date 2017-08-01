@@ -14,8 +14,8 @@ class BTypeInstruction(
         length: Int,
         opcode: Int,
         funct3: Int,
-        private val eval32: (Int, Int) -> Boolean,
-        private val eval64: (Long, Long) -> Boolean = { _, _ -> TODO("no rv64 for $this") }
+        private val cond32: (Int, Int) -> Boolean,
+        private val cond64: (Long, Long) -> Boolean = { _, _ -> TODO("no rv64 for $this") }
 ) : Instruction(name, length) {
     init {
         ifields.add(FieldEqual(InstructionField.OPCODE, opcode))
@@ -28,7 +28,7 @@ class BTypeInstruction(
         val imm: Int = constructBranchImmediate(mcode)
         val vrs1: Int = sim.getReg(rs1)
         val vrs2: Int = sim.getReg(rs2)
-        if (eval32(vrs1, vrs2))
+        if (cond32(vrs1, vrs2))
             sim.incrementPC(imm)
         else
             sim.incrementPC(mcode.length)
