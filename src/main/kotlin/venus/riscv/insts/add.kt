@@ -8,5 +8,5 @@ val add = RTypeInstruction(
         funct3 = 0b000,
         funct7 = 0b0000000,
         eval32 = { a, b -> a + b },
-        eval64 = { a, b -> a + b },
+        eval64 = { a, b -> a + b }
 )
