@@ -38,11 +38,11 @@ abstract class Instruction(
         for ((ifield, required) in ifields) {
             mcode[ifield] = required
         }
-        write(prog, mcode, args)
+        fill(prog, mcode, args)
         prog.add(mcode)
     }
 
-    abstract fun write(prog: Program, mcode: MachineCode, args: List<String>)
+    abstract fun fill(prog: Program, mcode: MachineCode, args: List<String>)
 
     private fun matches(mcode: MachineCode): Boolean = ifields.all {
         (ifield, required) -> mcode[ifield] == required

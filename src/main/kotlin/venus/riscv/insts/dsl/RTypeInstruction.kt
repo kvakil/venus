@@ -32,7 +32,7 @@ class RTypeInstruction(
 
     override fun impl64(mcode: MachineCode, sim: Simulator) { TODO("impl64") }
 
-    override fun write(prog: Program, mcode: MachineCode, args: List<String>) {
+    override fun fill(prog: Program, mcode: MachineCode, args: List<String>) {
         mcode[InstructionField.RD] = regNameToNumber(args[0])
         mcode[InstructionField.RS1] = regNameToNumber(args[1])
         mcode[InstructionField.RS2] = regNameToNumber(args[2])

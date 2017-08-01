@@ -10,7 +10,7 @@ class ManualInstruction (
         fieldPredicates: List<FieldEqual>,
         private val eval32: (MachineCode, Simulator) -> Unit,
         private val eval64: (MachineCode, Simulator) -> Unit = { _, _ -> TODO("no rv64 for $this") },
-        private val writer: (Program, MachineCode, List<String>) -> Unit
+        private val filler: (Program, MachineCode, List<String>) -> Unit
 ) : Instruction(name, length) {
     init {
         ifields.addAll(fieldPredicates)
@@ -20,5 +20,5 @@ class ManualInstruction (
 
     override fun impl64(mcode: MachineCode, sim: Simulator) { eval64(mcode, sim) }
 
-    override fun write(prog: Program, mcode: MachineCode, args: List<String>) { writer(prog, mcode, args) }
+    override fun fill(prog: Program, mcode: MachineCode, args: List<String>) { filler(prog, mcode, args) }
 }

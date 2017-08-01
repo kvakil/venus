@@ -22,7 +22,7 @@ class UTypeInstruction(
     override fun impl32(mcode: MachineCode, sim: Simulator) { eval32(mcode, sim) }
     override fun impl64(mcode: MachineCode, sim: Simulator) { eval64(mcode, sim) }
 
-    override fun write(prog: Program, mcode: MachineCode, args: List<String>) {
+    override fun fill(prog: Program, mcode: MachineCode, args: List<String>) {
         mcode[InstructionField.RD] = regNameToNumber(args[0])
         mcode[InstructionField.IMM_31_12] = getImmediate(args[1], MIN_U_VALUE, MAX_U_VALUE)
     }

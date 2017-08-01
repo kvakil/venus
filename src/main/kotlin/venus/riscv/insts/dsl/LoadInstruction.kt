@@ -32,7 +32,7 @@ class LoadInstruction(
 
     override fun impl64(mcode: MachineCode, sim: Simulator) { TODO("impl64") }
 
-    override fun write(prog: Program, mcode: MachineCode, args: List<String>) {
+    override fun fill(prog: Program, mcode: MachineCode, args: List<String>) {
         mcode[InstructionField.RD] = regNameToNumber(args[0])
         mcode[InstructionField.RS1] = regNameToNumber(args[2])
         mcode[InstructionField.IMM_11_0] = getImmediate(args[1], MIN_I_VALUE, MAX_I_VALUE)
