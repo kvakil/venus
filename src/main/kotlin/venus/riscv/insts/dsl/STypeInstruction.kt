@@ -11,7 +11,7 @@ class STypeInstruction(
         opcode: Int,
         funct3: Int,
         private val store32: (Simulator, Int, Int) -> Unit,
-        private val store64: (Simulator, Long, Long) -> Unit
+        private val store64: (Simulator, Long, Long) -> Unit = { _, _, _ -> TODO("no rv64 for $this") }
 ) : Instruction(name, length) {
     init {
         ifields.add(FieldEqual(InstructionField.OPCODE, opcode))

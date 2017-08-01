@@ -10,7 +10,7 @@ class JTypeInstruction(
         length: Int,
         opcode: Int,
         private val eval32: (MachineCode, Simulator) -> Unit,
-        private val eval64: (MachineCode, Simulator) -> Unit
+        private val eval64: (MachineCode, Simulator) -> Unit = { _, _ -> TODO("no rv64 for $this") }
 ) : Instruction(name, length) {
     init {
         ifields.add(FieldEqual(InstructionField.OPCODE, opcode))
