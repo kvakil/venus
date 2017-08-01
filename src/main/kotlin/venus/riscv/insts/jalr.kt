@@ -1,7 +1,7 @@
 package venus.riscv.insts
 
 import venus.riscv.InstructionField
-import venus.riscv.insts.dsl.*
+import venus.riscv.insts.dsl.* // kt-lint no-wildcard-import
 
 private const val MIN_I_VALUE = -2048
 private const val MAX_I_VALUE = 2047
