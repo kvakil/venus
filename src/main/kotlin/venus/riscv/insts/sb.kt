@@ -1,0 +1,12 @@
+package venus.riscv.insts
+
+import venus.riscv.insts.dsl.STypeInstruction
+import venus.simulator.Simulator
+
+val sb = STypeInstruction(
+        name = "sb",
+        opcode = 0b0100011,
+        funct3 = 0b000,
+        store32 = Simulator::storeByte,
+        store64 = { _, _, _ -> throw NotImplementedError("no rv64") }
+)
