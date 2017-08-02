@@ -26,4 +26,3 @@ class ITypeInstruction(
         relocator32 = relocator32,
         relocator64 = relocator64
 )
-
