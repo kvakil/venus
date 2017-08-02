@@ -25,7 +25,7 @@ class AssemblerErrorsTest {
 
     @Test fun immediateTooLarge() {
         try {
-            Assembler.assemble("ddi x1 x5 100000000")
+            Assembler.assemble("addi x1 x5 100000000")
             fail("exception not thrown for too large immediate")
         } catch (e: AssemblerError) {
             assertTrue(true)

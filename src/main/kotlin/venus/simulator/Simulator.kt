@@ -1,9 +1,10 @@
 package venus.simulator
 
 import venus.linker.LinkedProgram
-import venus.riscv.Instruction
 import venus.riscv.InstructionField
+import venus.riscv.MachineCode
 import venus.riscv.MemorySegments
+import venus.riscv.insts.dsl.Instruction
 import venus.simulator.diffs.HeapSpaceDiff
 import venus.simulator.diffs.MemoryDiff
 import venus.simulator.diffs.PCDiff
@@ -23,7 +24,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
     init {
         for (inst in linkedProgram.prog.insts) {
             /* TODO: abstract away instruction length */
-            state.mem.storeWord(maxpc, inst.getField(InstructionField.ENTIRE))
+            state.mem.storeWord(maxpc, inst[InstructionField.ENTIRE])
             maxpc += inst.length
         }
 
@@ -53,9 +54,8 @@ class Simulator(val linkedProgram: LinkedProgram) {
         preInstruction.clear()
         postInstruction.clear()
         /* TODO: abstract away instruction length */
-        val inst: Instruction = getNextInstruction()
-        val impl = InstructionDispatcher.dispatch(inst) ?: return listOf()
-        impl(inst, this)
+        val mcode: MachineCode = getNextInstruction()
+        Instruction[mcode].impl32(mcode, this)
         history.add(preInstruction)
         return postInstruction.toList()
     }
@@ -148,7 +148,7 @@ class Simulator(val linkedProgram: LinkedProgram) {
         }
     }
 
-    private fun getNextInstruction(): Instruction {
+    private fun getNextInstruction(): MachineCode {
         val short0 = loadHalfWord(getPC())
         val length = getInstructionLength(short0)
         if (length != 4) {
@@ -157,6 +157,6 @@ class Simulator(val linkedProgram: LinkedProgram) {
 
         val short1 = loadHalfWord(getPC() + 2)
 
-        return Instruction((short1 shl 16) or short0)
+        return MachineCode((short1 shl 16) or short0)
     }
 }

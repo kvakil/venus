@@ -2,6 +2,7 @@ package venus.assembler
 
 import venus.riscv.MemorySegments
 import venus.riscv.Program
+import venus.riscv.insts.dsl.Instruction
 
 data class DebugInfo(val lineNo: Int, val line: String)
 data class DebugInstruction(val debug: DebugInfo, val LineTokens: List<String>)
@@ -116,12 +117,10 @@ object Assembler {
         private fun addInstruction(tokens: LineTokens) {
             if (tokens.isEmpty() || tokens[0].isEmpty()) return
             val cmd = getInstruction(tokens)
-            val disp: WriterDispatcher = try {
-                WriterDispatcher.valueOf(cmd)
-            } catch (e: IllegalStateException) {
-                throw AssemblerError("no such instruction $cmd")
-            }
-            disp.writer(prog, disp.iform, tokens.drop(1))
+            val inst = Instruction[cmd]
+            val mcode = inst.format.fill()
+            inst.parser(prog, mcode, tokens.drop(1))
+            prog.add(mcode)
         }
 
         /**

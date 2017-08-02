@@ -4,7 +4,6 @@ import venus.assembler.Assembler.AssemblerState
 import venus.assembler.AssemblerError
 import venus.assembler.LineTokens
 import venus.assembler.PseudoWriter
-import venus.assembler.writers.checkArgsLength
 
 /**
  * Writes pseudoinstruction `li rd, imm`.
