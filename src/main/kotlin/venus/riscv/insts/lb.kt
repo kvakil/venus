@@ -9,7 +9,5 @@ val lb = LoadTypeInstruction(
         opcode = 0b0000011,
         funct3 = 0b000,
         load32 = Simulator::loadByte,
-        postLoad32 = { v -> signExtend(v, 8) },
-        load64 = { _, _ -> throw NotImplementedError("no rv64") },
-        postLoad64 = { _ -> throw NotImplementedError("no rv64") }
+        postLoad32 = { v -> signExtend(v, 8) }
 )

@@ -14,7 +14,7 @@ class ITypeInstruction(
         opcode: Int,
         funct3: Int,
         eval32: (Int, Int) -> Int,
-        eval64: (Long, Long) -> Long,
+        eval64: (Long, Long) -> Long = { _, _ -> throw NotImplementedError("no rv64") },
         relocator32: InstructionRelocator32 = NoRelocator32,
         relocator64: InstructionRelocator64 = NoRelocator64
 ) : Instruction(

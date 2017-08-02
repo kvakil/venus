@@ -13,7 +13,7 @@ class STypeInstruction(
         opcode: Int,
         funct3: Int,
         store32: (Simulator, Int, Int) -> Unit,
-        store64: (Simulator, Long, Long) -> Unit
+        store64: (Simulator, Long, Long) -> Unit = { _, _, _ -> throw NotImplementedError("no rv64") }
 ) : Instruction(
         name = name,
         format = STypeFormat(opcode, funct3),

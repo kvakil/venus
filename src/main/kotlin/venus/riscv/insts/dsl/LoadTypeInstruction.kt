@@ -13,9 +13,9 @@ class LoadTypeInstruction(
         opcode: Int,
         funct3: Int,
         load32: (Simulator, Int) -> Int,
-        postLoad32: (Int) -> Int,
-        load64: (Simulator, Long) -> Long,
-        postLoad64: (Long) -> Long
+        postLoad32: (Int) -> Int = { it },
+        load64: (Simulator, Long) -> Long = { _, _ -> throw NotImplementedError("no rv64") },
+        postLoad64: (Long) -> Long = { it }
 ) : Instruction(
         name = name,
         format = ITypeFormat(opcode, funct3),

@@ -13,7 +13,7 @@ class RTypeInstruction(
         funct3: Int,
         funct7: Int,
         eval32: (Int, Int) -> Int,
-        eval64: (Long, Long) -> Long
+        eval64: (Long, Long) -> Long = { _, _ -> throw NotImplementedError("no rv64") }
 ) : Instruction(
         name = name,
         format = RTypeFormat(opcode, funct3, funct7),

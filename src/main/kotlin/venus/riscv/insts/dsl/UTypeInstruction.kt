@@ -14,7 +14,7 @@ class UTypeInstruction(
         name: String,
         opcode: Int,
         impl32: (MachineCode, Simulator) -> Unit,
-        impl64: (MachineCode, Simulator) -> Unit,
+        impl64: (MachineCode, Simulator) -> Unit = { _, _ -> throw NotImplementedError("no rv64") },
         relocator32: InstructionRelocator32 = NoRelocator32,
         relocator64: InstructionRelocator64 = NoRelocator64
 ) : Instruction(
