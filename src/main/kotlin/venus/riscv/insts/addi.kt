@@ -11,4 +11,3 @@ val addi = ITypeInstruction(
         eval64 = { a, b -> a + b },
         relocator32 = PCRelLoRelocator32
 )
-
