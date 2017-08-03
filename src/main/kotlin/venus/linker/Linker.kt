@@ -43,14 +43,15 @@ object Linker {
                 } else {
                     textTotalOffset
                 }
+                val location = start + offset
 
                 if (prog.isGlobalLabel(label)) {
-                    val previousValue = globalTable.put(label, start + offset)
+                    val previousValue = globalTable.put(label, location)
                     if (previousValue != null) {
                         throw AssemblerError("label $label defined global in two different files")
                     }
                     if (label == "main") {
-                        linkedProgram.startPC = start + offset
+                        linkedProgram.startPC = location
                     }
                 }
             }
