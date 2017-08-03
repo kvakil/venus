@@ -1,6 +1,6 @@
 package venus.assembler.pseudos
 
-import venus.assembler.Assembler.AssemblerState
+import venus.assembler.AssemblerPassOne
 import venus.assembler.LineTokens
 import venus.assembler.PseudoWriter
 
@@ -9,7 +9,7 @@ import venus.assembler.PseudoWriter
  * @todo add a settings option for "extended pseudoinstructions"
  */
 object SLE : PseudoWriter() {
-    override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
+    override operator fun invoke(args: LineTokens, state: AssemblerPassOne): List<LineTokens> {
         checkArgsLength(args, 4)
         val unsigned = if (args[0].endsWith("u")) "u" else ""
         val set = listOf("slt$unsigned", args[1], args[3], args[2])

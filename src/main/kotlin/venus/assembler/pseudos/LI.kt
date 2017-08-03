@@ -1,6 +1,6 @@
 package venus.assembler.pseudos
 
-import venus.assembler.Assembler.AssemblerState
+import venus.assembler.AssemblerPassOne
 import venus.assembler.AssemblerError
 import venus.assembler.LineTokens
 import venus.assembler.PseudoWriter
@@ -11,7 +11,7 @@ import venus.assembler.PseudoWriter
  * This either expands to an `addi` if `imm` is small or a `lui` / `addi` pair if `imm` is big.
  */
 object LI : PseudoWriter() {
-    override operator fun invoke(args: LineTokens, state: AssemblerState): List<LineTokens> {
+    override operator fun invoke(args: LineTokens, state: AssemblerPassOne): List<LineTokens> {
         checkArgsLength(args, 3)
         val imm = try {
             args[2].toLong().toInt()
