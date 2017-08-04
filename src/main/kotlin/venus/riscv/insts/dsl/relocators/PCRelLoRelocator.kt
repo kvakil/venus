@@ -9,4 +9,4 @@ object PCRelLoRelocator32 : Relocator32 {
     }
 }
 
-val PCRelLoRelocator = Relocator(PCRelHiRelocator32, NoRelocator64)
+val PCRelLoRelocator = Relocator(PCRelLoRelocator32, NoRelocator64)
