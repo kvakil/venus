@@ -1,6 +1,8 @@
 package venus.riscv.insts
 
 import venus.glue.Renderer
+import venus.linker.relocators.NoRelocator32
+import venus.linker.relocators.NoRelocator64
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
 import venus.riscv.insts.dsl.Instruction
@@ -9,8 +11,6 @@ import venus.riscv.insts.dsl.formats.InstructionFormat
 import venus.riscv.insts.dsl.impls.NoImplementation
 import venus.riscv.insts.dsl.impls.RawImplementation
 import venus.riscv.insts.dsl.parsers.DoNothingParser
-import venus.riscv.insts.dsl.relocators.NoRelocator32
-import venus.riscv.insts.dsl.relocators.NoRelocator64
 import venus.simulator.Simulator
 
 val ecall = Instruction(

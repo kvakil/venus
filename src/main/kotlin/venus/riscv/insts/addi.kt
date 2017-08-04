@@ -1,7 +1,7 @@
 package venus.riscv.insts
 
+import venus.linker.relocators.PCRelLoRelocator32
 import venus.riscv.insts.dsl.ITypeInstruction
-import venus.riscv.insts.dsl.relocators.PCRelLoRelocator32
 
 val addi = ITypeInstruction(
         name = "addi",

@@ -1,9 +1,9 @@
 package venus.riscv.insts
 
+import venus.linker.relocators.PCRelHiRelocator32
 import venus.riscv.InstructionField
 import venus.riscv.insts.dsl.UTypeInstruction
 import venus.riscv.insts.dsl.impls.NoImplementation
-import venus.riscv.insts.dsl.relocators.PCRelHiRelocator32
 
 val auipc = UTypeInstruction(
         name = "auipc",
