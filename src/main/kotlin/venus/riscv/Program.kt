@@ -84,7 +84,7 @@ class Program(val name: String = "anonymous") {
      * @param offset the byte offset the label is at (from the start of the program)
      */
     fun addRelocation(relocator: Relocator, label: String, offset: Int = textSize) =
-            relocationTable.add(RelocationInfo(relocator, label, offset))
+            relocationTable.add(RelocationInfo(relocator, offset, label))
 
     /**
      * Makes a label global.
