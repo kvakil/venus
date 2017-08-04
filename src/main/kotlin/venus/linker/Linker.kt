@@ -77,7 +77,7 @@ object Linker {
                     relocator(mcode, location, toAddress)
                 } else {
                     /* need to relocate globally */
-                    toRelocate.add(RelocationInfo(relocator, location, label))
+                    toRelocate.add(RelocationInfo(relocator, label, location))
                 }
             }
 
