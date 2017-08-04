@@ -1,4 +1,4 @@
-package venus.linker
+package venus.riscv.insts.dsl.relocators
 
 import venus.riscv.MachineCode
 

@@ -3,6 +3,7 @@ package venus.linker
 import venus.assembler.AssemblerError
 import venus.riscv.MemorySegments
 import venus.riscv.Program
+import venus.riscv.insts.dsl.relocators.Relocator
 
 /**
  * Describes how to relocate a given instructions

@@ -2,7 +2,7 @@ package venus.riscv
 
 import venus.assembler.DebugInfo
 import venus.linker.RelocationInfo
-import venus.linker.Relocator
+import venus.riscv.insts.dsl.relocators.Relocator
 
 /**
  * An (unlinked) program.
