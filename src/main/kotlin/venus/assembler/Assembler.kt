@@ -3,6 +3,7 @@ package venus.assembler
 import venus.riscv.MemorySegments
 import venus.riscv.Program
 import venus.riscv.insts.dsl.Instruction
+import venus.riscv.insts.dsl.relocators.Relocator
 
 /**
  * This singleton implements a simple two-pass assembler to transform files into programs.
@@ -174,7 +175,8 @@ internal class AssemblerPassOne(private val text: String) {
         }
     }
 
-    fun addRelocation(label: String, offset: Int) = prog.addRelocation(label, offset)
+    fun addRelocation(relocator: Relocator, offset: Int, label: String) =
+            prog.addRelocation(relocator, label, offset)
 }
 
 /**

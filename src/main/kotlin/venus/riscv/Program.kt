@@ -2,6 +2,7 @@ package venus.riscv
 
 import venus.assembler.DebugInfo
 import venus.linker.RelocationInfo
+import venus.riscv.insts.dsl.relocators.Relocator
 
 /**
  * An (unlinked) program.
@@ -82,8 +83,8 @@ class Program(val name: String = "anonymous") {
      * @param label the label to relocate
      * @param offset the byte offset the label is at (from the start of the program)
      */
-    fun addRelocation(label: String, offset: Int = textSize) =
-            relocationTable.add(RelocationInfo(label, offset))
+    fun addRelocation(relocator: Relocator, label: String, offset: Int = textSize) =
+            relocationTable.add(RelocationInfo(relocator, offset, label))
 
     /**
      * Makes a label global.

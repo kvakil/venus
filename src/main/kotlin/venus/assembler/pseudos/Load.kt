@@ -3,6 +3,8 @@ package venus.assembler.pseudos
 import venus.assembler.AssemblerPassOne
 import venus.assembler.LineTokens
 import venus.assembler.PseudoWriter
+import venus.riscv.insts.dsl.relocators.PCRelHiRelocator
+import venus.riscv.insts.dsl.relocators.PCRelLoRelocator
 
 /**
  * Writes a load pseudoinstruction. (Those applied to a label)
@@ -12,10 +14,10 @@ object Load : PseudoWriter() {
         checkArgsLength(args, 3)
 
         val auipc = listOf("auipc", args[1], "0")
-        state.addRelocation(args[2], state.getOffset())
+        state.addRelocation(PCRelHiRelocator, state.getOffset(), args[2])
 
         val load = listOf(args[0], args[1], "0", args[1])
-        state.addRelocation(args[2], state.getOffset() + 4) /* TODO: variable instruction length? */
+        state.addRelocation(PCRelLoRelocator, state.getOffset() + 4, args[2])
 
         return listOf(auipc, load)
     }

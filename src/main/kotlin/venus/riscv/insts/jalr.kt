@@ -7,8 +7,6 @@ import venus.riscv.insts.dsl.impls.NoImplementation
 import venus.riscv.insts.dsl.impls.RawImplementation
 import venus.riscv.insts.dsl.impls.signExtend
 import venus.riscv.insts.dsl.parsers.ITypeParser
-import venus.riscv.insts.dsl.relocators.NoRelocator32
-import venus.riscv.insts.dsl.relocators.NoRelocator64
 
 val jalr = Instruction(
         name = "jalr",
@@ -25,7 +23,5 @@ val jalr = Instruction(
             sim.setReg(rd, sim.getPC() + mcode.length)
             sim.setPC(((vrs1 + imm) shr 1) shl 1)
         },
-        impl64 = NoImplementation,
-        relocator32 = NoRelocator32,
-        relocator64 = NoRelocator64
+        impl64 = NoImplementation
 )

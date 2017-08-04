@@ -9,8 +9,6 @@ import venus.riscv.insts.dsl.formats.InstructionFormat
 import venus.riscv.insts.dsl.impls.NoImplementation
 import venus.riscv.insts.dsl.impls.RawImplementation
 import venus.riscv.insts.dsl.parsers.DoNothingParser
-import venus.riscv.insts.dsl.relocators.NoRelocator32
-import venus.riscv.insts.dsl.relocators.NoRelocator64
 import venus.simulator.Simulator
 
 val ecall = Instruction(
@@ -32,9 +30,7 @@ val ecall = Instruction(
             }
             sim.incrementPC(mcode.length)
         },
-        impl64 = NoImplementation,
-        relocator32 = NoRelocator32,
-        relocator64 = NoRelocator64
+        impl64 = NoImplementation
 )
 
 private fun printInteger(sim: Simulator) {

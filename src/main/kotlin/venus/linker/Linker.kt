@@ -3,10 +3,16 @@ package venus.linker
 import venus.assembler.AssemblerError
 import venus.riscv.MemorySegments
 import venus.riscv.Program
-import venus.riscv.insts.dsl.Instruction
+import venus.riscv.insts.dsl.relocators.Relocator
 
-/** Contains the byte offset which must be relocated and the label it should point to */
-data class RelocationInfo(val label: String, val offset: Int)
+/**
+ * Describes how to relocate a given instructions
+ *
+ * @param relocator the relocator to use
+ * @param label the target label
+ * @param offset the byte offset the instruction is at
+ */
+data class RelocationInfo(val relocator: Relocator, val offset: Int, val label: String)
 
 /**
  * A singleton which links a list of programs into one program.
@@ -62,13 +68,16 @@ object Linker {
             }
             prog.dataSegment.forEach(linkedProgram.prog::addToData)
 
-            for ((label, offset) in prog.relocationTable) {
-                /* try to determine each relocation locally */
+            for ((relocator, offset, label) in prog.relocationTable) {
                 val toAddress = prog.labels.get(label)
+                val location = textTotalOffset + offset
                 if (toAddress != null) {
-                    relocateInstruction(linkedProgram, toAddress, textTotalOffset + offset)
+                    /* TODO: fix this for variable length instructions */
+                    val mcode = linkedProgram.prog.insts[location / 4]
+                    relocator(mcode, location, toAddress)
                 } else {
-                    toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
+                    /* need to relocate globally */
+                    toRelocate.add(RelocationInfo(relocator, location, label))
                 }
             }
 
@@ -76,20 +85,14 @@ object Linker {
             dataTotalOffset += prog.dataSize
         }
 
-        for ((label, offset) in toRelocate) {
+        for ((relocator, offset, label) in toRelocate) {
             val toAddress = globalTable.get(label) ?:
                     throw AssemblerError("label $label used but not defined")
 
-            relocateInstruction(linkedProgram, toAddress, offset)
-            /* FIXME: variable instruction sizes WILL break this */
+            val mcode = linkedProgram.prog.insts[offset / 4]
+            relocator(mcode, offset, toAddress)
         }
 
         return linkedProgram
     }
-
-    fun relocateInstruction(linkedProgram: LinkedProgram, toAddress: Int, offset: Int) {
-        val mcode = linkedProgram.prog.insts[offset / 4]
-        Instruction[mcode].relocator32(mcode, offset, toAddress)
-    }
-
 }
