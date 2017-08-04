@@ -28,6 +28,8 @@ internal object Renderer {
     private var activeMemoryAddress: Int = 0
     /** The simulator being rendered */
     private lateinit var sim: Simulator
+    /* The way the information in the registers is displayed*/
+    private var displayType = "hex"
 
     /**
      * Shows the simulator tab and hides other tabs
@@ -90,10 +92,12 @@ internal object Renderer {
 
     /**
      * Refresh all of the simulator tab's content
+     *
+     * @todo refactor this into a "reset" and "update" all function
      */
     fun updateAll() {
         updatePC(sim.getPC())
-        updateMemory(0)
+        updateMemory(activeMemoryAddress)
         updateControlButtons()
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
@@ -166,7 +170,13 @@ internal object Renderer {
      */
     fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
         val register = getElement("reg-$id-val") as HTMLInputElement
-        register.value = toHex(value)
+        register.value = when (displayType) {
+            "Hex" -> toHex(value)
+            "Decimal" -> value.toString()
+            "Unsigned" -> toUnsigned(value)
+            "ASCII" -> toAscii(value)
+            else -> toHex(value)
+        }
         if (setActive) {
             activeRegister?.classList?.remove("is-modified")
             register.classList.add("is-modified")
@@ -328,7 +338,14 @@ internal object Renderer {
             tdAddress.innerText = toHex(rowAddr)
             for (i in 1..4) {
                 val tdByte = row.childNodes[i] as HTMLTableCellElement
-                tdByte.innerText = byteToHex(sim.loadByte(rowAddr + i - 1))
+                val byte = sim.loadByte(rowAddr + i - 1)
+                tdByte.innerText = when (displayType) {
+                    "Hex" -> byteToHex(byte)
+                    "Decimal" -> byteToDec(byte)
+                    "Unsigned" -> byteToUnsign(byte)
+                    "ASCII" -> toAscii(byte)
+                    else -> byteToHex(byte)
+                }
             }
         } else {
             tdAddress.innerText = "----------"
@@ -357,6 +374,10 @@ internal object Renderer {
         return "$leftNibble$rightNibble"
     }
 
+    private fun byteToDec(b: Int): String = b.toByte().toString()
+
+    private fun byteToUnsign(b: Int): String = b.toString()
+
     /**
      * Converts a value to a two's complement hex number.
      *
@@ -370,23 +391,32 @@ internal object Renderer {
         var remainder = value.toLong()
         var suffix = ""
 
-        // output as two's complement
-        if (remainder < 0) {
-            remainder += 0x1_0000_0000L
-        }
-
-        // convert to hex
-        while (remainder > 0) {
-            val hexDigit = hexMap[(remainder % 16).toInt()]
+        repeat(8) {
+            val hexDigit = hexMap[(remainder and 15).toInt()]
             suffix = hexDigit + suffix
-            remainder /= 16
-        }
-
-        // pad with zeros if needed
-        while (suffix.length < 8) {
-            suffix = "0" + suffix
+            remainder = remainder ushr 4
         }
 
         return "0x" + suffix
+    }
+
+    private fun toUnsigned(value: Int): String =
+            if (value >= 0) value.toString() else (value + 0x1_0000_0000L).toString()
+
+    private fun toAscii(value: Int): String =
+            when (value) {
+                !in 0..255 -> toHex(value)
+                !in 32..126 -> "\uFFFD"
+                else -> "'${value.toChar()}'"
+            }
+
+    /**
+     * Sets the display type for all of the registers and memory
+     * Rerenders after
+     */
+    fun updateRegMemDisplay() {
+        val displaySelect = getElement("display-settings") as HTMLSelectElement
+        displayType = displaySelect.value
+        updateAll()
     }
 }
