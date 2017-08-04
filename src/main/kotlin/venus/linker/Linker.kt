@@ -74,9 +74,7 @@ object Linker {
                 if (toAddress != null) {
                     /* TODO: fix this for variable length instructions */
                     val mcode = linkedProgram.prog.insts[location / 4]
-                    println("1pre: $mcode @ $offset @ $toAddress $label")
                     relocator(mcode, location, toAddress)
-                    println("1psre: $mcode @ $offset @ $toAddress $label")
                 } else {
                     /* need to relocate globally */
                     toRelocate.add(RelocationInfo(relocator, location, label))
@@ -92,9 +90,7 @@ object Linker {
                     throw AssemblerError("label $label used but not defined")
 
             val mcode = linkedProgram.prog.insts[offset / 4]
-            println("2pre: $mcode @ $offset @ $toAddress $label")
             relocator(mcode, offset, toAddress)
-            println("2psre: $mcode @ $offset @ $toAddress $label")
         }
 
         return linkedProgram
