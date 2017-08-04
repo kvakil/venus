@@ -372,13 +372,9 @@ internal object Renderer {
         return "$leftNibble$rightNibble"
     }
 
-    private fun byteToDec(b: Int): String {
-        return b.toByte().toString()
-    }
+    private fun byteToDec(b: Int): String = b.toByte().toString()
 
-    private fun byteToUnsign(b: Int): String {
-        return b.toString()
-    }
+    private fun byteToUnsign(b: Int): String = b.toString()
 
     /**
      * Converts a value to a two's complement hex number.
@@ -402,17 +398,15 @@ internal object Renderer {
         return "0x" + suffix
     }
 
-    private fun toUnsigned(value: Int): String {
-        return if (value >= 0) value.toString() else (value + 0x1_0000_0000L).toString()
-    }
+    private fun toUnsigned(value: Int): String =
+            if (value >= 0) value.toString() else (value + 0x1_0000_0000L).toString()
 
-    private fun toAscii(value: Int): String {
-        return when (value) {
-            !in 0..255 -> toHex(value)
-            !in 32..126 -> "\uFFFD"
-            else -> "'${value.toChar()}'"
-        }
-    }
+    private fun toAscii(value: Int): String =
+            when (value) {
+                !in 0..255 -> toHex(value)
+                !in 32..126 -> "\uFFFD"
+                else -> "'${value.toChar()}'"
+            }
 
     /**
      * Sets the display type for all of the registers and memory
