@@ -4,6 +4,7 @@ import venus.assembler.AssemblerPassOne
 import venus.assembler.AssemblerError
 import venus.assembler.LineTokens
 import venus.assembler.PseudoWriter
+import venus.riscv.userStringToInt
 
 /**
  * Writes pseudoinstruction `li rd, imm`.
@@ -14,7 +15,7 @@ object LI : PseudoWriter() {
     override operator fun invoke(args: LineTokens, state: AssemblerPassOne): List<LineTokens> {
         checkArgsLength(args, 3)
         val imm = try {
-            args[2].toLong().toInt()
+            userStringToInt(args[2])
         } catch (e: NumberFormatException) {
             throw AssemblerError("immediate to li too large or NaN")
         }
