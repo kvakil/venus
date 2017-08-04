@@ -6,7 +6,7 @@ import venus.riscv.Program
 import venus.riscv.insts.dsl.Instruction
 
 /** Contains the byte offset which must be relocated and the label it should point to */
-data class RelocationInfo(val label: String, val offset: Int)
+data class RelocationInfo(val relocator: Relocator, val label: String, val offset: Int)
 
 /**
  * A singleton which links a list of programs into one program.
