@@ -169,10 +169,10 @@ internal object Renderer {
     fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
         val register = getElement("reg-$id-val") as HTMLInputElement
         register.value = when (displayType) {
-            "hex" -> toHex(value)
-            "dec" -> value.toString()
-            "unsign" -> toUnsigned(value)
-            "ascii" -> toAscii(value)
+            "Hex" -> toHex(value)
+            "Decimal" -> value.toString()
+            "Unsigned" -> toUnsigned(value)
+            "ASCII" -> toAscii(value)
             else -> toHex(value)
         }
         if (setActive) {
@@ -337,10 +337,10 @@ internal object Renderer {
             for (i in 1..4) {
                 val tdByte = row.childNodes[i] as HTMLTableCellElement
                 tdByte.innerText = when (displayType) {
-                    "hex" -> byteToHex(sim.loadByte(rowAddr + i - 1))
-                    "dec" -> byteToDec(sim.loadByte(rowAddr + i - 1))
-                    "unsign" -> byteToUnsign(sim.loadByte(rowAddr + i - 1))
-                    "ascii" -> byteToAscii(sim.loadByte(rowAddr + i - 1))
+                    "Hex" -> byteToHex(sim.loadByte(rowAddr + i - 1))
+                    "Decimal" -> byteToDec(sim.loadByte(rowAddr + i - 1))
+                    "Unsigned" -> byteToUnsign(sim.loadByte(rowAddr + i - 1))
+                    "ASCII" -> byteToAscii(sim.loadByte(rowAddr + i - 1))
                     else -> byteToHex(sim.loadByte(rowAddr + i - 1))
                 }
             }
@@ -454,19 +454,10 @@ internal object Renderer {
      * Sets the display type for all of the registers and memory
      * Rerenders after
      */
-    fun setRegMemDisplay(dis_type: String) {
-        displayType = dis_type
-        optSetVisibily(dis_type)
+    fun updateRegMemDisplay() {
+        val displaySelect = getElement("display-settings") as HTMLSelectElement
+        displayType = displaySelect.value
+        println(displayType)
         updateAll()
-    }
-
-    private val opts = listOf("hex", "dec", "unsign", "ascii")
-
-    private fun optSetVisibily(opt: String) {
-        var tabDisplay: HTMLElement?
-        for (option in opts) {
-            tabDisplay = document.getElementById("$option-opt") as HTMLElement
-            tabDisplay.className = if (opt == option) "is-active" else ""
-        }
     }
 }
