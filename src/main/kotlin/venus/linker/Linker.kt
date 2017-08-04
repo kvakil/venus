@@ -12,7 +12,7 @@ import venus.riscv.insts.dsl.relocators.Relocator
  * @param label the target label
  * @param offset the byte offset the instruction is at
  */
-data class RelocationInfo(val relocator: Relocator, val label: String, val offset: Int)
+data class RelocationInfo(val relocator: Relocator, val offset: Int, val label: String)
 
 /**
  * A singleton which links a list of programs into one program.
@@ -68,16 +68,18 @@ object Linker {
             }
             prog.dataSegment.forEach(linkedProgram.prog::addToData)
 
-            for ((relocator, label, offset) in prog.relocationTable) {
+            for ((relocator, offset, label) in prog.relocationTable) {
                 val toAddress = prog.labels.get(label)
                 val location = textTotalOffset + offset
                 if (toAddress != null) {
                     /* TODO: fix this for variable length instructions */
-                    val mcode = linkedProgram.prog.insts[offset / 4]
+                    val mcode = linkedProgram.prog.insts[location / 4]
+                    println("1pre: $mcode @ $offset @ $toAddress $label")
                     relocator(mcode, location, toAddress)
+                    println("1psre: $mcode @ $offset @ $toAddress $label")
                 } else {
                     /* need to relocate globally */
-                    toRelocate.add(RelocationInfo(relocator, label, location))
+                    toRelocate.add(RelocationInfo(relocator, location, label))
                 }
             }
 
@@ -85,12 +87,14 @@ object Linker {
             dataTotalOffset += prog.dataSize
         }
 
-        for ((relocator, label, offset) in toRelocate) {
+        for ((relocator, offset, label) in toRelocate) {
             val toAddress = globalTable.get(label) ?:
                     throw AssemblerError("label $label used but not defined")
 
             val mcode = linkedProgram.prog.insts[offset / 4]
-            relocator(mcode, toAddress, offset)
+            println("2pre: $mcode @ $offset @ $toAddress $label")
+            relocator(mcode, offset, toAddress)
+            println("2psre: $mcode @ $offset @ $toAddress $label")
         }
 
         return linkedProgram
