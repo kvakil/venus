@@ -3,9 +3,14 @@ package venus.linker
 import venus.assembler.AssemblerError
 import venus.riscv.MemorySegments
 import venus.riscv.Program
-import venus.riscv.insts.dsl.Instruction
 
-/** Contains the byte offset which must be relocated and the label it should point to */
+/**
+ * Describes how to relocate a given instructions
+ *
+ * @param relocator the relocator to use
+ * @param label the target label
+ * @param offset the byte offset the instruction is at
+ */
 data class RelocationInfo(val relocator: Relocator, val label: String, val offset: Int)
 
 /**
@@ -62,13 +67,16 @@ object Linker {
             }
             prog.dataSegment.forEach(linkedProgram.prog::addToData)
 
-            for ((label, offset) in prog.relocationTable) {
-                /* try to determine each relocation locally */
+            for ((relocator, label, offset) in prog.relocationTable) {
                 val toAddress = prog.labels.get(label)
+                val location = textTotalOffset + offset
                 if (toAddress != null) {
-                    relocateInstruction(linkedProgram, toAddress, textTotalOffset + offset)
+                    /* TODO: fix this for variable length instructions */
+                    val mcode = linkedProgram.prog.insts[offset / 4]
+                    relocator(mcode, location, toAddress)
                 } else {
-                    toRelocate.add(RelocationInfo(label, textTotalOffset + offset))
+                    /* need to relocate globally */
+                    toRelocate.add(RelocationInfo(relocator, location, label))
                 }
             }
 
@@ -76,20 +84,14 @@ object Linker {
             dataTotalOffset += prog.dataSize
         }
 
-        for ((label, offset) in toRelocate) {
+        for ((relocator, label, offset) in toRelocate) {
             val toAddress = globalTable.get(label) ?:
                     throw AssemblerError("label $label used but not defined")
 
-            relocateInstruction(linkedProgram, toAddress, offset)
-            /* FIXME: variable instruction sizes WILL break this */
+            val mcode = linkedProgram.prog.insts[offset / 4]
+            relocator(mcode, toAddress, offset)
         }
 
         return linkedProgram
     }
-
-    fun relocateInstruction(linkedProgram: LinkedProgram, toAddress: Int, offset: Int) {
-        val mcode = linkedProgram.prog.insts[offset / 4]
-        Instruction[mcode].relocator32(mcode, offset, toAddress)
-    }
-
 }
