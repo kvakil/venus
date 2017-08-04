@@ -4,8 +4,6 @@ import venus.riscv.insts.dsl.formats.RTypeFormat
 import venus.riscv.insts.dsl.impls.NoImplementation
 import venus.riscv.insts.dsl.impls.RTypeImplementation32
 import venus.riscv.insts.dsl.parsers.RTypeParser
-import venus.riscv.insts.dsl.relocators.NoRelocator32
-import venus.riscv.insts.dsl.relocators.NoRelocator64
 
 class RTypeInstruction(
         name: String,
@@ -19,7 +17,5 @@ class RTypeInstruction(
         format = RTypeFormat(opcode, funct3, funct7),
         parser = RTypeParser,
         impl32 = RTypeImplementation32(eval32),
-        impl64 = NoImplementation,
-        relocator32 = NoRelocator32,
-        relocator64 = NoRelocator64
+        impl64 = NoImplementation
 )

@@ -4,8 +4,6 @@ import venus.riscv.insts.dsl.formats.STypeFormat
 import venus.riscv.insts.dsl.impls.NoImplementation
 import venus.riscv.insts.dsl.impls.STypeImplementation32
 import venus.riscv.insts.dsl.parsers.STypeParser
-import venus.riscv.insts.dsl.relocators.NoRelocator32
-import venus.riscv.insts.dsl.relocators.NoRelocator64
 import venus.simulator.Simulator
 
 class STypeInstruction(
@@ -19,7 +17,5 @@ class STypeInstruction(
         format = STypeFormat(opcode, funct3),
         parser = STypeParser,
         impl32 = STypeImplementation32(store32),
-        impl64 = NoImplementation,
-        relocator32 = NoRelocator32,
-        relocator64 = NoRelocator64
+        impl64 = NoImplementation
 )
