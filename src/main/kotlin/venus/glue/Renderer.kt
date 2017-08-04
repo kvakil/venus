@@ -336,12 +336,13 @@ internal object Renderer {
             tdAddress.innerText = toHex(rowAddr)
             for (i in 1..4) {
                 val tdByte = row.childNodes[i] as HTMLTableCellElement
+                val address = rowAddr + i - 1
                 tdByte.innerText = when (displayType) {
-                    "Hex" -> byteToHex(sim.loadByte(rowAddr + i - 1))
-                    "Decimal" -> byteToDec(sim.loadByte(rowAddr + i - 1))
-                    "Unsigned" -> byteToUnsign(sim.loadByte(rowAddr + i - 1))
-                    "ASCII" -> byteToAscii(sim.loadByte(rowAddr + i - 1))
-                    else -> byteToHex(sim.loadByte(rowAddr + i - 1))
+                    "Hex" -> byteToHex(sim.loadByte(address))
+                    "Decimal" -> byteToDec(sim.loadByte(address))
+                    "Unsigned" -> byteToUnsign(sim.loadByte(address))
+                    "ASCII" -> byteToAscii(sim.loadByte(address))
+                    else -> byteToHex(sim.loadByte(address))
                 }
             }
         } else {
@@ -432,7 +433,7 @@ internal object Renderer {
             remainder /= 10
         }
 
-        if (suffix.length < 1) {
+        if (suffix.isEmpty()) {
             suffix = "0"
         }
         return suffix
