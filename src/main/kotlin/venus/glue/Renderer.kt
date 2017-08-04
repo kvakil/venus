@@ -341,7 +341,7 @@ internal object Renderer {
                     "Hex" -> byteToHex(sim.loadByte(address))
                     "Decimal" -> byteToDec(sim.loadByte(address))
                     "Unsigned" -> byteToUnsign(sim.loadByte(address))
-                    "ASCII" -> byteToAscii(sim.loadByte(address))
+                    "ASCII" -> toAscii(sim.loadByte(address))
                     else -> byteToHex(sim.loadByte(address))
                 }
             }
@@ -370,10 +370,6 @@ internal object Renderer {
         val leftNibble = hexMap[b ushr 4]
         val rightNibble = hexMap[b and 15]
         return "$leftNibble$rightNibble"
-    }
-
-    private fun byteToAscii(b: Int): String {
-        return b.toChar().toString()
     }
 
     private fun byteToDec(b: Int): String {
@@ -407,37 +403,15 @@ internal object Renderer {
     }
 
     private fun toUnsigned(value: Int): String {
-        var remainder = value.toLong()
-        var suffix = ""
-
-        // output as two's complement
-        if (remainder < 0) {
-            remainder += 0x1_0000_0000L
-        }
-
-        // convert to hex
-        while (remainder > 0) {
-            val hexDigit = hexMap[(remainder % 10).toInt()]
-            suffix = hexDigit + suffix
-            remainder /= 10
-        }
-
-        if (suffix.isEmpty()) {
-            suffix = "0"
-        }
-        return suffix
+        return if (value >= 0) value.toString() else (value + 0x1_0000_0000L).toString()
     }
 
     private fun toAscii(value: Int): String {
-        var remainder = value
-        var suffix = ""
-
-        while (remainder > 0) {
-            suffix = (remainder and 0xFFFF).toChar() + suffix
-            remainder = remainder ushr 8
+        return when (value) {
+            !in 0..255 -> toHex(value)
+            !in 32..126 -> "\uFFFD"
+            else -> "'${value.toChar()}'"
         }
-
-        return suffix
     }
 
     /**
