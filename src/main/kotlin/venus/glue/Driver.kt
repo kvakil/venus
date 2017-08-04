@@ -155,4 +155,8 @@ import kotlin.browser.window
         }
         Renderer.updateRegister(id, sim.getReg(id))
     }
+
+    @JsName("setRegMemDisplay") fun setRegMemDisplay(dis_type: String) {
+        Renderer.setRegMemDisplay(dis_type)
+    }
 }

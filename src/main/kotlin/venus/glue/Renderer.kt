@@ -28,6 +28,8 @@ internal object Renderer {
     private var activeMemoryAddress: Int = 0
     /** The simulator being rendered */
     private lateinit var sim: Simulator
+    /* The way the information in the registers is displayed*/
+    private var displayType = "hex"
 
     /**
      * Shows the simulator tab and hides other tabs
@@ -166,7 +168,13 @@ internal object Renderer {
      */
     fun updateRegister(id: Int, value: Int, setActive: Boolean = false) {
         val register = getElement("reg-$id-val") as HTMLInputElement
-        register.value = toHex(value)
+        register.value = when (displayType) {
+            "hex" -> toHex(value)
+            "dec" -> value.toString()
+            "unsign" -> toUnsigned(value)
+            "ascii" -> toAscii(value)
+            else -> toHex(value)
+        }
         if (setActive) {
             activeRegister?.classList?.remove("is-modified")
             register.classList.add("is-modified")
@@ -328,7 +336,13 @@ internal object Renderer {
             tdAddress.innerText = toHex(rowAddr)
             for (i in 1..4) {
                 val tdByte = row.childNodes[i] as HTMLTableCellElement
-                tdByte.innerText = byteToHex(sim.loadByte(rowAddr + i - 1))
+                tdByte.innerText = when (displayType) {
+                    "hex" -> byteToHex(sim.loadByte(rowAddr + i - 1))
+                    "dec" -> byteToDec(sim.loadByte(rowAddr + i - 1))
+                    "unsign" -> byteToUnsign(sim.loadByte(rowAddr + i - 1))
+                    "ascii" -> byteToAscii(sim.loadByte(rowAddr + i - 1))
+                    else -> byteToHex(sim.loadByte(rowAddr + i - 1))
+                }
             }
         } else {
             tdAddress.innerText = "----------"
@@ -355,6 +369,18 @@ internal object Renderer {
         val leftNibble = hexMap[b ushr 4]
         val rightNibble = hexMap[b and 15]
         return "$leftNibble$rightNibble"
+    }
+
+    private fun byteToAscii(b: Int): String {
+        return b.toChar().toString()
+    }
+
+    private fun byteToDec(b: Int): String {
+        return b.toByte().toString()
+    }
+
+    private fun byteToUnsign(b: Int): String {
+        return b.toString()
     }
 
     /**
@@ -388,5 +414,59 @@ internal object Renderer {
         }
 
         return "0x" + suffix
+    }
+
+    private fun toUnsigned(value: Int): String {
+        var remainder = value.toLong()
+        var suffix = ""
+
+        // output as two's complement
+        if (remainder < 0) {
+            remainder += 0x1_0000_0000L
+        }
+
+        // convert to hex
+        while (remainder > 0) {
+            val hexDigit = hexMap[(remainder % 10).toInt()]
+            suffix = hexDigit + suffix
+            remainder /= 10
+        }
+
+        if (suffix.length < 1) {
+            suffix = "0"
+        }
+        return suffix
+    }
+
+    private fun toAscii(value: Int): String {
+        var remainder = value
+        var suffix = ""
+
+        while (remainder > 0) {
+            suffix = (remainder and 0xFFFF).toChar() + suffix
+            remainder = remainder ushr 8
+        }
+
+        return suffix
+    }
+
+    /**
+     * Sets the display type for all of the registers and memory
+     * Rerenders after
+     */
+    fun setRegMemDisplay(dis_type: String) {
+        displayType = dis_type
+        optSetVisibily(dis_type)
+        updateAll()
+    }
+
+    private val opts = listOf("hex", "dec", "unsign", "ascii")
+
+    private fun optSetVisibily(opt: String) {
+        var tabDisplay: HTMLElement?
+        for (option in opts) {
+            tabDisplay = document.getElementById("$option-opt") as HTMLElement
+            tabDisplay.className = if (opt == option) "is-active" else ""
+        }
     }
 }
