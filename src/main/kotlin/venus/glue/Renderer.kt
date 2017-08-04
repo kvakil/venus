@@ -415,7 +415,6 @@ internal object Renderer {
     fun updateRegMemDisplay() {
         val displaySelect = getElement("display-settings") as HTMLSelectElement
         displayType = displaySelect.value
-        println(displayType)
         updateAll()
     }
 }
