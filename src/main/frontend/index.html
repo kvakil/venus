@@ -73,7 +73,7 @@
       </div>
     </div>
     <div class="tile is-ancestor">
-      <div class="tile is-vertical is-4">
+      <div class="tile is-vertical">
         <div class="tile is-parent">
           <article class="tile is-child" id="sidebar-listings-container">
             <nav class="panel">
@@ -548,14 +548,22 @@
         </div>
         <div class="tile is-parent">
           <article class="tile is-child">
-            <label>Display Settings</label>
-            <div class="tabs is-toggle">
-              <ul>
-                <li id="hex-opt" class="is-active"><a onclick="driver.setRegMemDisplay('hex')">Hex</a></li>
-                <li id="dec-opt"><a onclick="driver.setRegMemDisplay('dec')">Decimal</a></li>
-                <li id="unsign-opt"><a onclick="driver.setRegMemDisplay('unsign')">Unsigned</a></li>
-                <li id="ascii-opt"><a onclick="driver.setRegMemDisplay('ascii')">ASCII</a></li>
-              </ul>
+            <div class="field is-horizontal">
+              <div class="field-label is-small">
+                <label class="label">Display Settings</label>
+              </div>
+              <div class="field-body">
+                <div class="control">
+                  <div class="select is-small">
+                    <select id="display-settings">
+                      <option>Hex</option>
+                      <option>Decimal</option>
+                      <option>Unsigned</option>
+                      <option>ASCII</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
           </article>
         </div>
