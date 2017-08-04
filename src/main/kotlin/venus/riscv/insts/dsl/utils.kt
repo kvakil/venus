@@ -21,7 +21,7 @@ internal fun getImmediate(str: String, min: Int, max: Int): Int {
     }
 
     if (imm !in min..max)
-        throw AssemblerError("immediate out of range")
+        throw AssemblerError("immediate $imm out of range")
 
     return imm
 }
