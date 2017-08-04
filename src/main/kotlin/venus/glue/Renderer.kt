@@ -92,10 +92,12 @@ internal object Renderer {
 
     /**
      * Refresh all of the simulator tab's content
+     *
+     * @todo refactor this into a "reset" and "update" all function
      */
     fun updateAll() {
         updatePC(sim.getPC())
-        updateMemory(0)
+        updateMemory(activeMemoryAddress)
         updateControlButtons()
         for (i in 0..31) {
             updateRegister(i, sim.getReg(i))
