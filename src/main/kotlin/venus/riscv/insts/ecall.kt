@@ -1,8 +1,6 @@
 package venus.riscv.insts
 
 import venus.glue.Renderer
-import venus.linker.relocators.NoRelocator32
-import venus.linker.relocators.NoRelocator64
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
 import venus.riscv.insts.dsl.Instruction
@@ -32,9 +30,7 @@ val ecall = Instruction(
             }
             sim.incrementPC(mcode.length)
         },
-        impl64 = NoImplementation,
-        relocator32 = NoRelocator32,
-        relocator64 = NoRelocator64
+        impl64 = NoImplementation
 )
 
 private fun printInteger(sim: Simulator) {

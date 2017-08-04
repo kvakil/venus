@@ -1,6 +1,5 @@
 package venus.riscv.insts
 
-import venus.linker.relocators.PCRelHiRelocator32
 import venus.riscv.InstructionField
 import venus.riscv.insts.dsl.UTypeInstruction
 import venus.riscv.insts.dsl.impls.NoImplementation
@@ -13,6 +12,5 @@ val auipc = UTypeInstruction(
             sim.setReg(mcode[InstructionField.RD], sim.getPC() + offset)
             sim.incrementPC(mcode.length)
         },
-        impl64 = NoImplementation::invoke,
-        relocator32 = PCRelHiRelocator32
+        impl64 = NoImplementation::invoke
 )

@@ -1,7 +1,5 @@
 package venus.riscv.insts
 
-import venus.linker.relocators.NoRelocator32
-import venus.linker.relocators.NoRelocator64
 import venus.riscv.InstructionField
 import venus.riscv.insts.dsl.Instruction
 import venus.riscv.insts.dsl.formats.ITypeFormat
@@ -25,7 +23,5 @@ val jalr = Instruction(
             sim.setReg(rd, sim.getPC() + mcode.length)
             sim.setPC(((vrs1 + imm) shr 1) shl 1)
         },
-        impl64 = NoImplementation,
-        relocator32 = NoRelocator32,
-        relocator64 = NoRelocator64
+        impl64 = NoImplementation
 )

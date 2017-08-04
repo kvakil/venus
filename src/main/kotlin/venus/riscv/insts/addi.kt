@@ -1,6 +1,5 @@
 package venus.riscv.insts
 
-import venus.linker.relocators.PCRelLoRelocator32
 import venus.riscv.insts.dsl.ITypeInstruction
 
 val addi = ITypeInstruction(
@@ -8,6 +7,5 @@ val addi = ITypeInstruction(
         opcode = 0b0010011,
         funct3 = 0b000,
         eval32 = { a, b -> a + b },
-        eval64 = { a, b -> a + b },
-        relocator32 = PCRelLoRelocator32
+        eval64 = { a, b -> a + b }
 )
