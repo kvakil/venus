@@ -16,10 +16,10 @@ object LA : PseudoWriter() {
         checkArgsLength(args, 3)
 
         val auipc = listOf("auipc", args[1], "0")
-        state.addRelocation(PCRelHiRelocator, args[2], state.getOffset())
+        state.addRelocation(PCRelHiRelocator, state.getOffset(), args[2])
 
         val addi = listOf("addi", args[1], args[1], "0")
-        state.addRelocation(PCRelLoRelocator, args[2], state.getOffset() + 4)
+        state.addRelocation(PCRelLoRelocator, state.getOffset() + 4, args[2])
 
         return listOf(auipc, addi)
     }

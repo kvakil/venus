@@ -175,7 +175,7 @@ internal class AssemblerPassOne(private val text: String) {
         }
     }
 
-    fun addRelocation(relocator: Relocator, label: String, offset: Int) =
+    fun addRelocation(relocator: Relocator, offset: Int, label: String) =
             prog.addRelocation(relocator, label, offset)
 }
 
