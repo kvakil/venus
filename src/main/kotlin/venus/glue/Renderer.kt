@@ -397,21 +397,10 @@ internal object Renderer {
         var remainder = value.toLong()
         var suffix = ""
 
-        // output as two's complement
-        if (remainder < 0) {
-            remainder += 0x1_0000_0000L
-        }
-
-        // convert to hex
-        while (remainder > 0) {
-            val hexDigit = hexMap[(remainder % 16).toInt()]
+        repeat(8) {
+            val hexDigit = hexMap[(remainder and 15).toInt()]
             suffix = hexDigit + suffix
-            remainder /= 16
-        }
-
-        // pad with zeros if needed
-        while (suffix.length < 8) {
-            suffix = "0" + suffix
+            remainder = remainder ushr 4
         }
 
         return "0x" + suffix
