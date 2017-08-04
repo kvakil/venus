@@ -4,7 +4,7 @@ import venus.assembler.AssemblerError
 
 internal fun checkArgsLength(argsSize: Int, required: Int) {
     if (argsSize != required)
-        throw AssemblerError("got $argsSize but expected $required")
+        throw AssemblerError("got $argsSize arguments but expected $required")
 }
 
 /**
