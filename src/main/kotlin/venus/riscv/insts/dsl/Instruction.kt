@@ -29,4 +29,6 @@ open class Instruction(
     init {
         allInstructions.add(this)
     }
+
+    override fun toString() = name
 }
