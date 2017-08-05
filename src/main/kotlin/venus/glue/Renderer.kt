@@ -4,6 +4,7 @@ package venus.glue
 import org.w3c.dom.*
 import venus.assembler.AssemblerError
 import venus.riscv.InstructionField
+import venus.riscv.MemorySegments
 import venus.simulator.Diff
 import venus.simulator.Simulator
 import venus.simulator.diffs.MemoryDiff
@@ -419,4 +420,28 @@ internal object Renderer {
         displayType = displaySelect.value
         updateAll()
     }
+
+    fun moveMemoryJump() {
+        val jumpSelect = getElement("address-jump") as HTMLSelectElement
+        val where = jumpSelect.value
+        activeMemoryAddress = when (where) {
+            "Text" -> MemorySegments.TEXT_BEGIN
+            "Data" -> MemorySegments.STATIC_BEGIN
+            "Heap" -> MemorySegments.HEAP_BEGIN
+            "Stack" -> MemorySegments.STACK_BEGIN
+            else -> MemorySegments.TEXT_BEGIN
+        }
+        updateMemory(activeMemoryAddress)
+        jumpSelect.selectedIndex = 0
+    }
+
+    private fun moveMemoryBy(rows: Int) {
+        val bytes = 4 * rows
+        if (activeMemoryAddress + bytes < 0) return
+        activeMemoryAddress += bytes
+        updateMemory(activeMemoryAddress)
+    }
+
+    fun moveMemoryUp() = moveMemoryBy(MEMORY_CONTEXT)
+    fun moveMemoryDown() = moveMemoryBy(-MEMORY_CONTEXT)
 }

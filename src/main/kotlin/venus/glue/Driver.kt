@@ -159,4 +159,10 @@ import kotlin.browser.window
     @JsName("updateRegMemDisplay") fun updateRegMemDisplay() {
         Renderer.updateRegMemDisplay()
     }
+
+    @JsName("moveMemoryJump") fun moveMemoryJump() = Renderer.moveMemoryJump()
+
+    @JsName("moveMemoryUp") fun moveMemoryUp() = Renderer.moveMemoryUp()
+
+    @JsName("moveMemoryDown") fun moveMemoryDown() = Renderer.moveMemoryDown()
 }
