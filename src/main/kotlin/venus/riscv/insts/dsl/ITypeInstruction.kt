@@ -1,5 +1,6 @@
 package venus.riscv.insts.dsl
 
+import venus.riscv.insts.dsl.disasms.ITypeDisassembler
 import venus.riscv.insts.dsl.formats.ITypeFormat
 import venus.riscv.insts.dsl.impls.ITypeImplementation32
 import venus.riscv.insts.dsl.impls.NoImplementation
@@ -16,5 +17,6 @@ class ITypeInstruction(
         format = ITypeFormat(opcode, funct3),
         parser = ITypeParser,
         impl32 = ITypeImplementation32(eval32),
-        impl64 = NoImplementation
+        impl64 = NoImplementation,
+        disasm = ITypeDisassembler
 )
