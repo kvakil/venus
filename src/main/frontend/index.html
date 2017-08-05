@@ -547,13 +547,13 @@
               </div>
               <div class="panel-block">
                 <div class="field is-horizontal">
-                  <div class="field-label is-small">
+                  <div class="field-label is-normal">
                     <label class="label">Jump to</label>
                   </div>
                   <div class="field-body">
-                    <div class="field">
+                    <div class="field is-narrow">
                       <div class="control">
-                        <div class="select is-small">
+                        <div class="select">
                           <select id="address-jump" onchange="alert('k')">
                             <option selected>Text</option>
                             <option>Data</option>
@@ -561,6 +561,12 @@
                             <option>Stack</option>
                           </select>
                         </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <input type="button" class="button" value="Up">
+                        <input type="button" class="button" value="Down">
                       </div>
                     </div>
                   </div>
