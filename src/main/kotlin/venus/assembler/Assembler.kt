@@ -4,6 +4,7 @@ import venus.riscv.MemorySegments
 import venus.riscv.Program
 import venus.riscv.insts.dsl.Instruction
 import venus.riscv.insts.dsl.relocators.Relocator
+import venus.riscv.userStringToInt
 
 /**
  * This singleton implements a simple two-pass assembler to transform files into programs.
@@ -130,7 +131,11 @@ internal class AssemblerPassOne(private val text: String) {
 
             ".byte" -> {
                 for (arg in args) {
-                    prog.addToData(arg.toByte())
+                    val byte = userStringToInt(arg)
+                    if (byte !in -127..255) {
+                        throw AssemblerError("invalid byte $byte too big")
+                    }
+                    prog.addToData(byte.toByte())
                     currentDataOffset++
                 }
             }
@@ -154,7 +159,7 @@ internal class AssemblerPassOne(private val text: String) {
 
             ".word" -> {
                 for (arg in args) {
-                    val word = arg.toInt()
+                    val word = userStringToInt(arg)
                     prog.addToData(word.toByte())
                     prog.addToData((word shr 8).toByte())
                     prog.addToData((word shr 16).toByte())
