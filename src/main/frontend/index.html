@@ -434,140 +434,142 @@
                   </div>
                 </div>
               </div>
-              <div class="panel-block">
-                <table id="memory-tab-view" class="table is-striped">
-                  <colgroup>
-                    <col id="addr-column">
-                    <col id="byte0-column">
-                    <col id="byte1-column">
-                    <col id="byte2-column">
-                    <col id="byte3-column">
-                  </colgroup>
-                  <thead>
-                  <tr>
-                    <th>Address</th>
-                    <th>+0</th>
-                    <th>+1</th>
-                    <th>+2</th>
-                    <th>+3</th>
-                  </tr>
-                  </thead>
-                  <tr id="mem-row-6">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row-5">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row-4">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row-3">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row-2">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row-1">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row-0">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row--1">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row--2">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row--3">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row--4">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row--5">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                  <tr id="mem-row--6">
-                    <td>0x00000000</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="panel-block">
-                <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                    <label class="label">Jump to</label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field is-narrow">
-                      <div class="control">
-                        <div class="select">
-                          <select id="address-jump" onchange="driver.moveMemoryJump()">
-                            <option value="" disabled selected hidden>-- choose --</option>
-                            <option>Text</option>
-                            <option>Data</option>
-                            <option>Heap</option>
-                            <option>Stack</option>
-                          </select>
+              <div id="memory-tab-view">
+                <div class="panel-block">
+                  <table id="memory-table" class="table is-striped">
+                    <colgroup>
+                      <col id="addr-column">
+                      <col id="byte0-column">
+                      <col id="byte1-column">
+                      <col id="byte2-column">
+                      <col id="byte3-column">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                      <th>Address</th>
+                      <th>+0</th>
+                      <th>+1</th>
+                      <th>+2</th>
+                      <th>+3</th>
+                    </tr>
+                    </thead>
+                    <tr id="mem-row-6">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row-5">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row-4">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row-3">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row-2">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row-1">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row-0">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row--1">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row--2">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row--3">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row--4">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row--5">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                    <tr id="mem-row--6">
+                      <td>0x00000000</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="panel-block">
+                  <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                      <label class="label">Jump to</label>
+                    </div>
+                    <div class="field-body">
+                      <div class="field is-narrow">
+                        <div class="control">
+                          <div class="select">
+                            <select id="address-jump" onchange="driver.moveMemoryJump()">
+                              <option value="" disabled selected hidden>-- choose --</option>
+                              <option>Text</option>
+                              <option>Data</option>
+                              <option>Heap</option>
+                              <option>Stack</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
-                        <input type="button" class="button" value="Up" onclick="driver.moveMemoryUp()">
-                        <input type="button" class="button" value="Down" onclick="driver.moveMemoryDown()">
+                      <div class="field">
+                        <div class="control">
+                          <input type="button" class="button" value="Up" onclick="driver.moveMemoryUp()">
+                          <input type="button" class="button" value="Down" onclick="driver.moveMemoryDown()">
+                        </div>
                       </div>
                     </div>
                   </div>
