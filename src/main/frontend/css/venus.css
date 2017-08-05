@@ -117,3 +117,11 @@ body {
 .input.is-modified {
     border-color: #3273dc;
 }
+
+#addr-column {
+    width: 40%;
+}
+
+.byte-column {
+    width: 15%;
+}
