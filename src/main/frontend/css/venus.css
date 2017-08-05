@@ -78,17 +78,20 @@ body {
 }
 
 #memory-tab-view {
-    font-family: Courier New, Courier, monospace;
-    margin: auto;
     display: none;
 }
 
-#memory-tab-view th {
+#memory-table {
+    font-family: Courier New, Courier, monospace;
+    margin: auto;
+}
+
+#memory-table th {
     text-align: center;
     vertical-align: middle;
 }
 
-#memory-tab-view td {
+#memory-table td {
     text-align: center;
     vertical-align: middle;
 }
@@ -116,4 +119,16 @@ body {
 
 .input.is-modified {
     border-color: #3273dc;
+}
+
+#addr-column {
+    width: 40%;
+}
+
+.byte-column {
+    width: 15%;
+}
+
+.panel-block > .field {
+    width: 100%;
 }
