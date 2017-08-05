@@ -125,3 +125,7 @@ body {
 .byte-column {
     width: 15%;
 }
+
+.panel-block > .field {
+    width: 100%;
+}
