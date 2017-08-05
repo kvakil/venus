@@ -288,7 +288,7 @@ internal object Renderer {
 
     /** Show the memory sidebar tab */
     fun renderMemoryTab() {
-        tabSetVisibility("memory", "table")
+        tabSetVisibility("memory", "block")
         tabSetVisibility("register", "none")
     }
 
