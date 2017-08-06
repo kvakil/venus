@@ -16,7 +16,7 @@ class STypeImplementation32(private val store: (Simulator, Int, Int) -> Unit) : 
     }
 }
 
-private fun constructStoreImmediate(mcode: MachineCode): Int {
+fun constructStoreImmediate(mcode: MachineCode): Int {
     val imm_11_5 = mcode[InstructionField.IMM_11_5]
     val imm_4_0 = mcode[InstructionField.IMM_4_0]
     var imm = 0
