@@ -1,19 +1,38 @@
 import venus.riscv.InstructionField
 import venus.riscv.MachineCode
-import venus.riscv.insts.dsl.JTypeInstruction
+import venus.riscv.insts.dsl.Instruction
+import venus.riscv.insts.dsl.disasms.RawDisassembler
+import venus.riscv.insts.dsl.formats.OpcodeFormat
+import venus.riscv.insts.dsl.impls.NoImplementation
+import venus.riscv.insts.dsl.impls.RawImplementation
 import venus.riscv.insts.dsl.impls.setBitslice
 import venus.riscv.insts.dsl.impls.signExtend
+import venus.riscv.insts.dsl.parsers.RawParser
+import venus.riscv.insts.dsl.parsers.checkArgsLength
+import venus.riscv.insts.dsl.parsers.regNameToNumber
+import venus.riscv.insts.dsl.relocators.JALRelocator
 
-val jal = JTypeInstruction(
+val jal = Instruction(
         name = "jal",
-        opcode = 0b1101111,
-        impl32 = { mcode, sim ->
+        format = OpcodeFormat(0b1101111),
+        parser = RawParser { prog, mcode, args ->
+            checkArgsLength(args.size, 2)
+
+            mcode[InstructionField.RD] = regNameToNumber(args[0])
+            prog.addRelocation(JALRelocator, args[1])
+        },
+        impl32 = RawImplementation { mcode, sim ->
             val rd = mcode[InstructionField.RD]
             val imm = constructJALImmediate(mcode)
             sim.setReg(rd, sim.getPC() + mcode.length)
             sim.incrementPC(imm shl 1)
         },
-        impl64 = { _, _ -> throw NotImplementedError("no rv64") }
+        impl64 = NoImplementation,
+        disasm = RawDisassembler { mcode ->
+            val rd = mcode[InstructionField.RD]
+            val imm = constructJALImmediate(mcode)
+            "jal $rd $imm"
+        }
 )
 
 private fun constructJALImmediate(mcode: MachineCode): Int {
