@@ -4,6 +4,7 @@ import venus.glue.Renderer
 import venus.riscv.InstructionField
 import venus.riscv.MemorySegments
 import venus.riscv.insts.dsl.Instruction
+import venus.riscv.insts.dsl.disasms.RawDisassembler
 import venus.riscv.insts.dsl.formats.FieldEqual
 import venus.riscv.insts.dsl.formats.InstructionFormat
 import venus.riscv.insts.dsl.impls.NoImplementation
@@ -30,7 +31,8 @@ val ecall = Instruction(
             }
             sim.incrementPC(mcode.length)
         },
-        impl64 = NoImplementation
+        impl64 = NoImplementation,
+        disasm = RawDisassembler { "ecall" }
 )
 
 private fun printInteger(sim: Simulator) {

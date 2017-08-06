@@ -2,6 +2,7 @@ package venus.riscv.insts
 
 import venus.riscv.InstructionField
 import venus.riscv.insts.dsl.Instruction
+import venus.riscv.insts.dsl.disasms.RawDisassembler
 import venus.riscv.insts.dsl.formats.ITypeFormat
 import venus.riscv.insts.dsl.impls.NoImplementation
 import venus.riscv.insts.dsl.impls.RawImplementation
@@ -23,5 +24,11 @@ val jalr = Instruction(
             sim.setReg(rd, sim.getPC() + mcode.length)
             sim.setPC(((vrs1 + imm) shr 1) shl 1)
         },
-        impl64 = NoImplementation
+        impl64 = NoImplementation,
+        disasm = RawDisassembler { mcode ->
+            val rd = mcode[InstructionField.RD]
+            val rs1 = mcode[InstructionField.RS1]
+            val imm = signExtend(mcode[InstructionField.IMM_11_0], 12)
+            "jalr $rd $rs1 $imm"
+        }
 )

@@ -2,16 +2,18 @@ package venus.riscv.insts.dsl
 
 import venus.assembler.AssemblerError
 import venus.riscv.MachineCode
+import venus.riscv.insts.dsl.disasms.InstructionDisassembler
 import venus.riscv.insts.dsl.formats.InstructionFormat
 import venus.riscv.insts.dsl.impls.InstructionImplementation
 import venus.riscv.insts.dsl.parsers.InstructionParser
 
 open class Instruction(
-        private val name: String,
+        val name: String,
         val format: InstructionFormat,
         val parser: InstructionParser,
         val impl32: InstructionImplementation,
-        val impl64: InstructionImplementation
+        val impl64: InstructionImplementation,
+        val disasm: InstructionDisassembler
 ) {
     companion object {
         private val allInstructions = arrayListOf<Instruction>()

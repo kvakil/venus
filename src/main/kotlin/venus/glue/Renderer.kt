@@ -4,7 +4,9 @@ package venus.glue
 import org.w3c.dom.*
 import venus.assembler.AssemblerError
 import venus.riscv.InstructionField
+import venus.riscv.MachineCode
 import venus.riscv.MemorySegments
+import venus.riscv.insts.dsl.Instruction
 import venus.simulator.Diff
 import venus.simulator.Simulator
 import venus.simulator.diffs.MemoryDiff
@@ -85,9 +87,8 @@ internal object Renderer {
             val programDebug = sim.linkedProgram.dbg[i]
             val (_, dbg) = programDebug
             val (_, line) = dbg
-            val inst = sim.linkedProgram.prog.insts[i]
-            val code = toHex(inst[InstructionField.ENTIRE])
-            addToProgramListing(i, code, line)
+            val mcode = sim.linkedProgram.prog.insts[i]
+            addToProgramListing(i, mcode, line)
         }
     }
 
@@ -136,18 +137,26 @@ internal object Renderer {
      * Adds an instruction with the given index to the program listing.
      *
      * @param idx the index of the instruction
-     * @param code the machine code representation of the instruction
+     * @param mcode the machine code representation of the instruction
      * @param progLine the original assembly code
      */
-    fun addToProgramListing(idx: Int, code: String, progLine: String) {
+    fun addToProgramListing(idx: Int, mcode: MachineCode, progLine: String) {
         val programTable = getElement("program-listing-body") as HTMLTableSectionElement
+
         val newRow = programTable.insertRow() as HTMLTableRowElement
         newRow.id = "instruction-$idx"
         newRow.onclick = { Driver.addBreakpoint(idx) }
+
+        val hexRepresention = toHex(mcode[InstructionField.ENTIRE])
         val machineCode = newRow.insertCell(0)
-        val machineCodeText = document.createTextNode(code)
+        val machineCodeText = document.createTextNode(hexRepresention)
         machineCode.appendChild(machineCodeText)
-        val line = newRow.insertCell(1)
+
+        val basicCode = newRow.insertCell(1)
+        val basicCodeText = document.createTextNode(Instruction[mcode].disasm(mcode))
+        basicCode.appendChild(basicCodeText)
+
+        val line = newRow.insertCell(2)
         val lineText = document.createTextNode(progLine)
         line.appendChild(lineText)
     }

@@ -18,7 +18,7 @@ class BTypeImplementation32(private val cond: (Int, Int) -> Boolean) : Instructi
     }
 }
 
-private fun constructBranchImmediate(mcode: MachineCode): Int {
+fun constructBranchImmediate(mcode: MachineCode): Int {
     val imm_11 = mcode[InstructionField.IMM_11_B]
     val imm_4_1 = mcode[InstructionField.IMM_4_1]
     val imm_10_5 = mcode[InstructionField.IMM_10_5]
