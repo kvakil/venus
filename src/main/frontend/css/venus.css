@@ -30,8 +30,12 @@ body {
     width: 20%;
 }
 
+#bc-column {
+    width: 30%;
+}
+
 #oc-column {
-    width: 80%;
+    width: 50%;
 }
 
 #program-listing {
