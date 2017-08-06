@@ -27,15 +27,15 @@ body {
 }
 
 #mc-column {
-    width: 20%;
+    width: 15%;
 }
 
 #bc-column {
-    width: 30%;
+    width: 20%;
 }
 
 #oc-column {
-    width: 50%;
+    width: 65%;
 }
 
 #program-listing {
