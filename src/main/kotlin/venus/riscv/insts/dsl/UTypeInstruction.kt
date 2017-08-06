@@ -1,6 +1,7 @@
 package venus.riscv.insts.dsl
 
 import venus.riscv.MachineCode
+import venus.riscv.insts.dsl.disasms.UTypeDisassembler
 import venus.riscv.insts.dsl.formats.UTypeFormat
 import venus.riscv.insts.dsl.impls.RawImplementation
 import venus.riscv.insts.dsl.parsers.UTypeParser
@@ -16,5 +17,6 @@ class UTypeInstruction(
         format = UTypeFormat(opcode),
         parser = UTypeParser,
         impl32 = RawImplementation(impl32),
-        impl64 = RawImplementation(impl64)
+        impl64 = RawImplementation(impl64),
+        disasm = UTypeDisassembler
 )
