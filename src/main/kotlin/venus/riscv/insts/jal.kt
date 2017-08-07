@@ -31,7 +31,7 @@ val jal = Instruction(
         disasm = RawDisassembler { mcode ->
             val rd = mcode[InstructionField.RD]
             val imm = constructJALImmediate(mcode)
-            "jal $rd $imm"
+            "jal x$rd $imm"
         }
 )
 
