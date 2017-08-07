@@ -11,6 +11,6 @@ object LoadDisassembler : InstructionDisassembler {
         val rs1 = mcode[InstructionField.RS1]
         val rd = mcode[InstructionField.RD]
         val imm = signExtend(mcode[InstructionField.IMM_11_0], 12)
-        return "$name $rd $imm($rs1)"
+        return "$name x$rd $imm($rs1)"
     }
 }
