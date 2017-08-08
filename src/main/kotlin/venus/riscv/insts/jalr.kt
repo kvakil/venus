@@ -29,6 +29,6 @@ val jalr = Instruction(
             val rd = mcode[InstructionField.RD]
             val rs1 = mcode[InstructionField.RS1]
             val imm = signExtend(mcode[InstructionField.IMM_11_0], 12)
-            "jalr $rd $rs1 $imm"
+            "jalr x$rd x$rs1 $imm"
         }
 )
