@@ -57,6 +57,10 @@ body {
     color: white;
 }
 
+#program-listing-body tr {
+    cursor: pointer;
+}
+
 #program-listing-container {
     min-height: 60vh;
     max-height: 60vh;
