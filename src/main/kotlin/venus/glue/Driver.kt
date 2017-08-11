@@ -35,6 +35,7 @@ import kotlin.browser.window
      * Opens and renders the editor.
      */
     @JsName("openEditor") fun openEditor() {
+        runEnd()
         Renderer.renderEditor()
     }
 
@@ -90,6 +91,7 @@ import kotlin.browser.window
         while (cycles < TIMEOUT_CYCLES) {
             if (sim.isDone() || sim.atBreakpoint()) {
                 runEnd()
+                Renderer.updateAll()
                 return
             }
 
@@ -97,14 +99,13 @@ import kotlin.browser.window
             cycles++
         }
 
-        window.setTimeout(Driver::runStart, TIMEOUT_TIME)
+        timer = window.setTimeout(Driver::runStart, TIMEOUT_TIME)
     }
 
     internal fun runEnd() {
         Renderer.setRunButtonSpinning(false)
         timer?.let(window::clearTimeout)
         timer = null
-        Renderer.updateAll()
     }
 
     /**
