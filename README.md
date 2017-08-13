@@ -15,10 +15,12 @@ venus is [available online](https://kvakil.github.io/venus/).
 * Several `ecall`s: including `print` and `sbrk`
 * Memory visualization
 
-## Roadmap
+## Resources
 
-See the [roadmap here](https://github.com/kvakil/venus/projects/2).
+#### [User Guide](https://github.com/kvakil/venus/wiki)
 
-## Contributing
+#### [Roadmap](https://github.com/kvakil/venus/projects/2)
 
-See `CONTRIBUTING.md` in the root directory.
+#### [Contributing](https://github.com/kvakil/venus/blob/master/CONTRIBUTING.md)
+
+#### [MIT License](https://github.com/kvakil/venus/blob/master/LICENSE)
