@@ -1,4 +1,4 @@
-package venus.assembler
+    package venus.assembler
 
 import venus.riscv.MemorySegments
 import venus.riscv.Program

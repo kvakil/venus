@@ -56,13 +56,7 @@ CodeMirror.defineMode("riscv", function(config, parserConfig) {
         "li",
         "mv",
         "nop",
-        "ret",
-        /* nonstandard pseudoinstructions */
-        "seq",
-        "sge",
-        "sgt",
-        "sle",
-        "sne"
+        "ret"
     ], "i");
 
     var registers = regexFromWords([

@@ -18,13 +18,5 @@ enum class PseudoDispatcher(val pw: PseudoWriter) {
     mv(MV),
     nop(NOP),
     ret(RET),
-    seq(SEQ),
-    sge(SGE),
-    sgeu(SGE),
-    sgt(SGT),
-    sgtu(SGT),
-    sle(SLE),
-    sleu(SLE),
-    sne(SNE),
     ;
 }
