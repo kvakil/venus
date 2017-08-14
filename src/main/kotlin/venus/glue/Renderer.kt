@@ -7,6 +7,7 @@ import venus.riscv.InstructionField
 import venus.riscv.MachineCode
 import venus.riscv.MemorySegments
 import venus.riscv.insts.dsl.Instruction
+import venus.riscv.userStringToInt
 import venus.simulator.Diff
 import venus.simulator.Simulator
 import venus.simulator.diffs.MemoryDiff
@@ -348,20 +349,24 @@ internal object Renderer {
             tdAddress.innerText = toHex(rowAddr)
             for (i in 1..4) {
                 val tdByte = row.childNodes[i] as HTMLTableCellElement
+                val tdInput = tdByte.firstChild as HTMLInputElement
                 val byte = sim.loadByte(rowAddr + i - 1)
-                tdByte.innerText = when (displayType) {
+                tdInput.value = when (displayType) {
                     "Hex" -> byteToHex(byte)
                     "Decimal" -> byteToDec(byte)
                     "Unsigned" -> byteToUnsign(byte)
                     "ASCII" -> toAscii(byte)
                     else -> byteToHex(byte)
                 }
+                tdInput.disabled = false
             }
         } else {
             tdAddress.innerText = "----------"
             for (i in 1..4) {
                 val tdByte = row.childNodes[i] as HTMLTableCellElement
-                tdByte.innerText = "--"
+                val tdInput = tdByte.firstChild as HTMLInputElement
+                tdInput.value = "--"
+                tdInput.disabled = true
             }
         }
     }
@@ -381,7 +386,7 @@ internal object Renderer {
     private fun byteToHex(b: Int): String {
         val leftNibble = hexMap[b ushr 4]
         val rightNibble = hexMap[b and 15]
-        return "$leftNibble$rightNibble"
+        return "0x$leftNibble$rightNibble"
     }
 
     private fun byteToDec(b: Int): String = b.toByte().toString()
@@ -442,6 +447,12 @@ internal object Renderer {
         }
         updateMemory(activeMemoryAddress)
         jumpSelect.selectedIndex = 0
+    }
+
+    fun storeMemoryByte(input: HTMLInputElement, offset: Int) {
+        val byte = userStringToInt(input.value)
+        sim.storeByteNoUndo(activeMemoryAddress + offset, byte)
+        updateMemory(activeMemoryAddress)
     }
 
     private fun moveMemoryBy(rows: Int) {
