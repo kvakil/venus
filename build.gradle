@@ -19,7 +19,7 @@ apply plugin: 'kotlin2js'
 apply plugin: 'kotlin-dce-js'
 apply plugin: 'org.jetbrains.dokka'
 
-runDceKotlinJs.keep 'venus_main.venus.glue.Driver.run'
+runDceKotlinJs.keep 'venus_main.venus.glue.Driver.run', 'venus_main.venus.assembler.Linter'
 
 configurations {
     ktlint

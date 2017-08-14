@@ -10,7 +10,7 @@ import venus.assembler.AssemblerError
 
 class LinkerTest {
     @Test fun linkOneFile() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         start:
         addi x8 x8 1
         addi x9 x0 2
@@ -25,13 +25,13 @@ class LinkerTest {
     }
 
     @Test fun linkTwoFiles() {
-        val prog1 = Assembler.assemble("""
+        val (prog1, _) = Assembler.assemble("""
         foo:
             jal x0 bar
             addi x8 x0 8
         .globl foo
         """)
-        val prog2 = Assembler.assemble("""
+        val (prog2, _) = Assembler.assemble("""
         .globl bar
         bar:
             addi x8 x8 1
@@ -43,13 +43,13 @@ class LinkerTest {
     }
 
     @Test fun privateLabel() {
-        val prog1 = Assembler.assemble("""
+        val (prog1, _) = Assembler.assemble("""
         foo:
             jal x0 _bar
             addi x8 x0 8
         .globl foo
         """)
-        val prog2 = Assembler.assemble("""
+        val (prog2, _) = Assembler.assemble("""
         _bar:
             addi x8 x8 1
         """)
@@ -63,7 +63,7 @@ class LinkerTest {
     }
 
     @Test fun loadAddress() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         .data
         magic: .byte 42
         .text
@@ -77,7 +77,7 @@ class LinkerTest {
     }
 
     @Test fun loadAddressBefore() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         .data
         padder:
         .asciiz "padpadpad"
@@ -98,12 +98,12 @@ class LinkerTest {
     }
 
     @Test fun globalLabelTwoFiles() {
-        val prog1 = Assembler.assemble("""
+        val (prog1, _) = Assembler.assemble("""
         foo:
             addi x8 x0 8
         .globl foo
         """)
-        val prog2 = Assembler.assemble("""
+        val (prog2, _) = Assembler.assemble("""
         foo:
             addi x8 x0 8
         .globl foo

@@ -7,7 +7,7 @@ import venus.linker.Linker
 
 class FunctionCallTest {
     @Test fun doubleJALR() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
             jal x0 main
         double:
             add a0 a0 a0
@@ -24,7 +24,7 @@ class FunctionCallTest {
     }
 
     @Test fun nestedJALR() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
             jal x0 main
         foo:
             addi s0 s0 1
@@ -49,7 +49,7 @@ class FunctionCallTest {
     }
 
     @Test fun nestedPseudoJumps() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
             j main
         foo:
             addi s0 s0 1

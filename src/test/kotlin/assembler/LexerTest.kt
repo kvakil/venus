@@ -3,7 +3,6 @@ package venus.assembler
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
-import kotlin.test.fail
 
 class LexerTest {
     @Test fun basicLexing() {
@@ -56,40 +55,28 @@ class LexerTest {
     }
 
     @Test fun lexAsciizBadStrings() {
-        try {
-            Assembler.assemble("""
-            .data
-            .asciiz   unquoted
-            .text
-            nop
-            """)
-            fail("didn't error on unquoted")
-        } catch (e: AssemblerError) {
-            assertTrue(true)
-        }
+        val (_, errors1) = Assembler.assemble("""
+        .data
+        .asciiz   unquoted
+        .text
+        nop
+        """)
+        assertTrue(errors1.isNotEmpty())
 
-        try {
-            Assembler.assemble("""
-            .data
-            .asciiz   "no end quote
-            .text
-            nop
-            """)
-            fail("didn't error on missing end quote")
-        } catch (e: AssemblerError) {
-            assertTrue(true)
-        }
+        val (_, errors2) = Assembler.assemble("""
+        .data
+        .asciiz   "no end quote
+        .text
+        nop
+        """)
+        assertTrue(errors2.isNotEmpty())
 
-        try {
-            Assembler.assemble("""
-            .data
-            .asciiz   "good" junk
-            .text
-            nop
-            """)
-            fail("didn't error on junk")
-        } catch (e: AssemblerError) {
-            assertTrue(true)
-        }
+        val (_, errors3) = Assembler.assemble("""
+        .data
+        .asciiz   "good" junk
+        .text
+        nop
+        """)
+        assertTrue(errors3.isNotEmpty())
     }
 }
