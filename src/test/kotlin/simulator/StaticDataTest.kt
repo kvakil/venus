@@ -8,7 +8,7 @@ import venus.riscv.MemorySegments
 
 class StaticDataTest {
     @Test fun easyManualLoad() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         .data
         .byte 1 2 3 4
         .text
@@ -23,7 +23,7 @@ class StaticDataTest {
     }
 
     @Test fun asciizNulTerminated() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         .data
         .asciiz "a"
         .asciiz "b"
@@ -38,11 +38,11 @@ class StaticDataTest {
     }
 
     @Test fun linkedStaticBytes() {
-        val prog1 = Assembler.assemble("""
+        val (prog1, _) = Assembler.assemble("""
         .data
         .byte 1
         """)
-        val prog2 = Assembler.assemble("""
+        val (prog2, _) = Assembler.assemble("""
         .data
         .byte 2
         """)
@@ -54,7 +54,7 @@ class StaticDataTest {
     }
 
     @Test fun wordManualLoad() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         .data
         .word -21231234
         .text

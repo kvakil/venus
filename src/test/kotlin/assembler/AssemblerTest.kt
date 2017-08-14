@@ -7,7 +7,7 @@ import venus.simulator.Simulator
 
 class AssemblerTest {
     @Test fun assembleLexerTest() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x1 x0 5
         addi x2 x1 5
         add x3 x1 x2
@@ -19,7 +19,7 @@ class AssemblerTest {
     }
 
     @Test fun storeLoadTest() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x1 x0 100
         sw x1 60(x0)
         lw x2 -40(x1)
@@ -35,7 +35,7 @@ class AssemblerTest {
     }
 
     @Test fun branchTest() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         add x8 x8 x9
         addi x7 x0 5
         start: add x8 x8 x9
@@ -48,7 +48,7 @@ class AssemblerTest {
     }
 
     @Test fun otherImmediateTest() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x8 x8 0xf7
         addi x9 x9 0b10001
         """)

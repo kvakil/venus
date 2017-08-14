@@ -17,17 +17,25 @@ object Assembler {
      * @return an unlinked program.
      * @see venus.linker.Linker
      * @see venus.simulator.Simulator
-     * @throws AssemblerError for invalid code inputs.
      */
-    fun assemble(text: String): Program {
-        val (passOneProg, talInstructions) = AssemblerPassOne(text).run()
-        val prog = AssemblerPassTwo(passOneProg, talInstructions).run()
-        return prog
+    fun assemble(text: String): AssemblerOutput {
+        val (passOneProg, talInstructions, passOneErrors) = AssemblerPassOne(text).run()
+        if (passOneErrors.isNotEmpty()) {
+            return AssemblerOutput(passOneProg, passOneErrors)
+        }
+        val passTwoOutput = AssemblerPassTwo(passOneProg, talInstructions).run()
+        return passTwoOutput
     }
 }
 
 data class DebugInfo(val lineNo: Int, val line: String)
 data class DebugInstruction(val debug: DebugInfo, val LineTokens: List<String>)
+data class PassOneOutput(
+        val prog: Program,
+        val talInstructions: List<DebugInstruction>,
+        val errors: List<AssemblerError>
+)
+data class AssemblerOutput(val prog: Program, val errors: List<AssemblerError>)
 
 /**
  * Pass #1 of our two pass assembler.
@@ -48,41 +56,43 @@ internal class AssemblerPassOne(private val text: String) {
     private val talInstructions = ArrayList<DebugInstruction>()
     /** The current line number (for user-friendly errors) */
     private var currentLineNumber = 0
+    /** List of all errors encountered */
+    private val errors = ArrayList<AssemblerError>()
 
-    fun run(): Pair<Program, List<DebugInstruction>> {
-        try {
-            doPassOne()
-        } catch (e: AssemblerError) {
-            throw AssemblerError(currentLineNumber, e)
-        }
-        return Pair(prog, talInstructions)
+    fun run(): PassOneOutput {
+        doPassOne()
+        return PassOneOutput(prog, talInstructions, errors)
     }
 
     private fun doPassOne() {
         for (line in text.split('\n')) {
-            currentLineNumber++
+            try {
+                currentLineNumber++
 
-            val offset = getOffset()
+                val offset = getOffset()
 
-            val (label, args) = Lexer.lexLine(line)
-            if (label.isNotEmpty()) {
-                val oldOffset = prog.addLabel(label, offset)
-                if (oldOffset != null) {
-                    throw AssemblerError("label $label defined twice")
+                val (label, args) = Lexer.lexLine(line)
+                if (label.isNotEmpty()) {
+                    val oldOffset = prog.addLabel(label, offset)
+                    if (oldOffset != null) {
+                        throw AssemblerError("label $label defined twice")
+                    }
                 }
-            }
 
-            if (args.isEmpty() || args[0].isEmpty()) continue // empty line
+                if (args.isEmpty() || args[0].isEmpty()) continue // empty line
 
-            if (isAssemblerDirective(args[0])) {
-                parseAssemblerDirective(args[0], args.drop(1), line)
-            } else {
-                val expandedInsts = replacePseudoInstructions(args)
-                for (inst in expandedInsts) {
-                    val dbg = DebugInfo(currentLineNumber, line)
-                    talInstructions.add(DebugInstruction(dbg, inst))
-                    currentTextOffset += 4
+                if (isAssemblerDirective(args[0])) {
+                    parseAssemblerDirective(args[0], args.drop(1), line)
+                } else {
+                    val expandedInsts = replacePseudoInstructions(args)
+                    for (inst in expandedInsts) {
+                        val dbg = DebugInfo(currentLineNumber, line)
+                        talInstructions.add(DebugInstruction(dbg, inst))
+                        currentTextOffset += 4
+                    }
                 }
+            } catch (e: AssemblerError) {
+                errors.add(e)
             }
         }
     }
@@ -192,17 +202,18 @@ internal class AssemblerPassOne(private val text: String) {
  * @see venus.riscv.Program.addDebugInfo
  */
 internal class AssemblerPassTwo(val prog: Program, val talInstructions: List<DebugInstruction>) {
-    fun run(): Program {
+    private val errors = ArrayList<AssemblerError>()
+    fun run(): AssemblerOutput {
         for ((dbg, inst) in talInstructions) {
             try {
                 addInstruction(inst)
                 prog.addDebugInfo(dbg)
             } catch (e: AssemblerError) {
                 val (lineNumber, _) = dbg
-                throw AssemblerError(lineNumber, e)
+                errors.add(AssemblerError(lineNumber, e))
             }
         }
-        return prog
+        return AssemblerOutput(prog, errors)
     }
 
     /**

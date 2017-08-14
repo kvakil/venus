@@ -16,11 +16,11 @@ package venus.assembler
      * @fixme this relies on Kotlin using JS array for Array, but it will probably remain that way
      */
     @JsName("lint") fun lint(text: String): Array<LintError> {
-        try {
-            Assembler.assemble(text)
-            return emptyArray()
-        } catch (e: AssemblerError) {
-            return arrayOf(LintError(e.line ?: -1, e.message ?: ""))
+        val (_, errors) = Assembler.assemble(text)
+        val linterErrors = ArrayList<LintError>()
+        for (error in errors) {
+            linterErrors.add(LintError(error.line ?: -1, error.message ?: ""))
         }
+        return linterErrors.toTypedArray()
     }
 }

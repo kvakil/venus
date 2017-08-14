@@ -7,7 +7,7 @@ import venus.linker.Linker
 
 class Lab3Test {
     @Test fun Ex1() {
-        val prog = Assembler.assemble(
+        val (prog, _) = Assembler.assemble(
 """
         .data
         .word 2, 4, 6, 8

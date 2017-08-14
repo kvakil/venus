@@ -7,7 +7,7 @@ import venus.linker.Linker
 
 class PseudoTest {
     @Test fun moveTest() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x1 x0 5
         mv x2 x1
         """)
@@ -17,7 +17,7 @@ class PseudoTest {
     }
 
     @Test fun liTest() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         li x8 2000000000
         li x9 1001
         li x10 3000000005
