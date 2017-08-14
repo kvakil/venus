@@ -138,15 +138,15 @@ CodeMirror.registerHelper("lint", "riscv", function (text) {
     var errors = [];
     var parseError = function(err) {
         var line = err.lineNumber;
-        found.push({from: CodeMirror.Pos(line - 1, 0),
-                    to: CodeMirror.Pos(line, 0),
-                    severity: "error",
-                    message: err.message});
+        errors.push({from: CodeMirror.Pos(line - 1, 0),
+                     to: CodeMirror.Pos(line, 0),
+                     severity: "error",
+                     message: err.message});
     };
 
     var res = window.venus_main.venus.assembler.Linter.lint(text);
     for (var i = 0; i < res.length; i++) {
         parseError(res[i]);
     }
-    return found;
+    return errors;
 });
