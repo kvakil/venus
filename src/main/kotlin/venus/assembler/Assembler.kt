@@ -92,7 +92,7 @@ internal class AssemblerPassOne(private val text: String) {
                     }
                 }
             } catch (e: AssemblerError) {
-                errors.add(e)
+                errors.add(AssemblerError(currentLineNumber, e))
             }
         }
     }
