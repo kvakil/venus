@@ -11,6 +11,6 @@ object STypeDisassembler : InstructionDisassembler {
         val rs1 = mcode[InstructionField.RS1]
         val rs2 = mcode[InstructionField.RS2]
         val imm = constructStoreImmediate(mcode)
-        return "$name x$rs2 $imm($rs1)"
+        return "$name x$rs2 $imm(x$rs1)"
     }
 }
