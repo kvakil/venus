@@ -166,4 +166,7 @@ import kotlin.browser.window
     @JsName("moveMemoryUp") fun moveMemoryUp() = Renderer.moveMemoryUp()
 
     @JsName("moveMemoryDown") fun moveMemoryDown() = Renderer.moveMemoryDown()
+
+    @JsName("storeMemoryByte") fun storeMemoryByte(input: HTMLInputElement, offset: Int) =
+            Renderer.storeMemoryByte(input, offset)
 }

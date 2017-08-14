@@ -159,4 +159,6 @@ class Simulator(val linkedProgram: LinkedProgram) {
 
         return MachineCode((short1 shl 16) or short0)
     }
+
+    fun storeByteNoUndo(addr: Int, byte: Int) = state.mem.storeByte(addr, byte)
 }
