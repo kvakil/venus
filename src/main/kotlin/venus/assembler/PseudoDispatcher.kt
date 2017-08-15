@@ -38,6 +38,15 @@ enum class PseudoDispatcher(val pw: PseudoWriter) {
     sltz(SLTZ),
     snez(SNEZ),
     sw(Store),
-    tail(TAIL)
+    tail(TAIL),
+    /* nonstandard */
+    seq(SEQ),
+    sge(SGE),
+    sgeu(SGE),
+    sgt(SGT),
+    sgtu(SGT),
+    sle(SLE),
+    sleu(SLE),
+    sne(SNE),
     ;
 }
