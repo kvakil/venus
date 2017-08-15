@@ -84,8 +84,7 @@ CodeMirror.defineMode("riscv", function(config, parserConfig) {
         "sltz",
         "snez",
         "sw",
-        "tail",
-
+        "tail"
     ], "i");
 
     var registers = regexFromWords([
