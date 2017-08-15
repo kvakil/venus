@@ -6,6 +6,7 @@ import venus.riscv.insts.dsl.disasms.InstructionDisassembler
 import venus.riscv.insts.dsl.formats.InstructionFormat
 import venus.riscv.insts.dsl.impls.InstructionImplementation
 import venus.riscv.insts.dsl.parsers.InstructionParser
+import venus.simulator.SimulatorError
 
 open class Instruction(
         val name: String,
@@ -21,7 +22,7 @@ open class Instruction(
         operator fun get(mcode: MachineCode): Instruction =
                 allInstructions.filter { it.format.length == mcode.length }
                         .firstOrNull { it.format.matches(mcode) }
-                        ?: throw AssemblerError("instruction not found for $mcode")
+                        ?: throw SimulatorError("instruction not found for $mcode")
 
         operator fun get(name: String) =
                 allInstructions.firstOrNull { it.name == name }
