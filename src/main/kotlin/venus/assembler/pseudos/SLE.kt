@@ -11,6 +11,7 @@ import venus.assembler.PseudoWriter
 object SLE : PseudoWriter() {
     override operator fun invoke(args: LineTokens, state: AssemblerPassOne): List<LineTokens> {
         checkArgsLength(args, 4)
+        checkStrictMode()
         val unsigned = if (args[0].endsWith("u")) "u" else ""
         val set = listOf("slt$unsigned", args[1], args[3], args[2])
         val invert = listOf("xori", args[1], args[1], "1")

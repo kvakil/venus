@@ -11,6 +11,7 @@ import venus.assembler.PseudoWriter
 object SEQ : PseudoWriter() {
     override operator fun invoke(args: LineTokens, state: AssemblerPassOne): List<LineTokens> {
         checkArgsLength(args, 4)
+        checkStrictMode()
         val subtract = listOf("sub", args[1], args[2], args[3])
         val checkZero = listOf("sltiu", args[1], args[1], "1")
         return listOf(subtract, checkZero)
