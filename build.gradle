@@ -2,11 +2,11 @@ group 'venus'
 version '0.0.1'
 
 buildscript {
-    ext.kotlin_version = '1.1.4-eap-33'
+    ext.kotlin_version = '1.1.4'
     ext.dokka_version = '0.9.14'
 
     repositories {
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap-1.1' }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-1.1.4' }
         jcenter()
     }
     dependencies {
@@ -26,7 +26,7 @@ configurations {
 }
 
 repositories {
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap-1.1' }
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-1.1.4' }
     mavenCentral()
 }
 
