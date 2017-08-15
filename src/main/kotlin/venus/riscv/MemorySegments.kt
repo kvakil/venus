@@ -3,7 +3,7 @@ package venus.riscv
 /** A singleton containing constants which say where various segments start */
 object MemorySegments {
     /** Memory address where the stack segment starts (growing downwards) */
-    const val STACK_BEGIN = 0x7fff_fffc
+    const val STACK_BEGIN = 0x7fff_fff0
     /** Memory address where the heap segment starts */
     const val HEAP_BEGIN = 0x1000_8000
     /** Memory address where the data segment starts */
