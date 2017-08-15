@@ -4,7 +4,7 @@ import venus.assembler.AssemblerPassOne
 import venus.assembler.LineTokens
 import venus.assembler.PseudoWriter
 import venus.riscv.insts.dsl.relocators.PCRelHiRelocator
-import venus.riscv.insts.dsl.relocators.PCRelLoRelocator
+import venus.riscv.insts.dsl.relocators.PCRelLoStoreRelocator
 import venus.riscv.userStringToInt
 
 /**
@@ -26,7 +26,7 @@ object Store : PseudoWriter() {
         state.addRelocation(PCRelHiRelocator, state.getOffset(), label)
 
         val store = listOf(args[0], args[1], "0", args[3])
-        state.addRelocation(PCRelLoRelocator, state.getOffset() + 4, label)
+        state.addRelocation(PCRelLoStoreRelocator, state.getOffset() + 4, label)
 
         return listOf(auipc, store)
     }
