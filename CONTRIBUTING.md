@@ -90,19 +90,23 @@ All source code is included in the `src` directory.
     * `frontend` - the visual part of venus
         * `css` - all CSS files should be included here
         * `images` - all images should be included here
+        * `js` - all Javascript files should be included here
         * `index.html` - the simulator frontend itself
     * `kotlin/venus` - the backend part of venus
         * `assembler` - the assembler backend
             * `pseudos` - all pseudoinstructions
-            * `writers` - converts instructions to machine code
         * `glue` - code which links the backend and frontend
         * `linker` - linker which resolves branches and jumps
-            * `relocators` - figures out how to link a single instruction
         * `riscv` - includes things common to all parts of venus
-            * `formats` - describes the machine code formats of supported instructions
+            * `insts` - contains all instructions and DSL
+                * `dsl` - a domain specific language for specifying instructions
+                    * `disasms` - describe how to get from machine code to human readable code
+                    * `formats` - describes the fields of an instruction which must be set
+                    * `impls` - gives an implementation of an instruction
+                    * `parsers` - describe how to get from an instruction to its machine code
+                    * `relocators` - describe how to fill in fields to relocate an instruction
         * `simulator` - the instruction set simulator
             * `diff` - describe how to undo operations
-            * `impls` - implementation of instructions
 * `test` - tests which are run with `grunt test`
 
 ### What should I work on?
