@@ -50,19 +50,41 @@ CodeMirror.defineMode("riscv", function(config, parserConfig) {
         "xor",
         "xori",
         /* pseudoinstructions */
+        "beqz",
+        "bgez",
+        "bgt",
+        "bgtu",
+        "bgtz",
+        "ble",
+        "bleu",
+        "blez",
+        "bltz",
+        "bnez",
+        "call",
+        "jal",
+        "jalr",
         "j",
         "jr",
         "la",
+        "lb",
+        "lbu",
+        "lh",
+        "lhu",
         "li",
+        "lw",
         "mv",
+        "neg",
         "nop",
+        "not",
         "ret",
-        /* nonstandard pseudoinstructions */
-        "seq",
-        "sge",
-        "sgt",
-        "sle",
-        "sne"
+        "sb",
+        "seqz",
+        "sgtz",
+        "sh",
+        "sltz",
+        "snez",
+        "sw",
+        "tail"
     ], "i");
 
     var registers = regexFromWords([
@@ -132,4 +154,21 @@ CodeMirror.defineMode("riscv", function(config, parserConfig) {
             return style;
         }
     };
+});
+
+CodeMirror.registerHelper("lint", "riscv", function (text) {
+    var errors = [];
+    var parseError = function(err) {
+        var line = err.lineNumber;
+        errors.push({from: CodeMirror.Pos(line - 1, 0),
+                     to: CodeMirror.Pos(line, 0),
+                     severity: "error",
+                     message: err.message});
+    };
+
+    var res = window.venus_main.venus.assembler.Linter.lint(text);
+    for (var i = 0; i < res.length; i++) {
+        parseError(res[i]);
+    }
+    return errors;
 });

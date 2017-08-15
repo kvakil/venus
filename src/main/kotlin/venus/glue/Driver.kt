@@ -3,7 +3,6 @@ package venus.glue
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
-import venus.assembler.AssemblerError
 import venus.linker.Linker
 import venus.riscv.userStringToInt
 import venus.simulator.Simulator
@@ -23,12 +22,8 @@ import kotlin.browser.window
      * Assembles the text in the editor, and then renders the simulator.
      */
     @JsName("openSimulator") fun openSimulator() {
-        try {
-            assemble(getText())
-            Renderer.renderSimulator(sim)
-        } catch (e: AssemblerError) {
-            Renderer.displayError(e)
-        }
+        val success = assemble(getText())
+        if (success) Renderer.renderSimulator(sim)
     }
 
     /**
@@ -43,7 +38,6 @@ import kotlin.browser.window
      * Gets the text from the textarea editor.
      */
     internal fun getText(): String {
-
         val editor = document.getElementById("asm-editor") as HTMLTextAreaElement
         return editor.value
     }
@@ -53,10 +47,15 @@ import kotlin.browser.window
      *
      * @param text the assembly code.
      */
-    internal fun assemble(text: String) {
-        val prog = Assembler.assemble(text)
+    internal fun assemble(text: String): Boolean {
+        val (prog, errors) = Assembler.assemble(text)
+        if (errors.isNotEmpty()) {
+            Renderer.displayError(errors.first())
+            return false
+        }
         val linked = Linker.link(listOf(prog))
         sim = Simulator(linked)
+        return true
     }
 
     /**

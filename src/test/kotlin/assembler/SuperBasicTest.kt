@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 
 class SuperBasicTest {
     @Test fun superBasic() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x8 x8 13
         add x9 x8 x8
         """)
@@ -19,7 +19,7 @@ class SuperBasicTest {
     }
 
     @Test fun loadStoreByte() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x8 x0 5
         sb x8 0(sp)
         lb x8 0(sp)

@@ -7,7 +7,7 @@ import venus.linker.Linker
 
 class AssemblerSpeedTest {
     @Test fun nopRepeat() {
-        val prog = Assembler.assemble("nop\n".repeat(1000))
+        val (prog, _) = Assembler.assemble("nop\n".repeat(1000))
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         sim.run()

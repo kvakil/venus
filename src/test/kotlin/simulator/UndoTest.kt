@@ -7,7 +7,7 @@ import venus.linker.Linker
 
 class UndoTest {
     @Test fun undoRegisterSet() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x8 x0 7
         addi x8 x0 9
         """)
@@ -24,7 +24,7 @@ class UndoTest {
     }
 
     @Test fun undoMemorySet() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x8 x0 100
         addi x9 x0 42
         sw x9 0(x8)
@@ -42,7 +42,7 @@ class UndoTest {
     }
 
     @Test fun undoJump() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         up: addi x8 x8 1
         j up
         """)
@@ -58,7 +58,7 @@ class UndoTest {
     }
 
     @Test fun undoMemoryLoad() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi x8 x0 5
         sw x8 100(x0)
         lw x9 100(x0)

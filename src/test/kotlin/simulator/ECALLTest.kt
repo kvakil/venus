@@ -7,7 +7,7 @@ import venus.linker.Linker
 
 class ECALLTest {
     @Test fun terminateEarly() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         addi a0 x0 10
         ecall
         addi a0 x0 5""")
@@ -18,7 +18,7 @@ class ECALLTest {
     }
 
     @Test fun malloc() {
-        val prog = Assembler.assemble("""
+        val (prog, _) = Assembler.assemble("""
         # malloc 4 bytes of memory
         addi a0 x0 9
         addi a1 x0 4
