@@ -18,10 +18,10 @@ internal fun getImmediate(str: String, min: Int, max: Int): Int {
         userStringToInt(str)
     } catch (e: NumberFormatException) {
         val hint = when {
-            str.length > 4 -> "(might be too large)"
+            str.length > 4 -> " (might be too large)"
             else -> ""
         }
-        throw AssemblerError("invalid number, got $str $hint")
+        throw AssemblerError("invalid number, got $str$hint")
     }
 
     if (imm !in min..max)
