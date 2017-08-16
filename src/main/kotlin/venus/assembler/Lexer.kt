@@ -34,9 +34,8 @@ object Lexer {
             var wasLabel = false
             when (ch) {
                 '#' -> foundComment = !inString && !inCharacter
-                '\'' -> inString = !escaped && !inString && !inCharacter
-                '"' -> inCharacter = !escaped && !inString && !inCharacter
-                '\\' -> escaped = !escaped
+                '\'' -> inCharacter = !escaped && !inString
+                '"' -> inString = !escaped && !inCharacter
                 ':' -> {
                     if (!inString && !inCharacter) {
                         wasLabel = true
@@ -47,6 +46,7 @@ object Lexer {
                 }
                 ' ', '\t', '(', ')', ',' -> wasDelimiter = !inString && !inCharacter
             }
+            escaped = !escaped && ch == '\\'
 
             if (foundComment) break
 
