@@ -1,5 +1,6 @@
 package venus.assembler
 
+import venus.assembler.pseudos.checkArgsLength
 import venus.riscv.MemorySegments
 import venus.riscv.Program
 import venus.riscv.insts.dsl.Instruction
@@ -151,10 +152,13 @@ internal class AssemblerPassOne(private val text: String) {
             }
 
             ".asciiz" -> {
-                val asciiString = Lexer.lexAsciizDirective(line) ?:
-                        throw AssemblerError("expected a quoted string: $line")
-
-                for (c in asciiString) {
+                checkArgsLength(args, 1)
+                val ascii: String = try {
+                    JSON.parse(args[0])
+                } catch (e: Throwable) {
+                    throw AssemblerError("couldn't parse ${args[0]} as a string")
+                }
+                for (c in ascii) {
                     if (c.toInt() !in 0..127) {
                         throw AssemblerError("unexpected non-ascii character: $c")
                     }
