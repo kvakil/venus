@@ -71,8 +71,8 @@ internal class AssemblerPassOne(private val text: String) {
 
                 val offset = getOffset()
 
-                val (label, args) = Lexer.lexLine(line)
-                if (label.isNotEmpty()) {
+                val (labels, args) = Lexer.lexLine(line)
+                for (label in labels) {
                     val oldOffset = prog.addLabel(label, offset)
                     if (oldOffset != null) {
                         throw AssemblerError("label $label defined twice")

@@ -71,6 +71,15 @@ object Lexer {
         return cleanedLine
     }
 
+    //fun lexLine(line: String) = Pair(getLabel(line), cleanLine(line).split(' '))
+
+    private fun addNonemptyWord(previous: ArrayList<String>, next: StringBuilder) {
+        val word = next.toString()
+        if (word.isNotEmpty()) {
+            previous += word
+        }
+    }
+
     /**
      * Lex a line into a label (if there) and a list of arguments.
      *
@@ -78,7 +87,51 @@ object Lexer {
      * @return a pair containing the label and tokens
      * @see LineTokens
      */
-    fun lexLine(line: String) = Pair(getLabel(line), cleanLine(line).split(' '))
+    fun lexLine(line: String): Pair<LineTokens, LineTokens> {
+        var currentWord = StringBuilder("")
+        val previousWords = ArrayList<String>()
+        val labels = ArrayList<String>()
+        var escaped = false
+        var inCharacter = false
+        var inString = false
+        var foundComment = false
+
+        for (ch in line) {
+            var wasDelimiter = false
+            var wasLabel = false
+            when (ch) {
+                '#' -> foundComment = !inString && !inCharacter
+                '\'' -> inString = !escaped && !inString && !inCharacter
+                '"' -> inCharacter = !escaped && !inString && !inCharacter
+                '\\' -> escaped = !escaped
+                ':' -> {
+                    if (!inString && !inCharacter) {
+                        wasLabel = true
+                        if (previousWords.isNotEmpty()) {
+                            throw AssemblerError("label in the middle of a string")
+                        }
+                    }
+                }
+                ' ', '\t', '(', ')', ',' -> wasDelimiter = !inString && !inCharacter
+            }
+
+            if (foundComment) break
+
+            if (wasDelimiter) {
+                addNonemptyWord(previousWords, currentWord)
+                currentWord = StringBuilder("")
+            } else if (wasLabel) {
+                addNonemptyWord(labels, currentWord)
+                currentWord = StringBuilder("")
+            } else {
+                currentWord.append(ch)
+            }
+        }
+
+        addNonemptyWord(previousWords, currentWord)
+
+        return Pair(labels, previousWords)
+    }
 
     /**
      * A pattern describing an .asciiz directive.

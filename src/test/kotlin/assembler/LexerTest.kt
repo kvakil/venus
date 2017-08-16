@@ -7,51 +7,51 @@ import kotlin.test.assertTrue
 class LexerTest {
     @Test fun basicLexing() {
         val line = "add x0 x0 x0"
-        val (label, args) = Lexer.lexLine(line)
-        assertEquals("", label)
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(emptyList(), labels)
         assertEquals(listOf("add", "x0", "x0", "x0"), args)
     }
 
     @Test fun lexLabel() {
         val line = "start: add x2 x2 x3"
-        val (label, args) = Lexer.lexLine(line)
-        assertEquals("start", label)
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(listOf("start"), labels)
         assertEquals(listOf("add", "x2", "x2", "x3"), args)
     }
 
     @Test fun lexComment() {
         val line = "add x0 x0 x0 # hi: x0"
-        val (label, args) = Lexer.lexLine(line)
-        assertEquals("", label)
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(emptyList(), labels)
         assertEquals(listOf("add", "x0", "x0", "x0"), args)
     }
 
     @Test fun lexComma() {
         val line = "add x0, x1, x2"
-        val (label, args) = Lexer.lexLine(line)
-        assertEquals("", label)
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(emptyList(), labels)
         assertEquals(listOf("add", "x0", "x1", "x2"), args)
     }
 
     @Test fun lexLabelSpace() {
         val line = "  \t  start: add x0, x1, x2"
-        val (label, args) = Lexer.lexLine(line)
-        assertEquals("start", label)
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(listOf("start"), labels)
         assertEquals(listOf("add", "x0", "x1", "x2"), args)
     }
 
     @Test fun lexBaseDisplacement() {
         val line = "sw x1 0(x2)"
-        val (label, args) = Lexer.lexLine(line)
-        assertEquals("", label)
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(emptyList(), labels)
         assertEquals(listOf("sw", "x1", "0", "x2"), args)
     }
 
     @Test fun lexNothing() {
         val line = ""
         val (label, args) = Lexer.lexLine(line)
-        assertEquals("", label)
-        assertEquals(listOf(""), args)
+        assertEquals(emptyList(), label)
+        assertEquals(emptyList(), args)
     }
 
     @Test fun lexAsciizBadStrings() {
@@ -78,5 +78,45 @@ class LexerTest {
         nop
         """)
         assertTrue(errors3.isNotEmpty())
+    }
+
+    @Test fun lexMultipleLabels() {
+        val line = "hello: world: label: me:"
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(listOf("hello", "world", "label", "me"), labels)
+        assertEquals(emptyList(), args)
+    }
+
+    @Test fun lexMultipleLabelsAndInstruction() {
+        val line = "hello: world: label: me: lui 2"
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(listOf("hello", "world", "label", "me"), labels)
+        assertEquals(listOf("lui", "2"), args)
+    }
+
+    @Test fun lexDelimiterInChar() {
+        val line = "addi x0 x0 ':'"
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(emptyList(), labels)
+        assertEquals(listOf("addi", "x0", "x0", "':'"), args)
+    }
+
+    @Test fun lexColonInComment() {
+        val line = "#hello:"
+        val (labels, args) = Lexer.lexLine(line)
+        assertEquals(emptyList(), labels)
+        assertEquals(emptyList(), args)
+    }
+
+    @Test fun lexColonInAsciiz() {
+        val line = """.asciiz "hi:"""
+        val (labels, _) = Lexer.lexLine(line)
+        assertEquals(emptyList(), labels)
+    }
+
+    @Test fun lexLabelAndComment() {
+        val line = "hello: # hi!"
+        val (labels, _) = Lexer.lexLine(line)
+        assertEquals(listOf("hello"), labels)
     }
 }
