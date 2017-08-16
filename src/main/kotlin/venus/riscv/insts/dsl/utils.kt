@@ -17,11 +17,15 @@ internal fun getImmediate(str: String, min: Int, max: Int): Int {
     val imm = try {
         userStringToInt(str)
     } catch (e: NumberFormatException) {
-        throw AssemblerError("invalid number, got ${str} (might be too large?)")
+        val hint = when {
+            str.length > 4 -> "(might be too large)"
+            else -> ""
+        }
+        throw AssemblerError("invalid number, got $str $hint")
     }
 
     if (imm !in min..max)
-        throw AssemblerError("immediate $imm out of range")
+        throw AssemblerError("immediate $str (= $imm) out of range (should be between $min and $max)")
 
     return imm
 }
