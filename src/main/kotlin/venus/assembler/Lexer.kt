@@ -34,8 +34,8 @@ object Lexer {
             var wasLabel = false
             when (ch) {
                 '#' -> foundComment = !inString && !inCharacter
-                '\'' -> inCharacter = !escaped && !inString
-                '"' -> inString = !escaped && !inCharacter
+                '\'' -> inCharacter = !(escaped xor inCharacter) && !inString
+                '"' -> inString = !(escaped xor inString) && !inCharacter
                 ':' -> {
                     if (!inString && !inCharacter) {
                         wasLabel = true
