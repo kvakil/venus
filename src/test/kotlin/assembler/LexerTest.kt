@@ -3,6 +3,7 @@ package venus.assembler
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.test.fail
 
 class LexerTest {
     @Test fun basicLexing() {
@@ -118,5 +119,15 @@ class LexerTest {
         val line = "hello: # hi!"
         val (labels, _) = Lexer.lexLine(line)
         assertEquals(listOf("hello"), labels)
+    }
+
+    @Test fun labelInInstruction() {
+        val line = "add label: x0 x0"
+        try {
+            Lexer.lexLine(line)
+            fail("did not error on label in the middle of an instruction")
+        } catch (e: AssemblerError) {
+            assertTrue(true)
+        }
     }
 }
