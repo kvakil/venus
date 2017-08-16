@@ -2,7 +2,7 @@ package venus.riscv
 
 fun userStringToInt(s: String): Int {
     if (isCharacterLiteral(s)) {
-        return s[1].toInt()
+        return characterLiteralToInt(s)
     }
     val radix = when (s.take(2)) {
         "0x" -> 16
@@ -13,4 +13,17 @@ fun userStringToInt(s: String): Int {
 }
 
 private fun isCharacterLiteral(s: String) =
-        s.length == 3 && s[0] == '\'' && s[2] == '\''
+        s.first() == '\'' && s.last() == '\''
+
+private fun characterLiteralToInt(s: String): Int {
+    val stripSingleQuotes = s.drop(1).dropLast(1)
+    val jsonString = "\"$stripSingleQuotes\""
+    try {
+        val parsed = JSON.parse<String>(jsonString)
+        if (parsed.isEmpty()) throw NumberFormatException("charater literal $s is empty")
+        if (parsed.length > 1) throw NumberFormatException("charater literal $s too long")
+        return parsed[0].toInt()
+    } catch (e: Throwable) {
+        throw NumberFormatException("could not parse character literal $s")
+    }
+}
