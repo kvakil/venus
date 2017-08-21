@@ -68,9 +68,11 @@ Run the unit tests:
 
 If everything works, you can start developing now! Start by creating a new git branch:
     
-    $ git checkout -b <feature branch>
-    
-Make any changes you need (see below for a quick sourcemap). I use IntelliJ's IDEA for editing.
+    $ git checkout -b <feature branch> develop
+
+Note that feature branches should be based off the `develop` branch, according to [the Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow).
+
+Make any changes you need.
 
 To recompile:
 
