@@ -5,10 +5,6 @@ import venus.riscv.InstructionField
 import venus.riscv.MachineCode
 import venus.riscv.MemorySegments
 import venus.riscv.insts.dsl.Instruction
-import venus.simulator.diffs.HeapSpaceDiff
-import venus.simulator.diffs.MemoryDiff
-import venus.simulator.diffs.PCDiff
-import venus.simulator.diffs.RegisterDiff
 
 /** Right now, this is a loose wrapper around SimulatorState
     Eventually, it will support debugging. */
