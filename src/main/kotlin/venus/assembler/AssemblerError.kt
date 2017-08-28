@@ -21,8 +21,5 @@ class AssemblerError : Throwable {
         line = errorLine
     }
 
-    override fun toString(): String {
-        if (line == null) return super.toString()
-        else return "${super.toString()} on line $line"
-    }
+    override fun toString() = if (line == null) super.toString() else "${super.toString()} on line $line"
 }
