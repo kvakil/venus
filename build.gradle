@@ -44,6 +44,12 @@ task ktlintFormat(type: JavaExec) {
     args "-F", "src/**/*.kt"
 }
 
+task gruntTests(type: Exec) {
+    commandLine 'grunt', 'test'
+}
+
+test.dependsOn gruntTests
+
 dokka {
     outputFormat = 'html'
     outputDirectory = "doc"
