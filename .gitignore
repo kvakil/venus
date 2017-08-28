@@ -22,3 +22,6 @@ node_modules/
 # IntelliJ
 .idea/
 venus.iml
+
+# Dokka
+doc/
