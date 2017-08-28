@@ -60,11 +60,19 @@ internal class AssemblerPassOne(private val text: String) {
     /** List of all errors encountered */
     private val errors = ArrayList<AssemblerError>()
 
+    /**
+     * Executes pass one.
+     *
+     * @returns the result of executing pass one.
+     */
     fun run(): PassOneOutput {
         doPassOne()
         return PassOneOutput(prog, talInstructions, errors)
     }
 
+    /**
+     * Performs pass one of our assembler.
+     */
     private fun doPassOne() {
         for (line in text.lines()) {
             try {
@@ -194,6 +202,13 @@ internal class AssemblerPassOne(private val text: String) {
         }
     }
 
+    /**
+     * Add a relocation symbol at the given offset, with the given label.
+     *
+     * @param relocator the [Relocator] which should be used to relocate the symbol
+     * @param offset the byte offset where the relocation must be done.
+     * @param label the label whose offset will later be given to the relocator.
+     */
     fun addRelocation(relocator: Relocator, offset: Int, label: String) =
             prog.addRelocation(relocator, label, offset)
 }
@@ -207,6 +222,11 @@ internal class AssemblerPassOne(private val text: String) {
  */
 internal class AssemblerPassTwo(val prog: Program, val talInstructions: List<DebugInstruction>) {
     private val errors = ArrayList<AssemblerError>()
+    /**
+     * Executes pass two.
+     *
+     * @returns a program or a list of errors which occurred.
+     */
     fun run(): AssemblerOutput {
         for ((dbg, inst) in talInstructions) {
             try {
