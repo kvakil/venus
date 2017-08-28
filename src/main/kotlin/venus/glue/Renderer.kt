@@ -7,11 +7,7 @@ import venus.riscv.InstructionField
 import venus.riscv.MachineCode
 import venus.riscv.MemorySegments
 import venus.riscv.insts.dsl.Instruction
-import venus.simulator.Diff
-import venus.simulator.Simulator
-import venus.simulator.diffs.MemoryDiff
-import venus.simulator.diffs.PCDiff
-import venus.simulator.diffs.RegisterDiff
+import venus.simulator.*
 import kotlin.browser.document
 
 /* ktlint-enable no-wildcard-imports */
@@ -117,9 +113,7 @@ internal object Renderer {
                 is RegisterDiff -> updateRegister(diff.id, diff.v, true)
                 is PCDiff -> updatePC(diff.pc)
                 is MemoryDiff -> updateMemory(diff.addr)
-                else -> {
-                    println("diff not yet implemented")
-                }
+                is HeapSpaceDiff -> { /* do nothing */ }
             }
         }
     }
