@@ -9,7 +9,7 @@ object ShiftImmediateDisassembler : InstructionDisassembler {
         val name = Instruction[mcode].name
         val rd = mcode[InstructionField.RD]
         val rs1 = mcode[InstructionField.RS1]
-        val imm = mcode[InstructionField.IMM_4_0]
-        return "$name x$rd x$rs1 $imm"
+        val shamt = mcode[InstructionField.SHAMT]
+        return "$name x$rd x$rs1 $shamt"
     }
 }
