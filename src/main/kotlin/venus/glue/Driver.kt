@@ -3,6 +3,7 @@ package venus.glue
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
+import venus.assembler.AssemblerError
 import venus.linker.Linker
 import venus.riscv.userStringToInt
 import venus.simulator.Simulator
@@ -53,9 +54,14 @@ import kotlin.browser.window
             Renderer.displayError(errors.first())
             return false
         }
-        val linked = Linker.link(listOf(prog))
-        sim = Simulator(linked)
-        return true
+        try {
+            val linked = Linker.link(listOf(prog))
+            sim = Simulator(linked)
+            return true
+        } catch (e: AssemblerError) {
+            Renderer.displayError(e)
+            return false
+        }
     }
 
     /**
