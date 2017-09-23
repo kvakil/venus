@@ -1,5 +1,6 @@
 package venus.riscv.insts
 
+import venus.assembler.AssemblerError
 import venus.riscv.InstructionField
 import venus.riscv.insts.dsl.Instruction
 import venus.riscv.insts.dsl.disasms.RawDisassembler
@@ -8,6 +9,8 @@ import venus.riscv.insts.dsl.impls.NoImplementation
 import venus.riscv.insts.dsl.impls.RawImplementation
 import venus.riscv.insts.dsl.impls.signExtend
 import venus.riscv.insts.dsl.parsers.ITypeParser
+import venus.riscv.insts.dsl.parsers.LoadParser
+import venus.riscv.insts.dsl.parsers.RawParser
 
 val jalr = Instruction(
         name = "jalr",
@@ -15,7 +18,18 @@ val jalr = Instruction(
                 opcode = 0b1100111,
                 funct3 = 0b000
         ),
-        parser = ITypeParser,
+        parser = RawParser { prog, mcode, args ->
+            try {
+                ITypeParser(prog, mcode, args)
+            } catch (e: AssemblerError) {
+                /* Try base displacement notation */
+                try {
+                    LoadParser(prog, mcode, args)
+                } catch (e_two: AssemblerError) {
+                    throw e
+                }
+            }
+        },
         impl32 = RawImplementation { mcode, sim ->
             val rd = mcode[InstructionField.RD]
             val rs1 = mcode[InstructionField.RS1]
