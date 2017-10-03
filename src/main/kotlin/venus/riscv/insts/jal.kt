@@ -25,7 +25,7 @@ val jal = Instruction(
             val rd = mcode[InstructionField.RD]
             val imm = constructJALImmediate(mcode)
             sim.setReg(rd, sim.getPC() + mcode.length)
-            sim.incrementPC(imm shl 1)
+            sim.incrementPC(imm)
         },
         impl64 = NoImplementation,
         disasm = RawDisassembler { mcode ->
