@@ -1,5 +1,5 @@
 # [venus](https://kvakil.github.io/venus/)
-[![Build Status](https://travis-ci.com/kvakil/venus.svg?token=ke1yhth1Tq9yPQc4KzUY&branch=master)](https://travis-ci.com/kvakil/venus)
+[![Build Status](https://travis-ci.org/kvakil/venus.svg?branch=master)](https://travis-ci.org/kvakil/venus)
 
 __venus__ is a RISC-V instruction set simulator built for education.
 
