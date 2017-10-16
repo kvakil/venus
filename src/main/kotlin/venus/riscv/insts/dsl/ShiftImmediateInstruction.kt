@@ -10,8 +10,8 @@ class ShiftImmediateInstruction(
         name: String,
         funct3: Int,
         funct7: Int,
-        eval32: Int.(Int) -> Int,
-        eval64: Long.(Long) -> Long = { _ -> throw NotImplementedError("no rv64") }
+        eval32: (Int, Int) -> Int,
+        eval64: (Long, Long) -> Long = { _, _ -> throw NotImplementedError("no rv64") }
 ) : Instruction(
         name = name,
         format = RTypeFormat(
