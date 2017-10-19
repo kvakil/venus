@@ -11,6 +11,9 @@ script:
 after_success:
   - ./gradlew dokka
   - grunt dist
+cache:
+  directories:
+    - node_modules/
 deploy:
   provider: pages
   skip_cleanup: true
