@@ -397,7 +397,7 @@ internal object Renderer {
      * @return the hexadecimal string corresponding to that value
      * @todo move this?
      */
-    private fun toHex(value: Int): String {
+    fun toHex(value: Int): String {
         var remainder = value.toLong()
         var suffix = ""
 

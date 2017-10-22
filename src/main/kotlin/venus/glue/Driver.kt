@@ -5,6 +5,7 @@ import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
 import venus.assembler.AssemblerError
 import venus.linker.Linker
+import venus.riscv.InstructionField
 import venus.riscv.userStringToInt
 import venus.simulator.Simulator
 import kotlin.browser.document
@@ -171,4 +172,27 @@ import kotlin.browser.window
     @JsName("moveMemoryUp") fun moveMemoryUp() = Renderer.moveMemoryUp()
 
     @JsName("moveMemoryDown") fun moveMemoryDown() = Renderer.moveMemoryDown()
+
+    fun getInstructionDump(): String {
+        val sb = StringBuilder()
+        for (i in 0 until sim.linkedProgram.prog.insts.size) {
+            val mcode = sim.linkedProgram.prog.insts[i]
+            val hexRepresentation = Renderer.toHex(mcode[InstructionField.ENTIRE])
+            sb.append(hexRepresentation.removePrefix("0x"))
+            sb.append("\n")
+        }
+        return sb.toString()
+    }
+
+    @JsName("dump") fun dump() {
+        Renderer.clearConsole()
+        Renderer.printConsole(getInstructionDump())
+        val ta = document.getElementById("console-output") as HTMLTextAreaElement
+        ta.select()
+        val success = document.execCommand("copy")
+        if (success) {
+            js("""alert("copied machine code into clipboard")""")
+            Renderer.clearConsole()
+        }
+    }
 }
