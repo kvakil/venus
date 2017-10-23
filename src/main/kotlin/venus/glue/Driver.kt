@@ -189,6 +189,9 @@ import kotlin.browser.window
         Renderer.printConsole(getInstructionDump())
         val ta = document.getElementById("console-output") as HTMLTextAreaElement
         ta.select()
-        document.execCommand("copy")
+        val success = document.execCommand("copy")
+        if (success) {
+            window.alert("Successfully copied machine code to clipboard")
+        }
     }
 }
