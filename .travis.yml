@@ -21,3 +21,5 @@ deploy:
   local_dir: out
   on:
     branch: master
+  email: deployer@travis-ci.org
+  name: Travis CI Deployment
