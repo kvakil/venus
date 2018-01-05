@@ -31,5 +31,9 @@ internal fun getImmediate(str: String, min: Int, max: Int): Int {
 }
 
 internal fun compareUnsigned(v1: Int, v2: Int): Int {
-    return (v1 xor 0x8000_0000.toInt()).compareTo(v2 xor 0x8000_0000.toInt())
+    return (v1 xor Int.MIN_VALUE).compareTo(v2 xor Int.MIN_VALUE)
+}
+
+internal fun compareUnsignedLong(v1: Long, v2: Long): Int {
+    return (v1 xor Long.MIN_VALUE).compareTo(v2 xor Long.MIN_VALUE)
 }
