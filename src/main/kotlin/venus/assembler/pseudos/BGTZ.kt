@@ -8,6 +8,6 @@ import venus.assembler.PseudoWriter
 object BGTZ : PseudoWriter() {
     override operator fun invoke(args: LineTokens, state: AssemblerPassOne): List<LineTokens> {
         checkArgsLength(args, 3)
-        return listOf(listOf("bgt", args[1], "x0", args[2]))
+        return listOf(listOf("blt", "x0", args[1], args[2]))
     }
 }
