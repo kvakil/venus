@@ -1,3 +1,5 @@
+package venus.riscv.insts
+
 import venus.riscv.InstructionField
 import venus.riscv.insts.dsl.UTypeInstruction
 
