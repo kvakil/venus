@@ -116,4 +116,46 @@ class LinkerTest {
             assertTrue(true)
         }
     }
+
+    @Test fun dataRelocation() {
+        val (prog, _) = Assembler.assemble("""
+        .data
+        A:
+        .word 42
+        B:
+        .word A
+        .text
+        la x1, A
+        lw x2, B
+        lw x3, 0(x2)
+        """)
+        val linked = Linker.link(listOf(prog))
+        val sim = Simulator(linked)
+        sim.run()
+        assertEquals(sim.getReg(1), sim.getReg(2))
+        assertEquals(42, sim.getReg(3))
+    }
+
+    @Test fun dataRelocationAcrossFiles() {
+        val (prog1, _) = Assembler.assemble("""
+        .data
+        .globl A
+        .globl B
+        A:
+        .word 42
+        B:
+        .word A
+        """)
+        val (prog2, _) = Assembler.assemble("""
+        .text
+        la x1, A
+        lw x2, B
+        lw x3, 0(x2)
+        """)
+        val linked = Linker.link(listOf(prog1, prog2))
+        val sim = Simulator(linked)
+        sim.run()
+        assertEquals(sim.getReg(1), sim.getReg(2))
+        assertEquals(42, sim.getReg(3))
+    }
 }

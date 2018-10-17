@@ -1,6 +1,7 @@
 package venus.riscv
 
 import venus.assembler.DebugInfo
+import venus.linker.DataRelocationInfo
 import venus.linker.RelocationInfo
 import venus.riscv.insts.dsl.relocators.Relocator
 
@@ -17,6 +18,7 @@ class Program(val name: String = "anonymous") {
     val debugInfo = ArrayList<DebugInfo>()
     val labels = HashMap<String, Int>()
     val relocationTable = ArrayList<RelocationInfo>()
+    val dataRelocationTable = ArrayList<DataRelocationInfo>()
     val dataSegment = ArrayList<Byte>()
     var textSize = 0
     var dataSize = 0
@@ -40,6 +42,16 @@ class Program(val name: String = "anonymous") {
     fun addToData(byte: Byte) {
         dataSegment.add(byte)
         dataSize++
+    }
+
+    /**
+     * Overwrites a byte of data in the program's data segment
+     *
+     * @param offset the offset at which to overwrite
+     * @param byte the value to overwrite with
+     */
+    fun overwriteData(offset: Int, byte: Byte) {
+        dataSegment[offset] = byte
     }
 
     /**
@@ -85,6 +97,15 @@ class Program(val name: String = "anonymous") {
      */
     fun addRelocation(relocator: Relocator, label: String, offset: Int = textSize) =
             relocationTable.add(RelocationInfo(relocator, offset, label))
+
+    /**
+     * Adds a line to the data relocation table.
+     *
+     * @param label the label to relocate
+     * @param offset the byte offset the label is at (from the start of the data section)
+     */
+    fun addDataRelocation(label: String, offset: Int = textSize) =
+            dataRelocationTable.add(DataRelocationInfo(offset, label))
 
     /**
      * Makes a label global.
