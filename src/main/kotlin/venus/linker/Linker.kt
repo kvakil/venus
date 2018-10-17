@@ -15,6 +15,14 @@ import venus.riscv.insts.dsl.relocators.Relocator
 data class RelocationInfo(val relocator: Relocator, val offset: Int, val label: String)
 
 /**
+ * Describes how to relocate data bytes
+ *
+ * @param offset the byte offset in the data segment
+ * @param label the target label
+ */
+data class DataRelocationInfo(val offset: Int, val label: String)
+
+/**
  * A singleton which links a list of programs into one program.
  *
  * @see LinkedProgram
@@ -39,6 +47,7 @@ object Linker {
         val linkedProgram = LinkedProgram()
         val globalTable = HashMap<String, Int>()
         val toRelocate = ArrayList<RelocationInfo>()
+        val toRelocateData = ArrayList<DataRelocationInfo>()
         var textTotalOffset = 0
         var dataTotalOffset = 0
 
@@ -81,6 +90,20 @@ object Linker {
                 }
             }
 
+            for ((offset, label) in prog.dataRelocationTable) {
+                val toAddress = prog.labels.get(label)
+                val location = dataTotalOffset + offset
+                if (toAddress != null) {
+                    linkedProgram.prog.overwriteData(location, toAddress.toByte())
+                    linkedProgram.prog.overwriteData(location + 1, (toAddress shr 8).toByte())
+                    linkedProgram.prog.overwriteData(location + 2, (toAddress shr 16).toByte())
+                    linkedProgram.prog.overwriteData(location + 3, (toAddress shr 24).toByte())
+                } else {
+                    /* need to relocate globally */
+                    toRelocateData.add(DataRelocationInfo(location, label))
+                }
+            }
+
             textTotalOffset += prog.textSize
             dataTotalOffset += prog.dataSize
         }
@@ -91,6 +114,15 @@ object Linker {
 
             val mcode = linkedProgram.prog.insts[offset / 4]
             relocator(mcode, offset, toAddress)
+        }
+
+        for ((location, label) in toRelocateData) {
+            val toAddress = globalTable.get(label) ?:
+                    throw AssemblerError("label $label used but not defined")
+            linkedProgram.prog.overwriteData(location, toAddress.toByte())
+            linkedProgram.prog.overwriteData(location + 1, (toAddress shr 8).toByte())
+            linkedProgram.prog.overwriteData(location + 2, (toAddress shr 16).toByte())
+            linkedProgram.prog.overwriteData(location + 3, (toAddress shr 24).toByte())
         }
 
         return linkedProgram
