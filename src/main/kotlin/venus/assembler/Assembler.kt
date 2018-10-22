@@ -186,7 +186,22 @@ internal class AssemblerPassOne(private val text: String) {
                 args.forEach(prog::makeLabelGlobal)
             }
 
-            ".float", ".double", ".align" -> {
+            ".align" -> {
+                checkArgsLength(args, 1)
+                val pow2 = userStringToInt(args[0])
+                if (pow2 < 0 || pow2 > 8) {
+                    throw AssemblerError(".align argument must be between 0 and 8, inclusive")
+                }
+                val mask = (1 shl pow2) - 1 // Sets pow2 rightmost bits to 1
+
+                /* Add padding until data offset aligns with given power of 2 */
+                while ((currentDataOffset and mask) != 0) {
+                    prog.addToData(0)
+                    currentDataOffset++
+                }
+            }
+
+            ".float", ".double" -> {
                 println("Warning: $directive not currently supported!")
             }
 
