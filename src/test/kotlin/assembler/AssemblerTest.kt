@@ -58,4 +58,29 @@ class AssemblerTest {
         sim.step()
         assertEquals(0b10001, sim.getReg(9))
     }
+
+    @Test fun alignTest() {
+        val (prog, _) = Assembler.assemble("""
+        .data
+        .align 3
+        one: # 8-byte aligned
+        .byte 1
+        .align 3
+        two: # 8-byte aligned
+        .byte 2
+        .align 2
+        three: # 4-byte aligned
+        .byte 3
+        .text
+        la a1, one
+        la a2, two
+        la a3, three
+        sub x5, a2, a1  # Should be 8
+        sub x6, a3, a2  # Should be 4
+        """)
+        val sim = Simulator(Linker.link(listOf(prog)))
+        sim.run()
+        assertEquals(8, sim.getReg(5))
+        assertEquals(4, sim.getReg(6))
+    }
 }
