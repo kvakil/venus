@@ -10,7 +10,7 @@ val divu = RTypeInstruction(
         eval32 = { a, b ->
             val x = a.toLong() shl 32 ushr 32
             val y = b.toLong() shl 32 ushr 32
-            if (y == 0L) a
+            if (y == 0L) (-1).toInt()
             else (x / y).toInt()
         }
 )
